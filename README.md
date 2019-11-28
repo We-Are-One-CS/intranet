@@ -22,6 +22,6 @@ todo
 
 ## Authors
 - Matheus Elyasha LOPES
-- 
+- Leïla Bekaddour
 
 
