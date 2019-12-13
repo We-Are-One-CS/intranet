@@ -1,0 +1,19 @@
+# Python cache files
+__pycache__/
+*.pyc
+
+# Virtualenv files
+env/
+venv/
+
+# Vim swap files
+*.sw*
+
+# Secret file
+variables.py
+
+# Migrations file
+migrations
+
+# Vscode config files
+.vscode/

@@ -1,0 +1,19 @@
+{% extends 'core/layouts/base.html' %}
+{% load static %}
+
+{% block title %}We Are One - {% endblock title %}
+
+{% block mystylesheet %}
+<link rel="stylesheet" type="text/css" href="{% static 'core/css/index.css' %}">
+{% endblock mystylesheet %}
+
+{% block content %}
+<div class="container-fluid text-center pt-2 tracking-in-contract-bck">
+    <h1>Espace personnel WAO</h1>
+</div>
+<div class="container text-justify pt-2">
+    <h4>Bienvenue sur votre espace personnel</h4>
+</div>
+{% endblock content %}
+{% block myjssheet %}
+{% endblock myjssheet %}
