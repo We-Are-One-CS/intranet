@@ -4,6 +4,7 @@ __pycache__/
 
 # Virtualenv files
 env/
+venv/
 
 # Vim swap files
 *.sw*
