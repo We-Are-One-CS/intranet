@@ -20,7 +20,7 @@ class UserRegistrationForm(UserCreationForm):
     class Meta:
         model = User
         fields = (
-            'first_name', 
+            'first_name',
             'last_name',
             'email',
             'telephone',
@@ -95,4 +95,29 @@ class CompanyRegistrationForm(UserCreationForm):
         }
         widgets = {
             'birthday': DateInput(),
+        }
+
+class EventCreationForm(EventForm):
+    class Meta:
+        model = Event
+        fields = (
+            'event_title',
+            'event_description',
+            'event_type',
+            'event_date',
+            'event_address',
+            'event_price',
+            'event_capacity',
+        )
+        labels = {
+            'event_title': 'Nom de l\'événement : ',
+            'event_description': 'Description : ',
+            'event_type': 'Type d\'événement : ',
+            'event_date': 'Date de l\'événement : ',
+            'event_address': 'Adresse : ',
+            'event_price': 'Prix : ',
+            'event_capacity': 'Nombre de places : ',
+        }
+        widgets = {
+            'event_date': DateInput(),
         }
