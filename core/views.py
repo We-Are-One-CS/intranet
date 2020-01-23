@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views import generic
-from django.contrib.auth.models import User 
+from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from .forms import UserRegistrationForm, CompanyRegistrationForm
+
 
 class IndexView(generic.ListView):
     template_name = 'core/index.html'
@@ -19,6 +20,8 @@ class IndexView(generic.ListView):
     #
     #     """
     #     return
+
+
 def register(request):
     context = {}
     if request.POST:
@@ -55,6 +58,7 @@ def register(request):
         context['company_registration_form'] = company_form
     return render(request, 'core/register.html', context)
 
+
 class EventsView(generic.ListView):
     template_name = 'core/events.html'
 
@@ -76,7 +80,6 @@ class YearbookView(generic.ListView):
 
 
 class ProgramsView(generic.ListView):
-
     template_name = 'core/programs.html'
 
     def programs(request):
@@ -85,3 +88,11 @@ class ProgramsView(generic.ListView):
         """
         return render(request, 'core/programs.html')
 
+
+class UserView(generic.ListView):
+
+    def user(request):
+        """"
+        Temporary solution while we do not construct the queryset method
+        """
+        return render(request, 'core/user.html')
