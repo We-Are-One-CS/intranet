@@ -1,0 +1,8 @@
+.help_text {
+    color: grey;
+    font-style: italic;
+}
+
+ul {
+    list-style-type: none;
+}
