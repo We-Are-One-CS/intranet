@@ -17,3 +17,5 @@ migrations
 
 # Vscode config files
 .vscode/
+# Ignore sqlite database
+db
