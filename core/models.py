@@ -4,38 +4,49 @@ from django.contrib.auth.base_user import AbstractBaseUser
 from .managers import CustomUserManager
 from phonenumber_field.modelfields import PhoneNumberField
 
+
 # Create your models here.
 
 class UserCategory(models.Model):
     class Meta:
         verbose_name = 'Catégorie'
         verbose_name_plural = 'Catégories'
+
     name = models.CharField(unique=True, max_length=300, verbose_name='Nom')
+
     def __str__(self):
         return self.name
+
 
 class UserStructure(models.Model):
     class Meta:
         verbose_name = 'Structure'
         verbose_name_plural = 'Structures'
+
     name = models.CharField(unique=True, max_length=300, verbose_name='Nom')
+
     def __str__(self):
         return self.name
+
 
 class UserCotisationType(models.Model):
     class Meta:
         verbose_name = 'Cotisation utilisateur'
         verbose_name_plural = 'Types de cotisation utilisateurs'
-    name = models.CharField(unique = True, max_length=300, verbose_name='Nom')
-    cotisation_user = models.BooleanField()     
+
+    name = models.CharField(unique=True, max_length=300, verbose_name='Nom')
+    cotisation_user = models.BooleanField()
+
     # company_cotisation = models.BooleanField(verbose_name='Pour les entreprises', blank=True)
     def __str__(self):
         return self.name
+
 
 class User(AbstractBaseUser):
     class Meta:
         verbose_name = 'Utilisateur'
         verbose_name_plural = 'Utilisateurs'
+
     first_name = models.CharField(max_length=300, blank=True, null=True)
     last_name = models.CharField(max_length=500)
     email = models.EmailField(unique=True)
@@ -82,24 +93,26 @@ class User(AbstractBaseUser):
     def has_module_perms(self, app_label):
         return True
 
+
 class Event(models.Model):
     event_id = models.IntegerField(primary_key=True)
     event_description = models.CharField(max_length=500)
-    publication_date = models.DateTimeField('Date de publication')
-    event_date = models.DateTimeField("Date de l'événement")
+    event_begin_date = models.DateTimeField("Date de début de l'événement")
+    event_end_date = models.DateTimeField("Date de fin de l'évènement")
     event_title = models.CharField(max_length=100)
     event_address = models.CharField(max_length=300)
     event_price = models.FloatField()
     event_capacity = models.IntegerField()
     event_type = models.CharField(max_length=100)
+    event_publication_date = models.DateTimeField(name="Date de création de l'évènement", auto_now_add=True)
     # event_photo = models.ImageField("Photo de l'événement") # I don't know if it works
     # event_is_private = models.BooleanField() # I don't know if it has to be here
     # event_is_valide = models.BooleanField() # I don't know if it has to be here
 
 
-class SelfDevelopmentProgram:
+class Yearbook:
     pass
 
 
-class Yearbook:
+class SelfDevelopmentProgram:
     pass
