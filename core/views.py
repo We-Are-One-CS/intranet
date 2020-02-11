@@ -22,41 +22,43 @@ class IndexView(generic.ListView):
     #     return
 
 
-def register(request):
-    context = {}
-    if request.POST:
-        if 'user_registration' in request.POST:
-            form = UserRegistrationForm(request.POST)
-            if form.is_valid():
-                incomplete_user = form.save(commit=False)
-                incomplete_user.is_enterprise = False
-                incomplete_user.is_active = False
-                email = form.cleaned_data.get('email')
-                raw_password = form.cleaned_data.get('password1')
-                incomplete_user.save()
-                login(request, incomplete_user, backend='django.contrib.auth.backends.ModelBackend')
-                return redirect('index')
-            else:
-                context['user_registration_form'] = form
-        elif 'company_registration' in request.POST:
-            form = CompanyRegistrationForm(request.POST)
-            if form.is_valid():
-                user = form.save(commit=False)
-                cotisation_id = user.cotisation_type
-                print(cotisation_id)
-                user.is_enterprise = True
-                user.is_active = False
-                email = form.cleaned_data.get('email')
-                raw_password = form.cleaned_data.get('password1')
-                user.save()
-                login(request, incomplete_user, backend='django.contrib.auth.backends.ModelBackend')
-                return redirect('index')
-    else:
-        user_form = UserRegistrationForm()
-        context['user_registration_form'] = user_form
-        company_form = CompanyRegistrationForm()
-        context['company_registration_form'] = company_form
-    return render(request, 'core/register.html', context)
+class RegisterView:
+
+    def register(request):
+        context = {}
+        if request.POST:
+            if 'user_registration' in request.POST:
+                form = UserRegistrationForm(request.POST)
+                if form.is_valid():
+                    incomplete_user = form.save(commit=False)
+                    incomplete_user.is_enterprise = False
+                    incomplete_user.is_active = False
+                    email = form.cleaned_data.get('email')
+                    raw_password = form.cleaned_data.get('password1')
+                    incomplete_user.save()
+                    login(request, incomplete_user, backend='django.contrib.auth.backends.ModelBackend')
+                    return redirect('index')
+                else:
+                    context['user_registration_form'] = form
+            elif 'company_registration' in request.POST:
+                form = CompanyRegistrationForm(request.POST)
+                if form.is_valid():
+                    user = form.save(commit=False)
+                    cotisation_id = user.cotisation_type
+                    print(cotisation_id)
+                    user.is_enterprise = True
+                    user.is_active = False
+                    email = form.cleaned_data.get('email')
+                    raw_password = form.cleaned_data.get('password1')
+                    user.save()
+                    login(request, incomplete_user, backend='django.contrib.auth.backends.ModelBackend')
+                    return redirect('index')
+        else:
+            user_form = UserRegistrationForm()
+            context['user_registration_form'] = user_form
+            company_form = CompanyRegistrationForm()
+            context['company_registration_form'] = company_form
+        return render(request, 'core/register.html', context)
 
 
 class EventsView(generic.ListView):

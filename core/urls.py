@@ -7,8 +7,9 @@ urlpatterns = [
     path('events/', views.EventsView.events, name='events'),
     path('yearbook/', views.YearbookView.yearbook, name='yearbook'),
     path('programs/', views.ProgramsView.programs, name='programs'),
-    path('register/', views.register, name="register"),
     path('user/', views.UserView.user, name='user'),
-    path('create_event/', views.CreateEventView.create_event, name='create_event')
+    path('create_event/', views.CreateEventView.create_event, name='create_event'),
+    path('register/', views.RegisterView.register, name="register")
+
 ]
 
