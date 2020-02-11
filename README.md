@@ -92,5 +92,6 @@ $ docker-compose down
 todo
 
 ## Authors
-- Matheus Elyasha LOPES
 - Leïla Bekaddour
+- Matheus Elyasha LOPES
+- Vítor ALBUQUERQUE MARANHÃO RIBEIRO
