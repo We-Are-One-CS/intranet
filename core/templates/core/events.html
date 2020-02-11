@@ -17,9 +17,10 @@
     <div class="container text-center pt-2">
     <h4>C'est ici pour créer ton évènement We Are One ! </h4>
     <div class="container text-center py-4">
-        <button type="button" class="mx-4 btn btn-primary">Créer un évènement</button>
-            <a href="{% url 'create_event' %}">
-            </a>
+{#        <button type="button" class="mx-4 btn btn-primary">Créer un évènement</button>#}
+{#            <a href="{% url 'create_event' %}">#}
+{#            </a>#}
+        <button class="mx-4 btn btn-primary" onclick="location.href='create_event/'">Créer un évènement</button>
     </div>
     </div>
 {% endblock content %}
