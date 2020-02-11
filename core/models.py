@@ -97,21 +97,22 @@ class User(AbstractBaseUser):
 class Event(models.Model):
     event_id = models.IntegerField(primary_key=True)
     event_description = models.CharField(max_length=500)
-    publication_date = models.DateTimeField('Date de publication')
-    event_date = models.DateTimeField("Date de l'événement")
+    event_begin_date = models.DateTimeField("Date de début de l'événement")
+    event_end_date = models.DateTimeField("Date de fin de l'évènement")
     event_title = models.CharField(max_length=100)
     event_address = models.CharField(max_length=300)
     event_price = models.FloatField()
     event_capacity = models.IntegerField()
     event_type = models.CharField(max_length=100)
+    event_publication_date = models.DateTimeField(name="Date de création de l'évènement", auto_now_add=True)
     # event_photo = models.ImageField("Photo de l'événement") # I don't know if it works
     # event_is_private = models.BooleanField() # I don't know if it has to be here
     # event_is_valide = models.BooleanField() # I don't know if it has to be here
 
 
-class SelfDevelopmentProgram:
+class Yearbook:
     pass
 
 
-class Yearbook:
+class SelfDevelopmentProgram:
     pass
