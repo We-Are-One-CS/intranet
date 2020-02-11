@@ -71,6 +71,16 @@ class EventsView(generic.ListView):
         return render(request, 'core/events.html')
 
 
+class CreateEventView(generic.ListView):
+    template_name = 'core/create_event.html'
+
+    def create_event(request):
+        """"
+        Temporary solution while we do not construct the queryset method
+        """
+        return render(request, 'core/create_event.html')
+
+
 class YearbookView(generic.ListView):
     template_name = 'core/yearbook.html'
 

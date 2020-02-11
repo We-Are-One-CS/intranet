@@ -3,11 +3,23 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Events WAO</title>
-</head>
-<body>
 
-</body>
-</html>
+{% block title %}Accueil - WAO{% endblock title %}
+
+{% block mystylesheet %}
+    <link rel="stylesheet" type="text/css" href="{% static 'core/css/index.css' %}">
+{% endblock mystylesheet %}
+
+{% block content %}
+    <div class="container-fluid text-center pt-2 tracking-in-contract-bck">
+        <h1>Évènements</h1>
+    </div>
+    <div class="container text-center pt-2">
+    <h4>C'est ici pour créer ton évènement We Are One ! </h4>
+    <div class="container text-center py-4">
+        <button type="button" class="mx-4 btn btn-primary">Créer un évènement</button>
+            <a href="{% url 'create_event' %}">
+            </a>
+    </div>
+    </div>
+{% endblock content %}
