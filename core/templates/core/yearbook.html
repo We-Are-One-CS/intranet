@@ -1,13 +1,42 @@
 {% extends 'core/layouts/base.html' %}
 {% load static %}
 
+{% block mystylesheet %}
+    <link rel="stylesheet" type="text/css" href="{% static 'core/css/yearbook.css' %}">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    {{ form.media }}
+{% endblock mystylesheet %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Notre annuaire</title>
 </head>
 <body>
+
+
+{% block content %}
+
+    <h1>Les profils plus actifs dans notre communauté !</h1>
+
+<nav role="navigation">
+  <ul>
+    <li><a href="#">Entreprises</a></li>
+    <li><a href="#">Individus</a>
+      <ul class="dropdown">
+        <li><a href="#">Équipe permanent</a></li>
+        <li><a href="#">Conseil stratégique</a></li>
+        <li><a href="#">Membres</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Tous</a></li>
+  </ul>
+</nav>
+
+
+{% endblock content %}
+
 
 </body>
 </html>
