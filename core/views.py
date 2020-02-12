@@ -81,6 +81,36 @@ class CreateEventView(generic.ListView):
         return render(request, 'core/create_event.html')
 
 
+class AllEventsView(generic.ListView):
+    template_name = 'core/all_events.html'
+
+    def all_events(request):
+        """"
+        Temporary solution while we do not construct the queryset method
+        """
+        return render(request, 'core/all_events.html')
+
+
+class SearchEventsView(generic.ListView):
+    template_name = 'core/search_events.html'
+
+    def search_events(request):
+        """"
+        Temporary solution while we do not construct the queryset method
+        """
+        return render(request, 'core/search_events.html')
+
+
+class SubscribeEventsView(generic.ListView):
+    template_name = 'core/subscribe_events.html'
+
+    def subscribe_events(request):
+        """"
+        Temporary solution while we do not construct the queryset method
+        """
+        return render(request, 'core/subscribe_events.html')
+
+
 class YearbookView(generic.ListView):
     template_name = 'core/yearbook.html'
 
