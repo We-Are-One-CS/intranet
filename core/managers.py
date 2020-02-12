@@ -1,7 +1,12 @@
 from django.contrib.auth.base_user import BaseUserManager
 from django.utils import timezone
+
+
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None):
+        """
+        Creates and saves a User with the given email and password.
+        """
 
         if email is None:
             raise TypeError('Users must have an email address.')
