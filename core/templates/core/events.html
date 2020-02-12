@@ -23,4 +23,26 @@
         <button class="mx-4 btn btn-primary" onclick="location.href='create_event/'">Créer un évènement</button>
     </div>
     </div>
+
+    <h4>Évènements à venir !</h4>
+
+    <div class="container text-center py-4">
+        <a href="{% url 'register' %}">
+            <button type="button" class="mx-4 btn btn-outline-primary">M'inscrire à un évènement</button>
+        </a>
+    </div>
+
+
+
+
+
+    <h4>Pour voir tous les événements !</h4>
+        <div class="container text-center py-4">
+        <a href="{% url 'register' %}">
+            <button type="button" class="mx-4 btn btn-outline-primary">Liste d'évènements</button>
+        </a>
+        <a href="{% url 'events/create_event' %}">
+            <button type="button" class="mx-4 btn btn-outline-primary">Chercher un évènement</button>
+        </a>
+        </div>
 {% endblock content %}
