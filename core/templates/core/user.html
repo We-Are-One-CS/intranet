@@ -9,5 +9,48 @@
 </head>
 <body>
 
+{% block content %}
+    <h1>Votre espace perso</h1>
+    <h5>We Are One souhaite un très bon moment dans nos événements à venir et que vous soyez très à l'aise dans notre
+        communauté !</h5>
+
+
+    <h6>Mes informations</h6>
+    <div class="container text-center py-4">
+        <a href="{% url 'register' %}">
+            <button type="button" class="mx-4 btn btn-outline-primary">Modifier ton profil</button>
+        </a>
+    </div>
+
+
+    <h1>Vos événements à venir</h1>
+
+
+    <div class="container text-center py-4">
+        <a href="{% url 'register' %}">
+            <button type="button" class="mx-4 btn btn-outline-primary">Voir mes inscriptions</button>
+        </a>
+        <a href="{% url 'events/create_event' %}">
+            <button type="button" class="mx-4 btn btn-outline-primary">Créer un événement</button>
+        </a>
+    </div>
+
+
+
+
+    <h1>Vos programmes de développement personnel</h1>
+
+    <div class="container text-center py-4">
+        <a href="{% url 'register' %}">
+            <button type="button" class="mx-4 btn btn-outline-primary">Voir mes programmes perso</button>
+        </a>
+        <a href="{% url 'events/create_event' %}">
+            <button type="button" class="mx-4 btn btn-outline-primary">Proposer un programme</button>
+        </a>
+    </div>
+
+{% endblock content %}
+
+
 </body>
 </html>
