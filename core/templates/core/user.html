@@ -1,56 +1,77 @@
 {% extends 'core/layouts/base.html' %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Page d'utilisateur</title>
-</head>
-<body>
+{% block title %}Page d'utilisateur{% endblock title %}
+
+{% block mystylesheet %}
+<link rel="stylesheet" type="text/css" href="{% static 'core/css/user.css' %}">
+{% endblock mystylesheet %}
+
 
 {% block content %}
-    <h1>Votre espace perso</h1>
-    <h5>We Are One souhaite un très bon moment dans nos événements à venir et que vous soyez très à l'aise dans notre
-        communauté !</h5>
-
-
-    <h6>Mes informations</h6>
-    <div class="container text-center py-4">
-        <a href="{% url 'register' %}">
-            <button type="button" class="mx-4 btn btn-outline-primary">Modifier ton profil</button>
-        </a>
+<div class="yellow-header">
+    <p class="text-center text-white header-text">Votre espace perso</p>
+    <div class="separated-div-wrapper">
+        <div class="separator header"></div>
+        <div class="separator header center-white"></div>
+        <div class="separator header"></div>
     </div>
+</div>
+<br><br>
+<h5 class="text-center">We Are One souhaite un très bon moment dans nos événements à venir et que vous soyez très à
+    l'aise dans notre
+    communauté !</h5>
+<br>
 
+<h6 class="text-center">Mes informations</h6>
+<div class="container text-center py-4">
+    <a href="{% url 'register' %}">
+        <button type="button" class="mx-4 button">Modifier ton profil</button>
+    </a>
+</div>
 
-    <h1>Vos événements à venir</h1>
-
-
-    <div class="container text-center py-4">
-        <a href="{% url 'register' %}">
-            <button type="button" class="mx-4 btn btn-outline-primary">Voir mes inscriptions</button>
-        </a>
-        <a href="{% url 'events/create_event' %}">
-            <button type="button" class="mx-4 btn btn-outline-primary">Créer un événement</button>
-        </a>
+<div class="white-header">
+    <p class="text-center header-text">Vos événements à venir</p>
+    <div class="separated-div-wrapper">
+        <div class="separator header"></div>
+        <div class="separator header center-yellow"></div>
+        <div class="separator header"></div>
     </div>
+</div>
+
+
+<div class="container text-center py-4">
+    <a href="{% url 'register' %}">
+        <button type="button" class="mx-4 button">Voir mes inscriptions</button>
+    </a>
+    <a href="{% url 'events/create_event' %}">
+        <button type="button" class="mx-4 button">Créer un événement</button>
+    </a>
+</div>
 
 
 
-
-    <h1>Vos programmes de développement personnel</h1>
-
-    <div class="container text-center py-4">
-        <a href="{% url 'register' %}">
-            <button type="button" class="mx-4 btn btn-outline-primary">Voir mes programmes perso</button>
-        </a>
-        <a href="{% url 'events/create_event' %}">
-            <button type="button" class="mx-4 btn btn-outline-primary">Proposer un programme</button>
-        </a>
+<div class="white-header">
+    <p class="text-center header-text">Vos programmes de développement personnel</p>
+    <div class="separated-div-wrapper">
+        <div class="separator header"></div>
+        <div class="separator header center-yellow"></div>
+        <div class="separator header"></div>
     </div>
+</div>
+
+<div class="container text-center py-4">
+    <a href="{% url 'register' %}">
+        <button type="button" class="mx-4 button">Voir mes programmes perso</button>
+    </a>
+    <a href="{% url 'events/create_event' %}">
+        <button type="button" class="mx-4 btn button">Proposer un programme</button>
+    </a>
+</div>
 
 {% endblock content %}
 
 
 </body>
+
 </html>
