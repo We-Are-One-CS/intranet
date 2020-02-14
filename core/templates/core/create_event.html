@@ -14,4 +14,12 @@
     <div class="container-fluid text-center pt-2 tracking-in-contract-bck">
         <h1>Création d'évènements</h1>
 
+        <form action='event_title' method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Submit">
+        </form>
+
+    </div>
+
 {% endblock content %}
