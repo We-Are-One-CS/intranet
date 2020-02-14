@@ -96,3 +96,14 @@ class CompanyRegistrationForm(UserCreationForm):
         widgets = {
             'birthday': DateInput(),
         }
+
+class EventCreationForm(forms.Form):
+    event_title = forms.CharField(label='event_name', max_length=100)
+    # event_description = models.CharField(max_length=500)
+    # event_begin_date = models.DateTimeField("Date de début de l'événement")
+    # event_end_date = models.DateTimeField("Date de fin de l'évènement")
+    # event_price = models.FloatField()
+    # event_capacity = models.IntegerField()
+    # event_address = models.CharField(max_length=300)
+
+
