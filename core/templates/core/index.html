@@ -4,32 +4,40 @@
 {% block title %}Accueil - WAO{% endblock title %}
 
 {% block mystylesheet %}
-    <link rel="stylesheet" type="text/css" href="{% static 'core/css/index.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'core/css/index.css' %}">
 {% endblock mystylesheet %}
 
 {% block content %}
-    <div class="container-fluid text-center pt-2 tracking-in-contract-bck">
-        <h1>Espace membre</h1>
-    </div>
-    <div class="container text-center pt-2">
-        <h4>Bienvenue sur l'espace membre We Are One ! </h4>
-        <div class="container text-justify pt-3 pb-2">
-            <h6>Bienvenue sur le site qui regroupe la communauté We Are One</h6>
-            <h6>Dans notre site, vous allez rencontrer les informations necessaires pour changer votre profile et
-                s'incrire aux evenements proposés par We Are One, aux programmes de dévellopment personnel et aussi
-                regarder d'autres profiles interessant de notre communauté avec l'annuaire. L’équipe permanente est
-                composée de plusieurs collaborateurs travaillant à plein temps pour We Are One. Ils sont la colonne
-                vertébrale de notre communauté, et coordonnent les différentes actions au quotidien. Ici, vous avez
-                votre espace personnel pour modifier vos informations et choisir vos abonnements dans notre
-                communauté. </h6>
+
+<header class="masthead text-center text-justify text-white d-flex">
+    <div class="container text-center my-auto">
+        <h3>Communauté We Are One</h3>
+        <hr class="light my-4" />
+        <div class="welcome-text">
+            Dans notre site, vous allez rencontrer les informations nécessaires pour créer et changer votre profil et
+            s'incrire aux événements proposés par We Are One, aux programmes de développement personnel et aussi
+            regarder d'autres profiles interessant de notre communauté avec l'annuaire. L’équipe permanente est
+            composée de plusieurs collaborateurs travaillant à plein temps pour We Are One. Ils sont la colonne
+            vertébrale de notre communauté, et coordonnent les différentes actions au quotidien.
+        </div>
+        <br>
+        <div class="container text-center py-4">
+            <button type="button" class="mx-4 button">Se connecter</button>
+            <a href="{% url 'register' %}">
+                <button type="button" class="mx-4 button">S'inscrire</button>
+            </a>
         </div>
     </div>
-    <div class="container text-center py-4">
-        <button type="button" class="mx-4 btn btn-primary">Se connecter</button>
-        <a href="{% url 'register' %}">
-            <button type="button" class="mx-4 btn btn-outline-primary">S'inscrire</button>
-        </a>
+
+</header>
+<div class="container text-black text-center my-auto">
+    <h1 class="upcoming-events">Événements à venir</h1>
+    <hr class="light my-4" />
+    <div>
     </div>
+    <br>
+</div>
+
 {% endblock content %}
 {% block myjssheet %}
 {% endblock myjssheet %}
