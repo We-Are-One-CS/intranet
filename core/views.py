@@ -4,6 +4,7 @@ from django.views import generic
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from .forms import UserRegistrationForm, CompanyRegistrationForm
+from .forms import EventCreationForm
 
 
 class IndexView(generic.ListView):
@@ -138,3 +139,20 @@ class UserView(generic.ListView):
         Temporary solution while we do not construct the queryset method
         """
         return render(request, 'core/user.html')
+
+class CreateEventView:
+    def create_event(request):
+        if request.method == 'POST':
+            form = EventCreationForm(request.POST)
+            if form.is_valid():
+                return redirect('events')
+
+        else:
+            form = EventCreationForm
+
+        return render(request, 'core/create_event.html', {'form': form})
+
+
+
+
+
