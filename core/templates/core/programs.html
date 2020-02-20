@@ -3,11 +3,15 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 
-</body>
-</html>
+{% block title %}Nos Programmes{% endblock title %}
+
+{% block mystylesheet %}
+<link rel="stylesheet" type="text/css" href="{% static 'core/css/programs.css' %}">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+{{ form.media }}
+{% endblock mystylesheet %}
+
+{% block content %}
+{% endblock content %}
+
