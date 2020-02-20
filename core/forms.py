@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from .models import User, UserStructure, UserCotisationType
+from .models import User, UserStructure, Event, UserCotisationType
 from phonenumber_field.formfields import PhoneNumberField
 
 class DateInput(forms.DateInput):
@@ -20,7 +20,7 @@ class UserRegistrationForm(UserCreationForm):
     class Meta:
         model = User
         fields = (
-            'first_name', 
+            'first_name',
             'last_name',
             'email',
             'telephone',
@@ -97,13 +97,27 @@ class CompanyRegistrationForm(UserCreationForm):
             'birthday': DateInput(),
         }
 
-class EventCreationForm(forms.Form):
-    event_title = forms.CharField(label='event_name', max_length=100)
-    # event_description = models.CharField(max_length=500)
-    # event_begin_date = models.DateTimeField("Date de début de l'événement")
-    # event_end_date = models.DateTimeField("Date de fin de l'évènement")
-    # event_price = models.FloatField()
-    # event_capacity = models.IntegerField()
-    # event_address = models.CharField(max_length=300)
-
-
+class EventCreationForm(forms.ModelForm):
+    class Meta:
+        model = Event
+        fields = (
+            'event_title',
+            'event_description',
+            'event_type',
+            'event_date',
+            'event_address',
+            'event_price',
+            'event_capacity',
+        )
+        labels = {
+            'event_title': 'Nom de l\'événement : ',
+            'event_description': 'Description : ',
+            'event_type': 'Type d\'événement : ',
+            'event_date': 'Date de l\'événement : ',
+            'event_address': 'Adresse : ',
+            'event_price': 'Prix : ',
+            'event_capacity': 'Nombre de places : ',
+        }
+        widgets = {
+            'event_date': DateInput(),
+        }
