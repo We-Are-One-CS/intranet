@@ -1,0 +1,14 @@
+{% extends 'core/layouts/base.html' %}
+{% load static %}
+
+{% block title %}Erreur !{% endblock title %}
+
+{% block content %}
+<div class="ui {{message.type}} floating message container">
+    <i class="close icon"></i>
+    <div class="header">
+        {{ message.header }}
+    </div>
+    <p>{{ message.content }}</p>
+</div>
+{% endblock content %}

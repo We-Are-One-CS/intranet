@@ -1,0 +1,40 @@
+{% extends 'core/layouts/base.html' %}
+{% load static %}
+
+{% block title %}Se connecter{% endblock title %}
+
+{% block mystylesheet %}
+<link rel="stylesheet" type="text/css" href="{% static 'core/css/register.css' %}">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+{{ form.media }}
+{% endblock mystylesheet %}
+
+{% block content %}
+<div class="container text-center py-3">
+    <h2>Se connecter</h2>
+</div>
+
+<div class="container py-2">
+    <div action="/login/" class="card card-body">
+        <form method="POST">
+            {% csrf_token %}
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            <input id="email" type="email" placeholder="E-mail" name="email" required>
+            <input id="password" type="password" placeholder="Mot de passe" name="password" required>
+            <button class="btn btn-primary" type="submit" name="login">Se connecter</button>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block myjssheet %}
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+{% endblock myjssheet %}

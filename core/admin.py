@@ -8,7 +8,7 @@ admin.site.index_title = ''
 
 
 class MyUserAdmin(admin.ModelAdmin):
-    list_display = ('email', 'last_name', 'first_name', 'telephone', 'is_enterprise', 'is_superuser')
+    list_display = ('email', 'last_name', 'first_name', 'telephone', 'is_enterprise', 'is_superuser', 'is_active')
     list_filter = ('is_enterprise', 'is_superuser')
     list_editable = ('is_superuser', 'is_enterprise')
     search_fields = ('last_name', 'first_name', 'email')

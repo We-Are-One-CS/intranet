@@ -26,8 +26,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# Authentication
-# LOGIN_REDIRECT_URL = 'index'
+
+#Authentification
+LOGIN_REDIRECT_URL = 'index'
+
+
 
 # Application definition
 
@@ -69,8 +72,7 @@ TEMPLATES = [
         },
     },
 ]
-# AUTH_USER_MODEL = 'core.User'
-# TODO : Make a new user model compatible with our web app
+AUTH_USER_MODEL = 'core.User'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 WSGI_APPLICATION = 'intranet.wsgi.application'
 
@@ -80,11 +82,11 @@ WSGI_APPLICATION = 'intranet.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',  # put your database name here
-        'USER': 'postgres',  # put your user here
-        # 'PASSWORD':'password',  # put your password here if you are not using Docker
-        'HOST': 'db',  # set in docker-compose.yml | use localhost if not using Docker
-        'PORT': '5432',  # default postgres port
+        'NAME': '', # put your database name here
+        'USER': '', # put your user here
+        'PASSWORD':'',  # put your password here
+        'HOST': 'localhost',  # set in docker-compose.yml
+        'PORT': '',  # default postgres port
     }
 
 }
