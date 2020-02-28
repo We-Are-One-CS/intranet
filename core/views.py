@@ -1,10 +1,9 @@
+from django.contrib.auth import login
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from django.views import generic
-from django.contrib.auth.models import User
-from django.contrib.auth import login, authenticate
-from .forms import UserRegistrationForm, CompanyRegistrationForm
+
 from .forms import EventCreationForm
+from .forms import UserRegistrationForm, CompanyRegistrationForm
 
 
 class IndexView(generic.ListView):
@@ -72,14 +71,14 @@ class EventsView(generic.ListView):
         return render(request, 'core/events.html')
 
 
-class CreateEventView(generic.ListView):
-    template_name = 'core/create_event.html'
-
-    def create_event(request):
-        """"
-        Temporary solution while we do not construct the queryset method
-        """
-        return render(request, 'core/create_event.html')
+# class CreateEventView(generic.ListView):
+#     template_name = 'core/create_event.html'
+#
+#     def create_event(request):
+#         """"
+#         Temporary solution while we do not construct the queryset method
+#         """
+#         return render(request, 'core/create_event.html')
 
 
 class AllEventsView(generic.ListView):
@@ -140,6 +139,7 @@ class UserView(generic.ListView):
         """
         return render(request, 'core/user.html')
 
+
 class CreateEventView:
     def create_event(request):
         if request.method == 'POST':
@@ -153,6 +153,41 @@ class CreateEventView:
         return render(request, 'core/create_event.html', {'form': form})
 
 
+class CreateProgramView(generic.ListView):
+    template_name = 'core/create_program.html'
+
+    def create_program(request):
+        """"
+        Temporary solution while we do not construct the queryset method
+        """
+        return render(request, 'core/create_program.html')
 
 
+class AllProgramsView(generic.ListView):
+    template_name = 'core/all_programs.html'
 
+    def all_programs(request):
+        """"
+        Temporary solution while we do not construct the queryset method
+        """
+        return render(request, 'core/all_programs.html')
+
+
+class SearchProgramView(generic.ListView):
+    template_name = 'core/search_program.html'
+
+    def search_program(request):
+        """"
+        Temporary solution while we do not construct the queryset method
+        """
+        return render(request, 'core/search_program.html')
+
+
+class SubscribeProgramsView(generic.ListView):
+    template_name = 'core/subscribe_programs.html'
+
+    def subscribe_programs(request):
+        """"
+        Temporary solution while we do not construct the queryset method
+        """
+        return render(request, 'core/subscribe_programs.html')

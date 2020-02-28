@@ -1,8 +1,8 @@
-from django.db import models
-from django.utils import timezone
 from django.contrib.auth.base_user import AbstractBaseUser
-from .managers import CustomUserManager
+from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
+
+from .managers import CustomUserManager
 
 
 # Create your models here.
@@ -88,11 +88,11 @@ class User(AbstractBaseUser):
     def __str__(self):
         return "%s %s" % (self.first_name, self.last_name)
 
-    def has_perm(self, perm, obj=None):
+    def has_perm(self):
         return self.is_admin
-
-    def has_module_perms(self, app_label):
-        return True
+    # TODO: Look for the permissions' model and finalize those
+    # def has_module_perms(self, app_label):
+    #     return True
 
     def get_full_name(self):
         """
@@ -119,7 +119,7 @@ class Event(models.Model):
     event_id = models.IntegerField(primary_key=True)
     event_description = models.CharField(max_length=500)
     event_date = models.DateTimeField("Date de l'événement")
-    #event_end_date = models.DateTimeField("Date de fin de l'évènement")
+    # event_end_date = models.DateTimeField("Date de fin de l'évènement")
     event_title = models.CharField(max_length=100)
     event_address = models.CharField(max_length=300)
     event_price = models.FloatField()
