@@ -1,26 +1,30 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from .models import User, UserStructure,Event, UserCotisationType
+from django.contrib.auth.forms import UserCreationForm
 from phonenumber_field.formfields import PhoneNumberField
+
+from .models import User, UserStructure, Event
+
 
 class DateInput(forms.DateInput):
     input_type = 'date'
 
+
 class UserRegistrationForm(UserCreationForm):
     telephone = PhoneNumberField(label="Téléphone : ", required=False)
     structures = forms.ModelMultipleChoiceField(
-        queryset= UserStructure.objects.all(), 
-        label = 'Structures : ',
-        help_text= "Vous pouvez sélectionner plusieurs éléments",
-        required= False
-        )
+        queryset=UserStructure.objects.all(),
+        label='Structures : ',
+        help_text="Vous pouvez sélectionner plusieurs éléments",
+        required=False
+    )
     twitter_link = forms.CharField(label='Lien Twitter : ', required=False)
     linkedin_link = forms.CharField(label='Lien LinkedIn : ', required=False)
     first_name = forms.CharField(label='Prénom : ', required=True)
+
     class Meta:
         model = User
         fields = (
-            'first_name', 
+            'first_name',
             'last_name',
             'email',
             'telephone',
@@ -55,33 +59,35 @@ class UserRegistrationForm(UserCreationForm):
             'birthday': DateInput(),
         }
 
+
 class CompanyRegistrationForm(UserCreationForm):
     telephone = PhoneNumberField(label="Contact téléphonique : ", required=False)
     structures = forms.ModelMultipleChoiceField(
-        queryset= UserStructure.objects.all(), 
-        label = 'Structures : ',
-        help_text= "Vous pouvez sélectionner plusieurs éléments",
-        required= False
-        )
-    job_title = forms.CharField(label= 'Domaine de l\'entreprise : ', required=False, help_text='Par exemple blablabla')
+        queryset=UserStructure.objects.all(),
+        label='Structures : ',
+        help_text="Vous pouvez sélectionner plusieurs éléments",
+        required=False
+    )
+    job_title = forms.CharField(label='Domaine de l\'entreprise : ', required=False, help_text='Par exemple blablabla')
     twitter_link = forms.CharField(label='Lien Twitter : ', required=False)
     linkedin_link = forms.CharField(label='Lien LinkedIn : ', required=False)
+
     class Meta:
         model = User
         fields = (
-            'last_name',  
-            'email', 
+            'last_name',
+            'email',
             'telephone',
             'job_title',
             'structures',
             'twitter_link',
             'linkedin_link',
-            'is_subscribed_newsletter', 
+            'is_subscribed_newsletter',
             'address',
             'address_complement',
             'zip_code',
             'city',
-            'password1', 
+            'password1',
             'password2'
         )
         labels = {
@@ -96,6 +102,8 @@ class CompanyRegistrationForm(UserCreationForm):
         widgets = {
             'birthday': DateInput(),
         }
+
+
 class EventCreationForm(forms.ModelForm):
     class Meta:
         model = Event
@@ -120,4 +128,3 @@ class EventCreationForm(forms.ModelForm):
         widgets = {
             'event_date': DateInput(),
         }
-
