@@ -5,27 +5,28 @@
 {% block title %}Créer un évènement{% endblock title %}
 
 {% block mystylesheet %}
-    <link rel="stylesheet" type="text/css" href="{% static 'core/css/create_event.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'core/css/index.css' %}">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     {{ form.media }}
 {% endblock mystylesheet %}
 
 {% block content %}
     <div class="container-fluid text-center pt-2 tracking-in-contract-bck">
-            <div class="yellow-header">
-        <p class="text-center text-white header-text">Créer votre évènement</p>
-        <div class="separated-div-wrapper">
-            <div class="separator header"></div>
-            <div class="separator header center-white"></div>
-            <div class="separator header"></div>
+        <div class="yellow-header">
+            <p class="text-center text-white header-text">Créer votre évènement</p>
+            <div class="separated-div-wrapper">
+                <div class="separator header"></div>
+                <div class="separator header center-white"></div>
+                <div class="separator header"></div>
+            </div>
         </div>
-    </div>
 
-        <form action='event_title' method="POST">
-            {% csrf_token %}
-            {{ form }}
-            <input type="submit" value="Submit">
-        </form>
+{#        TODO: Create a form to add a new event#}
+{#        <form action='event_title' method="POST">#}
+{#            {% csrf_token %}#}
+{#            {{ form }}#}
+{#            <input type="submit" value="Submit">#}
+{#        </form>#}
 
     </div>
 

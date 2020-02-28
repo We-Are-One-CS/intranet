@@ -8,7 +8,7 @@
 
 {% block mystylesheet %}
 
-{#    <link rel="stylesheet" type="text/css" href="{% static 'core/css/index.css' %}">#}
+    {#    <link rel="stylesheet" type="text/css" href="{% static 'core/css/index.css' %}">#}
     <link rel="stylesheet" type="text/css" href="{% static 'core/css/programs.css' %}">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     {{ form.media }}
@@ -31,7 +31,8 @@
             {#        <button type="button" class="mx-4 btn btn-primary">Créer un évènement</button>#}
             {#            <a href="{% url 'create_event' %}">#}
             {#            </a>#}
-            <button type="button" class="mx-4 button" onclick="location.href='create_event/'">Proposer un programme perso
+            <button type="button" class="mx-4 button" onclick="location.href='create_program/'">Proposer un programme
+                perso
             </button>
         </div>
     </div>
@@ -48,7 +49,7 @@
 
     <div class="container text-center py-4">
 
-        <button type="button" class="mx-4 button" onclick="location.href='subscribe_events/'">
+        <button type="button" class="mx-4 button" onclick="location.href='subscribe_programs/'">
             M'inscrire à un programme perso
         </button>
     </div>
@@ -65,11 +66,11 @@
     </div>
 
     <div class="container text-center py-4">
-        <button type="button" class="mx-4 button" onclick="location.href='all_events/'">Liste
+        <button type="button" class="mx-4 button" onclick="location.href='all_programs/'">Liste
             des programmes perso
         </button>
 
-        <button type="button" class="mx-4 button" onclick="location.href='search_events/'">Chercher un programme perso
+        <button type="button" class="mx-4 button" onclick="location.href='search_programs/'">Chercher un programme perso
         </button>
     </div>
 
