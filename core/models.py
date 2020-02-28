@@ -118,8 +118,8 @@ class User(AbstractBaseUser):
 class Event(models.Model):
     event_id = models.IntegerField(primary_key=True)
     event_description = models.CharField(max_length=500)
-    event_begin_date = models.DateTimeField("Date de début de l'événement")
-    event_end_date = models.DateTimeField("Date de fin de l'évènement")
+    event_date = models.DateTimeField("Date de l'événement")
+    #event_end_date = models.DateTimeField("Date de fin de l'évènement")
     event_title = models.CharField(max_length=100)
     event_address = models.CharField(max_length=300)
     event_price = models.FloatField()

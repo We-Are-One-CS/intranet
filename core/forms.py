@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from .models import User, UserStructure, Event, UserCotisationType
+from .models import User, UserStructure, UserCotisationType
 from phonenumber_field.formfields import PhoneNumberField
 
 class DateInput(forms.DateInput):
@@ -20,7 +20,7 @@ class UserRegistrationForm(UserCreationForm):
     class Meta:
         model = User
         fields = (
-            'first_name',
+            'first_name', 
             'last_name',
             'email',
             'telephone',
@@ -96,7 +96,6 @@ class CompanyRegistrationForm(UserCreationForm):
         widgets = {
             'birthday': DateInput(),
         }
-
 class EventCreationForm(forms.ModelForm):
     class Meta:
         model = Event
@@ -121,3 +120,4 @@ class EventCreationForm(forms.ModelForm):
         widgets = {
             'event_date': DateInput(),
         }
+
