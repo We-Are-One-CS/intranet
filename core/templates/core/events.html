@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-{% block title %}Accueil - WAO{% endblock title %}
+{% block title %}Nos évènements{% endblock title %}
 
 {% block mystylesheet %}
     <link rel="stylesheet" type="text/css" href="{% static 'core/css/index.css' %}">
@@ -15,29 +15,37 @@
         <h1>Évènements</h1>
     </div>
     <div class="container text-center pt-2">
-    <h4>C'est ici pour créer ton évènement We Are One ! </h4>
-    <div class="container text-center py-4">
-{#        <button type="button" class="mx-4 btn btn-primary">Créer un évènement</button>#}
-{#            <a href="{% url 'create_event' %}">#}
-{#            </a>#}
-        <button type="button" class="mx-4 btn btn-outline-primary" onclick="location.href='create_event/'">Créer un évènement</button>
-    </div>
+        <h4>C'est ici pour créer ton évènement We Are One ! </h4>
+        <div class="container text-center py-4">
+            {#        <button type="button" class="mx-4 btn btn-primary">Créer un évènement</button>#}
+            {#            <a href="{% url 'create_event' %}">#}
+            {#            </a>#}
+            <button type="button" class="mx-4 btn btn-outline-primary" onclick="location.href='create_event/'">Créer un
+                évènement
+            </button>
+        </div>
     </div>
 
     <h4>Évènements à venir !</h4>
 
     <div class="container text-center py-4">
 
-            <button type="button" class="mx-4 btn btn-outline-primary" onclick="location.href='subscribe_events/'">M'inscrire à un évènement</button>
+        <button type="button" class="mx-4 btn btn-outline-primary" onclick="location.href='subscribe_events/'">
+            M'inscrire à un évènement
+        </button>
     </div>
 
 
     <h4>Pour voir tous les événements !</h4>
 
-        <div class="container text-center py-4">
-            <button type="button" class="mx-4 btn btn-outline-primary" onclick="location.href='all_events/'">Liste d'évènements</button>
+    <div class="container text-center py-4">
+        <button type="button" class="mx-4 btn btn-outline-primary" onclick="location.href='all_events/'">Liste
+            d'évènements
+        </button>
 
-            <button type="button" class="mx-4 btn btn-outline-primary" onclick="location.href='search_events/'">Chercher un évènement</button>
-        </div>
+        <button type="button" class="mx-4 btn btn-outline-primary" onclick="location.href='search_events/'">Chercher un
+            évènement
+        </button>
+    </div>
 {% endblock content %}
 
