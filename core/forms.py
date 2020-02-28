@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from .models import User, UserStructure, UserCotisationType
+from .models import User, UserStructure,Event, UserCotisationType
 from phonenumber_field.formfields import PhoneNumberField
 
 class DateInput(forms.DateInput):
