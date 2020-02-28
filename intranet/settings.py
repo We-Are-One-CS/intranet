@@ -27,7 +27,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 # Authentication
-LOGIN_REDIRECT_URL = 'index'
+# LOGIN_REDIRECT_URL = 'index'
 
 # Application definition
 
@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'intranet.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'db',  # put your database name here
+        'NAME': 'postgres',  # put your database name here
         'USER': 'postgres',  # put your user here
         # 'PASSWORD':'password',  # put your password here if you are not using Docker
         'HOST': 'db',  # set in docker-compose.yml | use localhost if not using Docker
