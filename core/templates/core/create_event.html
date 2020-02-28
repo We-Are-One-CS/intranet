@@ -12,7 +12,14 @@
 
 {% block content %}
     <div class="container-fluid text-center pt-2 tracking-in-contract-bck">
-        <h1>Création d'évènements</h1>
+            <div class="yellow-header">
+        <p class="text-center text-white header-text">Créer votre évènement</p>
+        <div class="separated-div-wrapper">
+            <div class="separator header"></div>
+            <div class="separator header center-white"></div>
+            <div class="separator header"></div>
+        </div>
+    </div>
 
         <form action='event_title' method="POST">
             {% csrf_token %}
