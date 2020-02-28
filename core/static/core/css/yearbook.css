@@ -2,14 +2,11 @@
 .dropbtn {
     background-color: #fedb00;
     border-radius: 100px;
-    padding-top:10px;
     font-size: 14px;
-    padding-bottom:10px;
-    padding-right: 25px;
-    padding-left: 25px;
+    padding: 10px 25px;
     border: 1px solid #fedb00;
-    color:white;
-    font-family: montserrat;
+    color: white;
+    font-family: montserrat, serif;
 }
 
 /* The container <div> - needed to position the dropdown content */
@@ -23,10 +20,7 @@
     display: none;
     position: absolute;
     background-color: #f1f1f1;
-    padding-top:10px;
-    padding-bottom:10px;
-    padding-right: 25px;
-    padding-left: 24px;
+    padding: 10px 25px 10px 24px;
     min-width: 160px;
     font-size: 14px;
     z-index: 1;
@@ -56,7 +50,5 @@
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover, .dropbtn:hover {
     background-color: #fedb00;
-    border-radius: 20px;
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
+    border-radius: 20px 20px 0 0;
 }

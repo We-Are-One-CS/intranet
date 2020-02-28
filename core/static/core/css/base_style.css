@@ -1,76 +1,70 @@
 body,
 html {
-  width: 100%;
-  height: 100%;
-  font-family: montserrat;
+    width: 100%;
+    height: 100%;
+    font-family: montserrat, serif;
 }
 
 @font-face {
     font-family: montserrat;
     src: url(../font/Montserrat-Regular.otf);
-  }
+}
 
-  @font-face {
+@font-face {
     font-family: montserrat-light;
     src: url(../font/Montserrat-Light.otf);
-  }
+}
 
-  @font-face {
+@font-face {
     font-family: montserrat-bold;
     src: url(../font/Montserrat-Bold.otf);
-  }
+}
 
-  @font-face {
+@font-face {
     font-family: montserrat-italic;
     src: url(../font/Montserrat-Italic.otf);
-  }
+}
 
-  @font-face {
+@font-face {
     font-family: montserrat-medium;
     src: url(../font/Montserrat-Medium.otf);
-  }
+}
 
-  .nav-link{
+.nav-link {
     font-size: 14px;
-  }
+}
 
-  .search-button{
+.search-button {
     background-color: #fedb00;
     font-size: 12px;
-    border-radius:100px;
-    padding-top:8px;
-    padding-bottom:8px;
-    padding-right: 25px;
-    padding-left: 25px;
+    border-radius: 100px;
+    padding: 8px 25px;
     border: 1px solid #fedb00;
-    color:white;
-    font-family: montserrat;
-  }
+    color: white;
+    font-family: montserrat, serif;
+}
 
-  .search-text{
+.search-text {
     font-size: 12px;
-  }
-  
-  .button{
+}
+
+.button {
     background-color: #fedb00;
     font-size: 15px;
-    border-radius:100px;
-    padding-top:10px;
-    padding-bottom:10px;
-    padding-right: 30px;
-    padding-left: 30px;
+    border-radius: 100px;
+    padding: 10px 30px;
     border: 1px solid #fedb00;
-    color:white;
-    font-family: montserrat;
-  }
+    color: white;
+    font-family: montserrat, serif;
+}
 
-  .yellow-header{
+.yellow-header {
     padding: 20px;
     background-color: #fedb00;
     text-transform: uppercase;
 }
 
-.header-text{
+.header-text {
     font-size: 40px;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -79,7 +73,7 @@ html {
 .separated-div-wrapper {
     display: block;
     height: 40px;
-    margin: 0px auto 10px;
+    margin: 0 auto 10px;
     padding-bottom: 10px;
     text-align: center;
 }
@@ -93,15 +87,15 @@ html {
 }
 
 .separator.header {
-    margin-top: 0px;
-    margin-bottom: 0px;
+    margin-top: 0;
+    margin-bottom: 0;
     background-color: #c9c9c9;
 }
 
-.center-yellow{
+.center-yellow {
     background-color: #fedb00 !important;
 }
 
-.center-white{
-  background-color: rgba(255, 255, 255, 0.5) !important;
+.center-white {
+    background-color: rgba(255, 255, 255, 0.5) !important;
 }
