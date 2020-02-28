@@ -97,3 +97,4 @@ $ docker-compose down
 - Matheus Elyasha LOPES
 - Vítor ALBUQUERQUE MARANHÃO RIBEIRO
 - Ali Raïki
+- Yvan Lanore
