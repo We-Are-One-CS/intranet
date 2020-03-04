@@ -189,7 +189,8 @@ class YearbookView(generic.ListView):
         """"
         Temporary solution while we do not construct the queryset method
         """
-        return render(request, 'core/yearbook.html')
+        profiles = User.objects.all()
+        return render(request, 'core/yearbook.html', {'profiles': profiles})
 
     def search_user(request):
         """"
@@ -216,6 +217,9 @@ class UserView(generic.ListView):
         """
         return render(request, 'core/user.html')
 
+    def user_profile(request, user_id):
+        user=User.objects.get(id=user_id)
+        return render(request, 'core/user.html', {'user':user})
 
 
 

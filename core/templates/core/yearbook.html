@@ -4,41 +4,62 @@
 {% block title %}Notre annuaire{% endblock title %}
 
 {% block mystylesheet %}
-    <link rel="stylesheet" type="text/css" href="{% static 'core/css/yearbook.css' %}">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    {{ form.media }}
+<link rel="stylesheet" type="text/css" href="{% static 'core/css/yearbook.css' %}">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+{{ form.media }}
 {% endblock mystylesheet %}
 
 
 {% block content %}
 
-    <div class="yellow-header">
-        <p class="text-center text-white header-text">Les profils plus actifs</p>
-        <div class="separated-div-wrapper">
-            <div class="separator header"></div>
-            <div class="separator header center-white"></div>
-            <div class="separator header"></div>
+<div class="yellow-header">
+    <p class="text-center text-white header-text">Les profils plus actifs</p>
+    <div class="separated-div-wrapper">
+        <div class="separator header"></div>
+        <div class="separator header center-white"></div>
+        <div class="separator header"></div>
+    </div>
+</div>
+<br>
+<div class="text-center">
+    <div id="drop" class="dropdown mx-4">
+        <button id="dropbtn" class="dropbtn">Filtrer les profils</button>
+        <div class="dropdown-content">
+            <a href="#">Entreprises</a>
+            <a href="#">Individus</a>
+            <a href="#">Tous</a>
         </div>
     </div>
-    <br>
-    <div class="text-center">
-        <div class="dropdown mx-4">
-            <button class="dropbtn">Filtrer les profils</button>
-            <div class="dropdown-content">
-                <a href="#">Entreprises</a>
-                <a href="#">Individus</a>
-                <a href="#">Tous</a>
-            </div>
-        </div>
-
-
-        <div class="dropdown mx-4">
-            <button class="dropbtn"> &nbsp; &nbsp;Trier les profils&nbsp; &nbsp;</button>
-            <div class="dropdown-content">
-                <a href="#">Nom de famille</a>
-                <a href="#">Date d'inscription</a>
-                <a href="#">Type de cotisation</a>
-            </div>
+    <div id="drop" class="dropdown mx-4">
+        <button id="dropbtn" class="dropbtn"> &nbsp; &nbsp;Trier les profils&nbsp; &nbsp;</button>
+        <div class="dropdown-content">
+            <a href="#">Nom de famille</a>
+            <a href="#">Date d'inscription</a>
+            <a href="#">Type de cotisation</a>
         </div>
     </div>
+    <br><br>
+    {% for profile in profiles %}
+    <a href="/user/{{profile.id}}">
+        <div class="dress-card">
+            <div class="dress-card-head">
+                {% if profile.photo == "" and user.gender == "F" %}
+                <img class="dress-card-img-top" src="../../static/core/profile_pictures/default_women.jpg" />
+                {% elif profile.photo == "" %}
+                <img class="dress-card-img-top" src="../../static/core/profile_pictures/default_men.jpg" />
+                {% else %}
+                <img class="dress-card-img-top" src="../{{profile.photo}}" />
+                {% endif %}
+            </div>
+            <div class="dress-card-body">
+                <h4 class="dress-card-title">{{profile.first_name}} {{profile.last_name}}
+                </h4>
+                <hr id="separator" class="light my-4" />
+                <p class="dress-card-para">{{profile.job_title}}
+                </p>
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+</div>
 {% endblock content %}
