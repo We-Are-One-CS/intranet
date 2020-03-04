@@ -26,12 +26,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-
-#Authentification
+# Authentification
 LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'index'
-
-
 
 # Application definition
 
@@ -85,8 +82,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'postgres',
-        'USER': '',
-        'PASSWORD':'',
+        'USER': 'postgres',
+        'PASSWORD': '',
         'HOST': 'localhost',  # set in docker-compose.yml
         'PORT': '',  # default postgres port
     }
