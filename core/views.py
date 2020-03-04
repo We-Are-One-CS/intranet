@@ -1,16 +1,17 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect
-from django.views import generic
-from .models import User
 from django.contrib.auth import login, authenticate, logout
-from .forms import UserRegistrationForm, CompanyRegistrationForm
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect
+from django.views import generic
+
 from .forms import EventCreationForm
+from .forms import UserRegistrationForm, CompanyRegistrationForm
+from .models import User
 
 
 def error(request, message="Bienvenue sur la page d'affichage d'erreurs !"):
-
     # This special view is called everytime there is an error to display it into the browser
-    return render(request, 'core/error.html', {'messages': request.messages,})
+    return render(request, 'core/error.html', {'messages': request.messages, })
+
 
 class IndexView(generic.ListView):
     template_name = 'core/index.html'
@@ -53,7 +54,6 @@ class RegisterView:
             context['user_registration_form'] = user_form
         return render(request, 'core/register_user.html', context)
 
-
     def register_company(request):
         context = {}
         if request.POST:
@@ -78,14 +78,13 @@ class RegisterView:
         return render(request, 'core/register_company.html', context)
 
 
-
 class LoginView(generic.ListView):
     def login(request):
         if request.method == 'POST':
             email = request.POST['email']
             password = request.POST['password']
             queryset = User.objects.filter(email=email)
-            if len(queryset)!=0:
+            if len(queryset) != 0:
                 if queryset[0].is_active:
                     user = authenticate(email=email, password=password)
                     if user is not None:
@@ -93,9 +92,9 @@ class LoginView(generic.ListView):
                         return redirect('index')
                     else:
                         request.messages.append({
-                        "type": "warning",
-                        "header": "Erreur liée au mot de passe",
-                        "content": "Mot de passe incorrect"
+                            "type": "warning",
+                            "header": "Erreur liée au mot de passe",
+                            "content": "Mot de passe incorrect"
                         })
                         return error(request)
                 else:
@@ -109,18 +108,20 @@ class LoginView(generic.ListView):
 
             else:
                 request.messages.append({
-                        "type": "warning",
-                        "header": "Erreur liée à l'identifiant",
-                        "content": "E-mail incorrect"
+                    "type": "warning",
+                    "header": "Erreur liée à l'identifiant",
+                    "content": "E-mail incorrect"
                 })
                 return error(request)
         else:
             return render(request, 'core/login.html')
 
+
 class LogoutView(generic.ListView):
     def logout(request):
         logout(request)
         return HttpResponseRedirect('/')
+
 
 class EventsView(generic.ListView):
     template_name = 'core/events.html'
@@ -180,6 +181,12 @@ class YearbookView(generic.ListView):
         Temporary solution while we do not construct the queryset method
         """
         return render(request, 'core/yearbook.html')
+
+    def search_user(request):
+        """"
+        Temporary solution while we do not construct the queryset method
+        """
+        return render(request, 'core/search_user.html')
 
 
 class ProgramsView(generic.ListView):
