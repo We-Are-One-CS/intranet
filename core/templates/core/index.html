@@ -24,6 +24,13 @@
             vertébrale de notre communauté, et coordonnent les différentes actions au quotidien.
         </div>
         <br>
+        {% if user.is_authenticated %}
+        <div class="container text-center py-4">
+            <a href="{% url 'logout' %}">
+                <button type="button" class="mx-4 button">Se déconnecter</button>
+            </a>
+        </div>
+        {% else %}
         <div class="container text-center py-4">
             <a href="{% url 'login' %}">
                 <button type="button" class="mx-4 button">Se connecter</button>
@@ -32,6 +39,7 @@
                 <button type="button" class="mx-4 button">S'inscrire</button>
             </a>
         </div>
+        {% endif %}
     </div>
 
 </header>

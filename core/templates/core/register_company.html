@@ -22,18 +22,22 @@
 
 
 <div class="container py-2">
-    <p class="text-center"> Je suis :
-        <a href="{% url 'form_user' %}">
-            <button class="mx-4 button" type="button">
-                Un utilisateur
-            </button>
-        </a>
-        <a href="{% url 'form_company' %}">
-            <button class="mx-4 button" type="button">
-                Une entreprise
-            </button>
-        </a>
-    </p>
+    <div id="companyForm">
+        <div class="card card-body">
+            Les champs suivis d'une astérisque sont obligatoires. <br>
+            <form method="POST">{% csrf_token %}
+                {% for field in company_registration_form %}
+                <p>
+                    {{ field | as_crispy_field}}
+                    {% for error in field.errors %}
+                    <small class="errors">{{ error }}</small>
+                    {% endfor %}
+                </p>
+                {% endfor %}
+                <button class="btn btn-primary" type="submit" name="company_registration">S'inscrire</button>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock content %}
 {% block myjssheet %}
