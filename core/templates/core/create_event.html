@@ -11,7 +11,7 @@
 {% endblock mystylesheet %}
 
 {% block content %}
-    <div class="container-fluid text-center pt-2 tracking-in-contract-bck">
+<div class="container-fluid text-center pt-2 tracking-in-contract-bck">
         <div class="yellow-header">
             <p class="text-center text-white header-text">Créer votre évènement</p>
             <div class="separated-div-wrapper">
@@ -20,14 +20,28 @@
                 <div class="separator header"></div>
             </div>
         </div>
+</div>
 
-{#        TODO: Create a form to add a new event#}
-{#        <form action='event_title' method="POST">#}
-{#            {% csrf_token %}#}
-{#            {{ form }}#}
-{#            <input type="submit" value="Submit">#}
-{#        </form>#}
-
+ <div class="container py-2">
+    <div id="EventForm">
+        <div class="card card-body">
+            Les champs suivis d'une astérisque sont obligatoires. <br>
+            <form method="POST">
+                {% csrf_token %}
+                {% for field in event_creation_form  %}
+                <p>
+                    {{ field | as_crispy_field}}
+                    {% for error in field.errors %}
+                    <small class="errors">{{ error }}</small>
+                    {% endfor %}
+                </p>
+                {% endfor %}
+                <button class="btn btn-primary" type="submit" name="event_creation">Créer</button>
+            </form>
+        </div>
     </div>
+</div>
+
+
 
 {% endblock content %}

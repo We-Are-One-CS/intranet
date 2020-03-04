@@ -137,10 +137,19 @@ class CreateEventView(generic.ListView):
     template_name = 'core/create_event.html'
 
     def create_event(request):
-        """"
-        Temporary solution while we do not construct the queryset method
-        """
-        return render(request, 'core/create_event.html')
+        context={}
+        if request.POST:
+            if 'event_creation' in request.POST:
+                    form = EventCreationForm(request.POST)
+                    if form.is_valid():
+                        return HttpResponseRedirect('/create_event/')
+                    else:
+                        context['event_creation_form'] = form
+            else:
+                event_form = UserRegistrationForm()
+                context['event_creation_form'] = event_form
+        return render(request, 'core/create_event.html',context)
+
 
 
 class AllEventsView(generic.ListView):
@@ -208,17 +217,6 @@ class UserView(generic.ListView):
         return render(request, 'core/user.html')
 
 
-class CreateEventView:
-    def create_event(request):
-        if request.method == 'POST':
-            form = EventCreationForm(request.POST)
-            if form.is_valid():
-                return redirect('events')
-
-        else:
-            form = EventCreationForm
-
-        return render(request, 'core/create_event.html', {'form': form})
 
 
 class CreateProgramView(generic.ListView):
