@@ -27,4 +27,5 @@ urlpatterns = [
          name='programs/subscribe_programs'),
 
     path('yearbook/', views.YearbookView.yearbook, name='yearbook'),
+    path('yearbook/search_user/', views.YearbookView.search_user, name='yearbook/search_user'),
 ]
