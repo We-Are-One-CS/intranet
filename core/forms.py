@@ -113,7 +113,8 @@ class EventCreationForm(forms.ModelForm):
             'event_title',
             'event_description',
             'event_type',
-            'event_date',
+            'event_begin_date',
+            'event_end_date',
             'event_address',
             'event_price',
             'event_capacity',
@@ -122,11 +123,13 @@ class EventCreationForm(forms.ModelForm):
             'event_title': 'Nom de l\'événement : ',
             'event_description': 'Description : ',
             'event_type': 'Type d\'événement : ',
-            'event_date': 'Date de l\'événement : ',
+            'event_begin_date': 'Date de début l\'événement : ',
+            'event_end_date': 'Date de fin l\'événement : ',
             'event_address': 'Adresse : ',
             'event_price': 'Prix : ',
             'event_capacity': 'Nombre de places : ',
         }
         widgets = {
-            'event_date': DateInput(),
+            'event_begin_date': DateInput(),
+            'event_end_date': DateInput(),
         }
