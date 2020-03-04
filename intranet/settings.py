@@ -24,10 +24,11 @@ SECRET_KEY = 'rd4l0b65&9*u+3g2j^1th5rl6sc*m!r^f*()5ij7(kot75p^2_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
-# Authentication
-# LOGIN_REDIRECT_URL = 'index'
+# Authentification
+LOGIN_REDIRECT_URL = 'index'
+LOGOUT_REDIRECT_URL = 'index'
 
 # Application definition
 
@@ -50,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'core.middleware.MessagesMiddleware',
 ]
 
 ROOT_URLCONF = 'intranet.urls'
@@ -69,8 +71,7 @@ TEMPLATES = [
         },
     },
 ]
-# AUTH_USER_MODEL = 'core.User'
-# TODO : Make a new user model compatible with our web app
+AUTH_USER_MODEL = 'core.User'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 WSGI_APPLICATION = 'intranet.wsgi.application'
 
@@ -80,11 +81,11 @@ WSGI_APPLICATION = 'intranet.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',  # put your database name here
-        'USER': 'postgres',  # put your user here
-        # 'PASSWORD':'password',  # put your password here if you are not using Docker
-        'HOST': 'db',  # set in docker-compose.yml | use localhost if not using Docker
-        'PORT': '5432',  # default postgres port
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': '',
+        'HOST': 'localhost',  # set in docker-compose.yml
+        'PORT': '',  # default postgres port
     }
 
 }
@@ -124,3 +125,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'core/static/'),
+)
+
+INTERNAL_IPS = ['127.0.0.1']
+
+FILE_UPLOAD_PERMISSIONS = 0o644

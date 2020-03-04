@@ -1,9 +1,11 @@
-from django.contrib.auth.base_user import AbstractBaseUser
 from django.db import models
+from django.utils import timezone
+from django.contrib.auth.base_user import AbstractBaseUser
+from .managers import CustomUserManager
 from phonenumber_field.modelfields import PhoneNumberField
 
-from .managers import CustomUserManager
-
+def upload_to_name(instance, filename):
+    return 'core/static/core/profile_pictures/'+filename #A CHANGER EN 'static/core/profile_pictures/' EN PROD !!!
 
 # Create your models here.
 
@@ -58,7 +60,7 @@ class User(AbstractBaseUser):
         ('O', 'Autre / ne se prononce pas')
     )
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
-    # photo = models.ImageField("Photo de l'utilisateur") # I did not get the website to work when I added this
+    photo = models.FileField(upload_to=upload_to_name, blank=True) # I did not get the website to work when I added this
     job_title = models.CharField(max_length=100, blank=True, null=True)
     category = models.ForeignKey(UserCategory, on_delete=models.CASCADE, default=1)
     structures = models.ManyToManyField(UserStructure, blank=True)
@@ -88,11 +90,11 @@ class User(AbstractBaseUser):
     def __str__(self):
         return "%s %s" % (self.first_name, self.last_name)
 
-    def has_perm(self):
+    def has_perm(self, perm, obj=None):
         return self.is_admin
-    # TODO: Look for the permissions' model and finalize those
-    # def has_module_perms(self, app_label):
-    #     return True
+
+    def has_module_perms(self, app_label):
+        return True
 
     def get_full_name(self):
         """
@@ -118,8 +120,8 @@ class User(AbstractBaseUser):
 class Event(models.Model):
     event_id = models.IntegerField(primary_key=True)
     event_description = models.CharField(max_length=500)
-    event_date = models.DateTimeField("Date de l'événement")
-    # event_end_date = models.DateTimeField("Date de fin de l'évènement")
+    event_begin_date = models.DateTimeField("Date de début de l'événement")
+    event_end_date = models.DateTimeField("Date de fin de l'évènement")
     event_title = models.CharField(max_length=100)
     event_address = models.CharField(max_length=300)
     event_price = models.FloatField()

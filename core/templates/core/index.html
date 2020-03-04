@@ -4,40 +4,52 @@
 {% block title %}Accueil - WAO{% endblock title %}
 
 {% block mystylesheet %}
-    <link rel="stylesheet" type="text/css" href="{% static 'core/css/index.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'core/css/index.css' %}">
 {% endblock mystylesheet %}
 
 {% block content %}
 
-    <header class="masthead text-center text-justify text-white d-flex">
-        <div class="container text-center my-auto">
-            <h3>Communauté We Are One</h3>
-            <hr class="light my-4"/>
-            <div class="welcome-text">
-                Dans notre site, vous allez rencontrer les informations nécessaires pour créer et changer votre profil
-                et
-                s'incrire aux événements proposés par We Are One, aux programmes de développement personnel et aussi
-                regarder d'autres profiles interessant de notre communauté avec l'annuaire. L’équipe permanente est
-                composée de plusieurs collaborateurs travaillant à plein temps pour We Are One. Ils sont la colonne
-                vertébrale de notre communauté, et coordonnent les différentes actions au quotidien.
-            </div>
-            <br>
-            <div class="container text-center py-4">
-                <button type="button" class="mx-4 button">Se connecter</button>
-                <a href="{% url 'register' %}">
-                    <button type="button" class="mx-4 button">S'inscrire</button>
-                </a>
-            </div>
-        </div>
-
-    </header>
-    <div class="container text-black text-center my-auto">
-        <h1 class="upcoming-events">Événements à venir</h1>
-        <hr class="light my-4"/>
-        <div>
+<header class="masthead text-center text-justify text-white d-flex">
+    <div class="container text-center my-auto">
+        <h3>Communauté We Are One</h3>
+        <hr class="light my-4" />
+        <div class="welcome-text">
+            {% if user.is_authenticated %}
+            salut
+            {% endif %}
+            Dans notre site, vous allez rencontrer les informations nécessaires pour créer et changer votre profil et
+            s'incrire aux événements proposés par We Are One, aux programmes de développement personnel et aussi
+            regarder d'autres profiles interessant de notre communauté avec l'annuaire. L’équipe permanente est
+            composée de plusieurs collaborateurs travaillant à plein temps pour We Are One. Ils sont la colonne
+            vertébrale de notre communauté, et coordonnent les différentes actions au quotidien.
         </div>
         <br>
+        {% if user.is_authenticated %}
+        <div class="container text-center py-4">
+            <a href="{% url 'logout' %}">
+                <button type="button" class="mx-4 button">Se déconnecter</button>
+            </a>
+        </div>
+        {% else %}
+        <div class="container text-center py-4">
+            <a href="{% url 'login' %}">
+                <button type="button" class="mx-4 button">Se connecter</button>
+            </a>
+            <a href="{% url 'register' %}">
+                <button type="button" class="mx-4 button">S'inscrire</button>
+            </a>
+        </div>
+        {% endif %}
     </div>
+
+</header>
+<div class="container text-black text-center my-auto">
+    <h1 class="upcoming-events">Événements à venir</h1>
+    <hr class="light my-4" />
+    <div>
+    </div>
+    <br>
+</div>
 
 {% endblock content %}
 {% block myjssheet %}

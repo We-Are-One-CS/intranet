@@ -1,10 +1,16 @@
-from django.contrib.auth import login
 from django.shortcuts import render, redirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views import generic
-
-from .forms import EventCreationForm
+from .models import User
+from django.contrib.auth import login, authenticate, logout
 from .forms import UserRegistrationForm, CompanyRegistrationForm
+from .forms import EventCreationForm
 
+
+def error(request, message="Bienvenue sur la page d'affichage d'erreurs !"):
+
+    # This special view is called everytime there is an error to display it into the browser
+    return render(request, 'core/error.html', {'messages': request.messages,})
 
 class IndexView(generic.ListView):
     template_name = 'core/index.html'
@@ -23,12 +29,14 @@ class IndexView(generic.ListView):
 
 
 class RegisterView:
-
     def register(request):
+        return render(request, 'core/register.html')
+
+    def register_user(request):
         context = {}
         if request.POST:
             if 'user_registration' in request.POST:
-                form = UserRegistrationForm(request.POST)
+                form = UserRegistrationForm(request.POST, request.FILES or None)
                 if form.is_valid():
                     incomplete_user = form.save(commit=False)
                     incomplete_user.is_enterprise = False
@@ -37,10 +45,19 @@ class RegisterView:
                     raw_password = form.cleaned_data.get('password1')
                     incomplete_user.save()
                     login(request, incomplete_user, backend='django.contrib.auth.backends.ModelBackend')
-                    return redirect('index')
+                    return redirect('login')
                 else:
                     context['user_registration_form'] = form
-            elif 'company_registration' in request.POST:
+        else:
+            user_form = UserRegistrationForm()
+            context['user_registration_form'] = user_form
+        return render(request, 'core/register_user.html', context)
+
+
+    def register_company(request):
+        context = {}
+        if request.POST:
+            if 'company_registration' in request.POST:
                 form = CompanyRegistrationForm(request.POST)
                 if form.is_valid():
                     user = form.save(commit=False)
@@ -52,14 +69,58 @@ class RegisterView:
                     raw_password = form.cleaned_data.get('password1')
                     user.save()
                     login(request, incomplete_user, backend='django.contrib.auth.backends.ModelBackend')
-                    return redirect('index')
+                    return redirect('login')
         else:
             user_form = UserRegistrationForm()
             context['user_registration_form'] = user_form
             company_form = CompanyRegistrationForm()
             context['company_registration_form'] = company_form
-        return render(request, 'core/register.html', context)
+        return render(request, 'core/register_company.html', context)
 
+
+
+class LoginView(generic.ListView):
+    def login(request):
+        if request.method == 'POST':
+            email = request.POST['email']
+            password = request.POST['password']
+            queryset = User.objects.filter(email=email)
+            if len(queryset)!=0:
+                if queryset[0].is_active:
+                    user = authenticate(email=email, password=password)
+                    if user is not None:
+                        login(request, user)
+                        return redirect('index')
+                    else:
+                        request.messages.append({
+                        "type": "warning",
+                        "header": "Erreur liée au mot de passe",
+                        "content": "Mot de passe incorrect"
+                        })
+                        return error(request)
+                else:
+                    print('inactive')
+                    request.messages.append({
+                        "type": "warning",
+                        "header": "Erreur liée à votre compte",
+                        "content": "Votre compte n'a pas encore été validée ou a été désactivé"
+                    })
+                    return error(request)
+
+            else:
+                request.messages.append({
+                        "type": "warning",
+                        "header": "Erreur liée à l'identifiant",
+                        "content": "E-mail incorrect"
+                })
+                return error(request)
+        else:
+            return render(request, 'core/login.html')
+
+class LogoutView(generic.ListView):
+    def logout(request):
+        logout(request)
+        return HttpResponseRedirect('/')
 
 class EventsView(generic.ListView):
     template_name = 'core/events.html'
@@ -71,14 +132,14 @@ class EventsView(generic.ListView):
         return render(request, 'core/events.html')
 
 
-# class CreateEventView(generic.ListView):
-#     template_name = 'core/create_event.html'
-#
-#     def create_event(request):
-#         """"
-#         Temporary solution while we do not construct the queryset method
-#         """
-#         return render(request, 'core/create_event.html')
+class CreateEventView(generic.ListView):
+    template_name = 'core/create_event.html'
+
+    def create_event(request):
+        """"
+        Temporary solution while we do not construct the queryset method
+        """
+        return render(request, 'core/create_event.html')
 
 
 class AllEventsView(generic.ListView):
