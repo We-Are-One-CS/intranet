@@ -19,3 +19,5 @@ migrations
 .vscode/
 # Ignore sqlite database
 db
+#settings because no postgres
+settings.py
