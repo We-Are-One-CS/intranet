@@ -8,6 +8,7 @@ urlpatterns = [
     path('yearbook/', views.YearbookView.yearbook, name='yearbook'),
     path('programs/', views.ProgramsView.programs, name='programs'),
     path('user/', views.UserView.user, name='user'),
+    path('user/<int:user_id>', views.UserView.user_profile),
     path('events/create_event/', views.CreateEventView.create_event, name='events/create_event'),
     path('register/', views.RegisterView.register, name="register"),
     path('register/user/', views.RegisterView.register_user, name="form_user"),
