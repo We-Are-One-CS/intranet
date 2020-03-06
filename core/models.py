@@ -1,11 +1,13 @@
-from django.db import models
-from django.utils import timezone
 from django.contrib.auth.base_user import AbstractBaseUser
-from .managers import CustomUserManager
+from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
+from .managers import CustomUserManager
+
+
 def upload_to_name(instance, filename):
-    return 'core/static/core/profile_pictures/'+filename #A CHANGER EN 'static/core/profile_pictures/' EN PROD !!!
+    return 'core/static/core/profile_pictures/' + filename  # A CHANGER EN 'static/core/profile_pictures/' EN PROD !!!
+
 
 # Create your models here.
 
@@ -60,7 +62,8 @@ class User(AbstractBaseUser):
         ('O', 'Autre / ne se prononce pas')
     )
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
-    photo = models.FileField(upload_to=upload_to_name, blank=True) # I did not get the website to work when I added this
+    photo = models.FileField(upload_to=upload_to_name,
+                             blank=True)  # I did not get the website to work when I added this
     job_title = models.CharField(max_length=100, blank=True, null=True)
     category = models.ForeignKey(UserCategory, on_delete=models.CASCADE, default=1)
     structures = models.ManyToManyField(UserStructure, blank=True)
