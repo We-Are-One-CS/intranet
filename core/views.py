@@ -137,19 +137,18 @@ class CreateEventView(generic.ListView):
     template_name = 'core/create_event.html'
 
     def create_event(request):
-        context={}
+        context = {}
         if request.POST:
             if 'event_creation' in request.POST:
-                    form = EventCreationForm(request.POST)
-                    if form.is_valid():
-                        return HttpResponseRedirect('/create_event/')
-                    else:
-                        context['event_creation_form'] = form
+                form = EventCreationForm(request.POST)
+                if form.is_valid():
+                    return HttpResponseRedirect('/create_event/')
+                else:
+                    context['event_creation_form'] = form
             else:
                 event_form = UserRegistrationForm()
                 context['event_creation_form'] = event_form
-        return render(request, 'core/create_event.html',context)
-
+        return render(request, 'core/create_event.html', context)
 
 
 class AllEventsView(generic.ListView):
@@ -218,9 +217,8 @@ class UserView(generic.ListView):
         return render(request, 'core/user.html')
 
     def user_profile(request, user_id):
-        user=User.objects.get(id=user_id)
-        return render(request, 'core/user.html', {'user':user})
-
+        user = User.objects.get(id=user_id)
+        return render(request, 'core/user.html', {'user': user})
 
 
 class CreateProgramView(generic.ListView):
