@@ -21,3 +21,5 @@ migrations
 db
 #settings because no postgres
 settings.py
+#profile pictures for tests
+profile_pictures/

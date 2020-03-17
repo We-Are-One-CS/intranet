@@ -2,19 +2,47 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
-<
-{% block title %}Créer un évènement{% endblock title %}
-
-{% block mystylesheet %}
-    <link rel="stylesheet" type="text/css" href="{% static 'core/css/index.css' %}">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    {{ form.media }}
+{% block title %}Créer un évènement{% endblock title %} {% block mystylesheet %}
+<link rel="stylesheet" type="text/css" href="{% static 'core/css/all_events.css' %}">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+{{ form.media }}
 {% endblock mystylesheet %}
 
 {% block content %}
-    <div class="container-fluid text-center pt-2 tracking-in-contract-bck">
-        <h1>Calendrier des évènements</h1>
+<div class="yellow-header">
+    <p class="text-center text-white header-text">Calendrier des événements</p>
+    <div class="separated-div-wrapper">
+        <div class="separator header"></div>
+        <div class="separator header center-white"></div>
+        <div class="separator header"></div>
     </div>
+</div>
+<div class="py-2 text-center">
+    {% for event in events %}
+    <div class="blog-card">
+        <div class="meta">
+            {% if event.event_photo == "" %}
+            <div class="photo"
+                style="background-image: url('../../static/core/event_pictures/default-event-image.png')">
+            </div>
+            {% else %}
+            {% with photo=event.event_photo.url|cut:"core/static/core/" %}
+            <div class="photo" style="background-image: url('../../static/core/{{photo}}')">
+            </div>
+            {% endwith %}
+            {% endif %}
+        </div>
+        <div class="description text-left">
+            <h1>{{event.event_title}}</h1>
+            <h2>{{event.event_begin_date}}</h2>
+            <p class="text">{{event.event_description|truncatechars:90}}</p>
+            <p class="read-more">
+                <a href="#">Voir plus</a>
+            </p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 
 
 

@@ -5,7 +5,7 @@ from django.views import generic
 
 from .forms import EventCreationForm
 from .forms import UserRegistrationForm, CompanyRegistrationForm
-from .models import User
+from .models import User, Event
 
 
 def error(request, message="Bienvenue sur la page d'affichage d'erreurs !"):
@@ -71,8 +71,6 @@ class RegisterView:
                     login(request, incomplete_user, backend='django.contrib.auth.backends.ModelBackend')
                     return redirect('login')
         else:
-            user_form = UserRegistrationForm()
-            context['user_registration_form'] = user_form
             company_form = CompanyRegistrationForm()
             context['company_registration_form'] = company_form
         return render(request, 'core/register_company.html', context)
@@ -140,14 +138,16 @@ class CreateEventView(generic.ListView):
         context = {}
         if request.POST:
             if 'event_creation' in request.POST:
-                form = EventCreationForm(request.POST)
+                form = EventCreationForm(request.POST, request.FILES or None)
                 if form.is_valid():
-                    return HttpResponseRedirect('/create_event/')
+                    event = form.save(commit=False)
+                    event.save()
+                    return HttpResponseRedirect('/events/all_events')
                 else:
                     context['event_creation_form'] = form
-            else:
-                event_form = UserRegistrationForm()
-                context['event_creation_form'] = event_form
+        else:
+            event_form = EventCreationForm()
+            context['event_creation_form'] = event_form
         return render(request, 'core/create_event.html', context)
 
 
@@ -158,7 +158,8 @@ class AllEventsView(generic.ListView):
         """"
         Temporary solution while we do not construct the queryset method
         """
-        return render(request, 'core/all_events.html')
+        events = Event.objects.all()
+        return render(request, 'core/all_events.html', {'events': events})
 
 
 class SearchEventsView(generic.ListView):

@@ -107,6 +107,7 @@ class CompanyRegistrationForm(UserCreationForm):
 
 
 class EventCreationForm(forms.ModelForm):
+    event_title = forms.CharField(label='Nom de l\'événement : ', required=True)
     class Meta:
         model = Event
         fields = (
@@ -118,6 +119,7 @@ class EventCreationForm(forms.ModelForm):
             'event_address',
             'event_price',
             'event_capacity',
+            'event_photo',
         )
         labels = {
             'event_title': 'Nom de l\'événement : ',
@@ -128,6 +130,7 @@ class EventCreationForm(forms.ModelForm):
             'event_address': 'Adresse : ',
             'event_price': 'Prix : ',
             'event_capacity': 'Nombre de places : ',
+            'event_photo':'Photo de l\'événement',
         }
         widgets = {
             'event_begin_date': DateInput(),

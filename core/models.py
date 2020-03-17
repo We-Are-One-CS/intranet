@@ -8,6 +8,9 @@ from .managers import CustomUserManager
 def upload_to_name(instance, filename):
     return 'core/static/core/profile_pictures/' + filename  # A CHANGER EN 'static/core/profile_pictures/' EN PROD !!!
 
+def upload_to_name_event(instance, filename):
+    return 'core/static/core/event_pictures/' + filename  # A CHANGER EN 'static/core/event_pictures/' EN PROD !!!
+
 
 # Create your models here.
 
@@ -63,7 +66,7 @@ class User(AbstractBaseUser):
     )
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     photo = models.FileField(upload_to=upload_to_name,
-                             blank=True)  # I did not get the website to work when I added this
+                             blank=True)
     job_title = models.CharField(max_length=100, blank=True, null=True)
     category = models.ForeignKey(UserCategory, on_delete=models.CASCADE, default=1)
     structures = models.ManyToManyField(UserStructure, blank=True)
@@ -121,7 +124,11 @@ class User(AbstractBaseUser):
 
 
 class Event(models.Model):
-    event_id = models.IntegerField(primary_key=True)
+    class Meta:
+        verbose_name = 'Evénement'
+        verbose_name_plural = 'Evénements'
+
+    event_id = models.AutoField(primary_key=True)
     event_description = models.CharField(max_length=500)
     event_begin_date = models.DateTimeField("Date de début de l'événement")
     event_end_date = models.DateTimeField("Date de fin de l'évènement")
@@ -131,9 +138,12 @@ class Event(models.Model):
     event_capacity = models.IntegerField()
     event_type = models.CharField(max_length=100)
     event_publication_date = models.DateTimeField(name="Date de création de l'évènement", auto_now_add=True)
-    # event_photo = models.ImageField("Photo de l'événement") # I don't know if it works
+    event_photo = models.FileField(upload_to=upload_to_name_event, blank=True)
     # event_is_private = models.BooleanField() # I don't know if it has to be here
     # event_is_valide = models.BooleanField() # I don't know if it has to be here
+
+    def __str__(self):
+        return self.event_title
 
 
 class Yearbook:
