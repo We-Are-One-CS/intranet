@@ -16,6 +16,17 @@ def upload_to_name_event(instance, filename):
 # Create your models here.
 
 class SubjectImpact(models.Model):
+    """
+    If the person is engaged in WAO Impact, then they are attached to a
+    subject that is one of the ODD of ONU that we address.
+    Today (March 20, 2020), it will be:
+        1. Equal opportunity;
+        2. Climate Action;
+        3. Health;
+        4. Quality Education;
+        5. Gender Equality.
+    """
+
     class Meta:
         verbose_name = "Sujet d'impact"
         verbose_name_plural = "Sujets d'impact"
@@ -27,6 +38,14 @@ class SubjectImpact(models.Model):
 
 
 class Category(models.Model):
+    """"
+    There are 3 categories of member:
+        1. Adherent
+        2. Active
+        3. Proactive
+    that will depend on the implication at We Are One.
+    """
+
     class Meta:
         verbose_name = 'Catégorie'
         verbose_name_plural = 'Catégories'
@@ -38,6 +57,15 @@ class Category(models.Model):
 
 
 class Structure(models.Model):
+    """"
+    This class corresponds to which structure(s) the person belongs to:
+        1. Impact;
+        2. Think;
+        3. Transform;
+        4. Community.
+    The same person can belong to several structures.
+    """
+
     class Meta:
         verbose_name = 'Structure'
         verbose_name_plural = 'Structures'
@@ -49,6 +77,21 @@ class Structure(models.Model):
 
 
 class CotisationType(models.Model):
+    """"
+    There are different types according to which type of profile we are dealing with (individual or entreprise)
+    There are connected via the plateforme HelloAsso.
+    For individuals:
+        1. Student
+        2. Young Pro
+        3. Experimented
+        4. Senior
+    For companies:
+        5. Entrepreneur & Asso
+        6. Start-up
+        7. Enterprise
+        8. Corporate
+    """
+
     class Meta:
         verbose_name = 'Cotisation utilisateur'
         verbose_name_plural = 'Types de cotisation utilisateurs'
@@ -61,6 +104,26 @@ class CotisationType(models.Model):
 
 
 class User(AbstractBaseUser):
+    """"
+    The most important model of our app
+    It models the user profile
+
+    Interactions with the platform
+        - The registration
+        - Validation by Admin
+        - Add/Change data
+        - Personal events (later)
+        - Personal development (later)
+
+
+    Tests that are mandatory
+        - The registration was well done
+        - Make a check on the registration parameters
+        - All required fiels are filled in
+
+
+    """
+
     class Meta:
         verbose_name = 'Utilisateur'
         verbose_name_plural = 'Utilisateurs'
@@ -137,6 +200,35 @@ class User(AbstractBaseUser):
 
 
 class Event(models.Model):
+    """"
+    The event model models the required fields for event creation
+    Events need to be validated by any admin
+
+    Interactions with the platform
+        - Proposal/Creation and Delete
+        - Validation by Admin
+        - Add/Change data
+        - View all events/Filter
+        - Personal events (later)
+        - Pay for events
+        - Like/Interest/Participate (later)
+        - Publications on the event (later)
+
+    Tests that are mandatory
+        - The creation was well done
+        - Make a check on the creation parameters
+        - All required fields are filled in
+        - The same applies to the validation and modification of functionality.
+        - Missing events
+        - See if it displays more than what was requested
+        - See if it displays all the personal events
+        - View secure connection
+        - Confirmation of payment
+        - Do not display past events
+        - Publication well done
+
+    """
+
     class Meta:
         verbose_name = 'Evénement'
         verbose_name_plural = 'Evénements'
@@ -160,8 +252,48 @@ class Event(models.Model):
 
 
 class Yearbook:
+    """
+    Interactions with the platform
+        - Change by Admin
+        - Search for profiles
+        - Filter
+        - Creation of groups
+        - Validation of groups by the admin
+        - An overview of some profiles
+        - Changing group information
+
+    Tests that are mandatory
+        - The change was well made
+        - Make a check on the parameters of the change
+        - All required fields are filled in
+        - Validation well done
+        - Filtering works well
+        - Group has been well established
+        - Global view well displayed
+        - Confirming the directory profile with the DB
+
+    """
     pass
 
 
 class SelfDevelopmentProgram:
+    """"
+    The dev program model models the required fields for dev programs creation
+    dev programs need to be validated by any admin
+
+    Interactions with the platform
+        - Registration
+        - Validation by Admin
+        - Subscribe or not
+        - Displaying personal programs
+
+    Tests that are mandatory
+        - The registration was well done
+        - Make a check on the registration parameters
+        - All required fields are filled in
+        - Validation well done
+        - Do all the programs display properly?
+        - Are you a subscriber (was it well done ?)
+
+    """
     pass
