@@ -68,10 +68,10 @@ class User(AbstractBaseUser):
     photo = models.FileField(upload_to=upload_to_name,
                              blank=True)
     job_title = models.CharField(max_length=100, blank=True, null=True)
-    category = models.ForeignKey(UserCategory, on_delete=models.CASCADE, default=1)
+    category = models.ForeignKey(UserCategory, on_delete=models.CASCADE, blank=True, null=True)
     structures = models.ManyToManyField(UserStructure, blank=True)
     is_enterprise = models.BooleanField()
-    cotisation_type = models.ForeignKey(UserCotisationType, on_delete=models.CASCADE, default=1)
+    cotisation_type = models.ForeignKey(UserCotisationType, on_delete=models.CASCADE, blank=True, null=True)
     twitter_link = models.CharField(max_length=200, blank=True, null=True)
     linkedin_link = models.CharField(max_length=200, blank=True, null=True)
     is_subscribed_newsletter = models.BooleanField(default=False)
