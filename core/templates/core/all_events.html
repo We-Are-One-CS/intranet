@@ -21,21 +21,21 @@
     {% for event in events %}
     <div class="blog-card">
         <div class="meta">
-            {% if event.event_photo == "" %}
+            {% if event.photo == "" %}
             <div class="photo"
                 style="background-image: url('../../static/core/event_pictures/default-event-image.png')">
             </div>
             {% else %}
-            {% with photo=event.event_photo.url|cut:"core/static/core/" %}
+            {% with photo=event.photo.url|cut:"core/static/core/" %}
             <div class="photo" style="background-image: url('../../static/core/{{photo}}')">
             </div>
             {% endwith %}
             {% endif %}
         </div>
         <div class="description text-left">
-            <h1>{{event.event_title}}</h1>
-            <h2>{{event.event_begin_date}}</h2>
-            <p class="text">{{event.event_description|truncatechars:90}}</p>
+            <h1>{{event.title }}</h1>
+            <h2>{{event.begin_date }}</h2>
+            <p class="text">{{event.description|truncatechars:90}}</p>
             <p class="read-more">
                 <a href="#">Voir plus</a>
             </p>
