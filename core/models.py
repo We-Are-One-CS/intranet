@@ -8,13 +8,14 @@ from .managers import CustomUserManager
 def upload_to_name(instance, filename):
     return 'core/static/core/profile_pictures/' + filename  # A CHANGER EN 'static/core/profile_pictures/' EN PROD !!!
 
+
 def upload_to_name_event(instance, filename):
     return 'core/static/core/event_pictures/' + filename  # A CHANGER EN 'static/core/event_pictures/' EN PROD !!!
 
 
 # Create your models here.
 
-class UserCategory(models.Model):
+class Category(models.Model):
     class Meta:
         verbose_name = 'Catégorie'
         verbose_name_plural = 'Catégories'
@@ -25,7 +26,7 @@ class UserCategory(models.Model):
         return self.name
 
 
-class UserStructure(models.Model):
+class Structure(models.Model):
     class Meta:
         verbose_name = 'Structure'
         verbose_name_plural = 'Structures'
@@ -36,13 +37,12 @@ class UserStructure(models.Model):
         return self.name
 
 
-class UserCotisationType(models.Model):
+class CotisationType(models.Model):
     class Meta:
         verbose_name = 'Cotisation utilisateur'
         verbose_name_plural = 'Types de cotisation utilisateurs'
 
     name = models.CharField(unique=True, max_length=300, verbose_name='Nom')
-    cotisation_user = models.BooleanField()
 
     # company_cotisation = models.BooleanField(verbose_name='Pour les entreprises', blank=True)
     def __str__(self):
@@ -68,10 +68,10 @@ class User(AbstractBaseUser):
     photo = models.FileField(upload_to=upload_to_name,
                              blank=True)
     job_title = models.CharField(max_length=100, blank=True, null=True)
-    category = models.ForeignKey(UserCategory, on_delete=models.CASCADE, blank=True, null=True)
-    structures = models.ManyToManyField(UserStructure, blank=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True)
+    structure = models.ManyToManyField(Structure, blank=True)
     is_enterprise = models.BooleanField()
-    cotisation_type = models.ForeignKey(UserCotisationType, on_delete=models.CASCADE, blank=True, null=True)
+    cotisation_type = models.ForeignKey(CotisationType, on_delete=models.CASCADE, blank=True, null=True)
     twitter_link = models.CharField(max_length=200, blank=True, null=True)
     linkedin_link = models.CharField(max_length=200, blank=True, null=True)
     is_subscribed_newsletter = models.BooleanField(default=False)
@@ -128,22 +128,22 @@ class Event(models.Model):
         verbose_name = 'Evénement'
         verbose_name_plural = 'Evénements'
 
-    event_id = models.AutoField(primary_key=True)
-    event_description = models.CharField(max_length=500)
-    event_begin_date = models.DateTimeField("Date de début de l'événement")
-    event_end_date = models.DateTimeField("Date de fin de l'évènement")
-    event_title = models.CharField(max_length=100)
-    event_address = models.CharField(max_length=300)
-    event_price = models.FloatField()
-    event_capacity = models.IntegerField()
-    event_type = models.CharField(max_length=100)
-    event_publication_date = models.DateTimeField(name="Date de création de l'évènement", auto_now_add=True)
-    event_photo = models.FileField(upload_to=upload_to_name_event, blank=True)
-    # event_is_private = models.BooleanField() # I don't know if it has to be here
-    # event_is_valide = models.BooleanField() # I don't know if it has to be here
+    description = models.CharField(max_length=500)
+    begin_date = models.DateTimeField("Date de début de l'événement")
+    end_date = models.DateTimeField("Date de fin de l'évènement")
+    title = models.CharField(max_length=100)
+    address = models.CharField(max_length=300)
+    price = models.FloatField()
+    capacity = models.IntegerField()
+    type = models.CharField(max_length=100)
+    publication_date = models.DateTimeField(name="Date de création de l'évènement", auto_now_add=True)
+    photo = models.FileField(upload_to=upload_to_name_event, blank=True)
+    is_private = models.BooleanField(
+        default=False)  # This is used to know whether normal users will see the event or not
+    validated = models.BooleanField(default=False)  # The admin needs to check the event in order to show it
 
     def __str__(self):
-        return self.event_title
+        return self.title
 
 
 class Yearbook:

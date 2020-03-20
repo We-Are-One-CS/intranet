@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from phonenumber_field.formfields import PhoneNumberField
 
-from .models import User, UserStructure, Event
+from .models import User, Structure, Event
 
 
 class DateInput(forms.DateInput):
@@ -12,7 +12,7 @@ class DateInput(forms.DateInput):
 class UserRegistrationForm(UserCreationForm):
     telephone = PhoneNumberField(label="Téléphone : ", required=False)
     structures = forms.ModelMultipleChoiceField(
-        queryset=UserStructure.objects.all(),
+        queryset=Structure.objects.all(),
         label='Structures : ',
         help_text="Vous pouvez sélectionner plusieurs éléments",
         required=False
@@ -32,7 +32,7 @@ class UserRegistrationForm(UserCreationForm):
             'photo',
             'birthday',
             'job_title',
-            'structures',
+            'structure',
             'cotisation_type',
             'twitter_link',
             'linkedin_link',
@@ -65,7 +65,7 @@ class UserRegistrationForm(UserCreationForm):
 class CompanyRegistrationForm(UserCreationForm):
     telephone = PhoneNumberField(label="Contact téléphonique : ", required=False)
     structures = forms.ModelMultipleChoiceField(
-        queryset=UserStructure.objects.all(),
+        queryset=Structure.objects.all(),
         label='Structures : ',
         help_text="Vous pouvez sélectionner plusieurs éléments",
         required=False
@@ -81,7 +81,7 @@ class CompanyRegistrationForm(UserCreationForm):
             'email',
             'telephone',
             'job_title',
-            'structures',
+            'structure',
             'twitter_link',
             'linkedin_link',
             'is_subscribed_newsletter',
@@ -107,32 +107,33 @@ class CompanyRegistrationForm(UserCreationForm):
 
 
 class EventCreationForm(forms.ModelForm):
-    event_title = forms.CharField(label='Nom de l\'événement : ', required=True)
+    title = forms.CharField(label='Nom de l\'événement : ', required=True)
+
     class Meta:
         model = Event
         fields = (
-            'event_title',
-            'event_description',
-            'event_type',
-            'event_begin_date',
-            'event_end_date',
-            'event_address',
-            'event_price',
-            'event_capacity',
-            'event_photo',
+            'title',
+            'description',
+            'type',
+            'begin_date',
+            'end_date',
+            'address',
+            'price',
+            'capacity',
+            'photo',
         )
         labels = {
-            'event_title': 'Nom de l\'événement : ',
-            'event_description': 'Description : ',
-            'event_type': 'Type d\'événement : ',
-            'event_begin_date': 'Date de début l\'événement : ',
-            'event_end_date': 'Date de fin l\'événement : ',
-            'event_address': 'Adresse : ',
-            'event_price': 'Prix : ',
-            'event_capacity': 'Nombre de places : ',
-            'event_photo':'Photo de l\'événement',
+            'title': 'Nom de l\'événement : ',
+            'description': 'Description : ',
+            'type': 'Type d\'événement : ',
+            'begin_date': 'Date de début l\'événement : ',
+            'end_date': 'Date de fin l\'événement : ',
+            'address': 'Adresse : ',
+            'price': 'Prix : ',
+            'capacity': 'Nombre de places : ',
+            'photo': 'Photo de l\'événement',
         }
         widgets = {
-            'event_begin_date': DateInput(),
-            'event_end_date': DateInput(),
+            'begin_date': DateInput(),
+            'end_date': DateInput(),
         }
