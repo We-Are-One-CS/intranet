@@ -15,6 +15,17 @@ def upload_to_name_event(instance, filename):
 
 # Create your models here.
 
+class SubjectImpact(models.Model):
+    class Meta:
+        verbose_name = "Sujet d'impact"
+        verbose_name_plural = "Sujets d'impact"
+
+    name = models.CharField(unique=True, max_length=300, verbose_name='Nom')
+
+    def __str__(self):
+        return self.name
+
+
 class Category(models.Model):
     class Meta:
         verbose_name = 'Catégorie'
@@ -72,6 +83,7 @@ class User(AbstractBaseUser):
     structure = models.ManyToManyField(Structure, blank=True)
     is_enterprise = models.BooleanField()
     cotisation_type = models.ForeignKey(CotisationType, on_delete=models.CASCADE, blank=True, null=True)
+    cotisation_paid = models.BooleanField(default=False)
     twitter_link = models.CharField(max_length=200, blank=True, null=True)
     linkedin_link = models.CharField(max_length=200, blank=True, null=True)
     is_subscribed_newsletter = models.BooleanField(default=False)
@@ -79,6 +91,7 @@ class User(AbstractBaseUser):
     address_complement = models.CharField(max_length=500, blank=True, null=True)
     zip_code = models.IntegerField(blank=True, null=True)
     city = models.CharField(max_length=100, blank=True, null=True)
+    country = models.CharField(max_length=100, blank=True, null=True)
 
     # Required fields to extend AbstractBaseUser
     date_joined = models.DateTimeField(verbose_name='date joined', auto_now_add=True)
