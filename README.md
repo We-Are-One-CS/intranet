@@ -7,79 +7,48 @@ The project is currently in development. Started at CentraleSupélec with Lattit
 
 ### Prerequisites 
 
-Install Docker : 
 
-* [Windows install](https://docs.docker.com/docker-for-windows/install/)
-* [Mac install](https://docs.docker.com/docker-for-mac/install/)
-* [Linux install](https://www.docker.com/community-edition)
-
-Make sure **Docker** is installed and works : 
-```bash 
-$ docker --version
-Docker version 19.03.5, build 633a0ea
-$ docker run hello-world
-
-Hello from Docker!
-This message shows that your installation appears to be working correctly.
-
-To generate this message, Docker took the following steps:
- 1. The Docker client contacted the Docker daemon.
- 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
-    (amd64)
- 3. The Docker daemon created a new container from that image which runs the
-    executable that produces the output you are currently reading.
- 4. The Docker daemon streamed that output to the Docker client, which sent it
-    to your terminal.
-
-To try something more ambitious, you can run an Ubuntu container with:
- $ docker run -it ubuntu bash
-
-Share images, automate workflows, and more with a free Docker ID:
- https://hub.docker.com/
-
-For more examples and ideas, visit:
- https://docs.docker.com/get-started/
-```
+1. `Django 2.2.10` 
+2. [`Python 3.7.4`](https://www.python.org/downloads/release/python-374/)
+3. [`PostgreSQL 10`](https://www.postgresql.org/download/)
+3. For others requirements, see `requirements.txt`
 
 ## Run the project
 
-Clone the project on your machine and chdir: 
+Clone  the project on your machine and change the directory : 
 ```bash
 $ git clone git@github.com:We-Are-One-CS/intranet.git
 $ cd intranet/
-```
-Build the image: 
-```bash 
-$ docker build .
 ```
 
 Migrate the database: 
 
 ```bash
-$ docker-compose run web python /code/manage.py makemigrations
+$ python manage.py makemigrations core 
 
-$ docker-compose run web python /code/manage.py migrate --noinput
+$ python manage.py migrate --noinput
 ```
 
 Create an admin user: 
 
 ```bash
-$ docker-compose run web python /code/manage.py createsuperuser
+$ python manage.py createsuperuser
 ```
 
-Run the app in a Docker container: 
+Run the app in a Django server: 
 
 ```bash
-$ docker-compose up -d --build
+$ python manage.py runserver
 ```
 
 Now you should see the app by taping http://127.0.0.1:8000 in your web browser. 
 
 
-When you're done, don't forget to close down your Docker container : 
+When you're done, don't forget to exit the server by : 
 
 ```bash
-$ docker-compose down
+Quit the server with CTRL-BREAK
+(In Windows) Ctrl + C
 ```
 
 ## Functions

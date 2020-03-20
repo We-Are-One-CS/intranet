@@ -81,9 +81,9 @@ WSGI_APPLICATION = 'intranet.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
+        'NAME': 'weareone',
         'USER': 'postgres',
-        'PASSWORD':'',
+        'PASSWORD': 'admin',
         'HOST': 'localhost',  # set in docker-compose.yml
         'PORT': '',
     }
