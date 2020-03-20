@@ -11,7 +11,7 @@ class DateInput(forms.DateInput):
 
 class UserRegistrationForm(UserCreationForm):
     telephone = PhoneNumberField(label="Téléphone : ", required=False)
-    structures = forms.ModelMultipleChoiceField(
+    structure = forms.ModelMultipleChoiceField(
         queryset=Structure.objects.all(),
         label='Structures : ',
         help_text="Vous pouvez sélectionner plusieurs éléments",
@@ -41,6 +41,7 @@ class UserRegistrationForm(UserCreationForm):
             'address_complement',
             'zip_code',
             'city',
+            'country',
             'password1',
             'password2'
         )
@@ -64,7 +65,7 @@ class UserRegistrationForm(UserCreationForm):
 
 class CompanyRegistrationForm(UserCreationForm):
     telephone = PhoneNumberField(label="Contact téléphonique : ", required=False)
-    structures = forms.ModelMultipleChoiceField(
+    structure = forms.ModelMultipleChoiceField(
         queryset=Structure.objects.all(),
         label='Structures : ',
         help_text="Vous pouvez sélectionner plusieurs éléments",
@@ -99,7 +100,8 @@ class CompanyRegistrationForm(UserCreationForm):
             'address': 'Addresse : ',
             'address_complement': 'Complément d\'addresse : ',
             'zip_code': 'Code postal : ',
-            'city': 'Ville : '
+            'city': 'Ville : ',
+            'country': 'Pays :'
         }
         widgets = {
             'birthday': DateInput(),
