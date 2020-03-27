@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views import generic
 
-from .forms import EventCreationForm
+from .forms import EventCreationForm, UserUpdateForm
 from .forms import UserRegistrationForm, CompanyRegistrationForm
 from .models import User, Event
 
@@ -61,8 +61,8 @@ class RegisterView:
                 form = CompanyRegistrationForm(request.POST)
                 if form.is_valid():
                     user = form.save(commit=False)
-                    cotisation_id = user.cotisation_type
-                    print(cotisation_id)
+                    membership_id = user.membership_type
+                    print(membership_id)
                     user.is_enterprise = True
                     user.is_active = False
                     email = form.cleaned_data.get('email')
@@ -220,6 +220,34 @@ class UserView(generic.ListView):
     def user_profile(request, user_id):
         user = User.objects.get(id=user_id)
         return render(request, 'core/user.html', {'user': user})
+
+
+class UpdateUserView(generic.ListView):
+
+    def update(request):
+
+        return render(request, 'core/update.html')
+
+    # def update_user(request):
+    #     context = {}
+    #     if request.POST:
+    #         if 'user_update' in request.POST:
+    #             form = UserUpdateForm(request.POST, request.FILES or None)
+    #             if form.is_valid():
+    #                 incomplete_user = form.save(commit=False)
+    #                 incomplete_user.is_enterprise = False
+    #                 incomplete_user.is_active = False
+    #                 email = form.cleaned_data.get('email')
+    #                 raw_password = form.cleaned_data.get('password1')
+    #                 incomplete_user.save()
+    #                 login(request, incomplete_user, backend='django.contrib.auth.backends.ModelBackend')
+    #                 return redirect('login')
+    #             else:
+    #                 context['user_update_form'] = form
+    #     else:
+    #         user_form = UserRegistrationForm()
+    #         context['user_update_form'] = user_form
+    #     return render(request, 'core/update.html', context)
 
 
 class CreateProgramView(generic.ListView):
