@@ -13,8 +13,8 @@ class CustomUserManager(BaseUserManager):
 
         user = self.model(
             email=self.normalize_email(email),
-            birthday=timezone.now(),
-            is_enterprise=False)
+            birthday=timezone.now()
+            )
         user.set_password(password)
         user.save(using=self._db)
         return user

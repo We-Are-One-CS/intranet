@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from phonenumber_field.formfields import PhoneNumberField
 
 from .models import User, Structure, Event
@@ -33,7 +33,7 @@ class UserRegistrationForm(UserCreationForm):
             'birthday',
             'job_title',
             'structure',
-            'cotisation_type',
+            'membership_type',
             'twitter_link',
             'linkedin_link',
             'is_subscribed_newsletter',
@@ -83,6 +83,7 @@ class CompanyRegistrationForm(UserCreationForm):
             'telephone',
             'job_title',
             'structure',
+            'category',
             'twitter_link',
             'linkedin_link',
             'is_subscribed_newsletter',
@@ -96,6 +97,7 @@ class CompanyRegistrationForm(UserCreationForm):
         labels = {
             'email': 'Email : ',
             'last_name': 'Nom de l\'entreprise : ',
+            'category': 'Catégorie : ',
             'is_subscribed_newsletter': 'S\'inscrire à la newsletter',
             'address': 'Addresse : ',
             'address_complement': 'Complément d\'addresse : ',
@@ -138,4 +140,57 @@ class EventCreationForm(forms.ModelForm):
         widgets = {
             'begin_date': DateInput(),
             'end_date': DateInput(),
+        }
+
+
+class UserUpdateForm(UserChangeForm):
+    telephone = PhoneNumberField(label="Téléphone : ", required=False)
+    structure = forms.ModelMultipleChoiceField(
+        queryset=Structure.objects.all(),
+        label='Structures : ',
+        help_text="Vous pouvez sélectionner plusieurs éléments",
+        required=False
+    )
+    twitter_link = forms.CharField(label='Lien Twitter : ', required=False)
+    linkedin_link = forms.CharField(label='Lien LinkedIn : ', required=False)
+    first_name = forms.CharField(label='Prénom : ', required=True)
+
+    class Meta:
+        model = User
+        fields = (
+            'first_name',
+            'last_name',
+            'email',
+            'telephone',
+            'gender',
+            'photo',
+            'birthday',
+            'job_title',
+            'structure',
+            'membership_type',
+            'twitter_link',
+            'linkedin_link',
+            'is_subscribed_newsletter',
+            'address',
+            'address_complement',
+            'zip_code',
+            'city',
+            'country',
+            'password'
+        )
+        labels = {
+            'email': 'Email : ',
+            'last_name': 'Nom : ',
+            'birthday': 'Date de naissance : ',
+            'job_title': 'Profession : ',
+            'gender': 'Genre : ',
+            'photo': 'Photo de profil',
+            'is_subscribed_newsletter': 'Je souhaite m\'inscrire à la newsletter',
+            'address': 'Addresse : ',
+            'address_complement': 'Complément d\'addresse : ',
+            'zip_code': 'Code postal : ',
+            'city': 'Ville : ',
+        }
+        widgets = {
+            'birthday': DateInput(),
         }

@@ -5,6 +5,9 @@ from phonenumber_field.modelfields import PhoneNumberField
 from .managers import CustomUserManager
 
 
+# TODO: Use the standard of models in order to better write all of our models
+# https://simpleisbetterthancomplex.com/tips/2018/02/10/django-tip-22-designing-better-models.html
+
 def upload_to_name(instance, filename):
     return 'core/static/core/profile_pictures/' + filename  # A CHANGER EN 'static/core/profile_pictures/' EN PROD !!!
 
@@ -37,9 +40,24 @@ class SubjectImpact(models.Model):
         return self.name
 
 
+class Beneficiary(models.Model):
+    """
+    # TODO: Ask for documentation (Call Alexandre)
+    """
+
+    class Meta:
+        verbose_name = "Beneficiaire"
+        verbose_name_plural = "Beneficiaires"
+
+    name = models.CharField(unique=True, max_length=300, verbose_name='Nom')
+
+    def __str__(self):
+        return self.name
+
+
 class Category(models.Model):
     """"
-    There are 3 categories of member:
+    There are 3 categories of members:
         1. Adherent
         2. Active
         3. Proactive
@@ -76,7 +94,7 @@ class Structure(models.Model):
         return self.name
 
 
-class CotisationType(models.Model):
+class MembershipType(models.Model):
     """"
     There are different types according to which type of profile we are dealing with (individual or entreprise)
     There are connected via the plateforme HelloAsso.
@@ -101,6 +119,47 @@ class CotisationType(models.Model):
     # company_cotisation = models.BooleanField(verbose_name='Pour les entreprises', blank=True)
     def __str__(self):
         return self.name
+
+
+class Company(models.Model):
+    """
+    # TODO: Create documentation for company model
+    """
+
+    class Meta:
+        verbose_name = 'Entreprise'
+        verbose_name_plural = 'Entreprises'
+
+    # TO STRING METHOD
+    def __str__(self):
+        return self.name
+
+    name = models.CharField(max_length=300, blank=True, null=True)
+    email = models.EmailField(unique=True)
+    telephone = PhoneNumberField(blank=True, null=True)
+    birthday = models.DateField('Date de naissance', blank=True, null=True)
+    photo = models.FileField(upload_to=upload_to_name,
+                             blank=True)
+    address = models.CharField(max_length=500, blank=True, null=True)
+    membership_type = models.ForeignKey(MembershipType, on_delete=models.CASCADE, blank=True, null=True)
+    address_complement = models.CharField(max_length=500, blank=True, null=True)
+    zip_code = models.IntegerField(blank=True, null=True)
+    city = models.CharField(max_length=100, blank=True, null=True)
+    country = models.CharField(max_length=100, blank=True, null=True)
+    twitter_link = models.CharField(max_length=200, blank=True, null=True)
+    facebook_link = models.CharField(max_length=200, blank=True, null=True)
+    linkedin_link = models.CharField(max_length=200, blank=True, null=True)
+
+    # CHOICES
+    PUBLIC_LIMITED_COMPANY = 'PLC'
+    PRIVATE_COMPANY_LIMITED = 'LTD'
+    LIMITED_LIABILITY_PARTNERSHIP = 'LLP'
+    COMPANY_TYPE_CHOICES = (
+        (PUBLIC_LIMITED_COMPANY, 'Public limited company'),
+        (PRIVATE_COMPANY_LIMITED, 'Private company limited by shares'),
+        (LIMITED_LIABILITY_PARTNERSHIP, 'Limited liability partnership'),
+    )
+    type = models.CharField(max_length=4, choices=COMPANY_TYPE_CHOICES)
 
 
 class User(AbstractBaseUser):
@@ -144,10 +203,11 @@ class User(AbstractBaseUser):
     job_title = models.CharField(max_length=100, blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True)
     structure = models.ManyToManyField(Structure, blank=True)
-    is_enterprise = models.BooleanField()
-    cotisation_type = models.ForeignKey(CotisationType, on_delete=models.CASCADE, blank=True, null=True)
-    cotisation_paid = models.BooleanField(default=False)
+    membership_type = models.ForeignKey(MembershipType, on_delete=models.CASCADE, blank=True, null=True)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, blank=True, null=True)
+    membership_paid = models.BooleanField(default=False)
     twitter_link = models.CharField(max_length=200, blank=True, null=True)
+    facebook_link = models.CharField(max_length=200, blank=True, null=True)
     linkedin_link = models.CharField(max_length=200, blank=True, null=True)
     is_subscribed_newsletter = models.BooleanField(default=False)
     address = models.CharField(max_length=500, blank=True, null=True)
@@ -210,7 +270,7 @@ class Event(models.Model):
         - Add/Change data
         - View all events/Filter
         - Personal events (later)
-        - Pay for events
+        - Pay for events (later)
         - Like/Interest/Participate (later)
         - Publications on the event (later)
 
