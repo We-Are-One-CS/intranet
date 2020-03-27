@@ -6,97 +6,97 @@
     <title>
 
         {% block title %}
-        WAO Users
+            WAO Users
         {% endblock title %}
     </title>
     {% block mystylesheet %}{% endblock mystylesheet %}
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="icon" type="image/x-icon"
-        href="https://uploads-ssl.webflow.com/5c7bab3e5c22930c754b0806/5c9ddb69c7170a50acf939b7_Logo%20WAO%20256%20x%20256.jpg">
+          href="https://uploads-ssl.webflow.com/5c7bab3e5c22930c754b0806/5c9ddb69c7170a50acf939b7_Logo%20WAO%20256%20x%20256.jpg">
     <link rel="stylesheet" type="text/css" href="{% static 'core/css/base_style.css' %}">
 </head>
 
 <body>
-    <!-- navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white">
-        <a class="navbar-brand" href="/"><img
-                src="https://uploads-ssl.webflow.com/5c7bab3e5c22930c754b0806/5e3d4f5a8cf4756fd1fb441a_Screen%20Shot%202020-02-07%20at%2012.50.53.png"
-                width="80" alt=""></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+<!-- navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <a class="navbar-brand" href="/"><img
+            src="https://uploads-ssl.webflow.com/5c7bab3e5c22930c754b0806/5e3d4f5a8cf4756fd1fb441a_Screen%20Shot%202020-02-07%20at%2012.50.53.png"
+            width="80" alt=""></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/">Accueil<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Profil
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/user">Voir mon profil</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/user/update">Éditer mes infos</a>
-{#                        TODO: Add the link for the edit info page#}
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Évènements
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/events">Tous les évènements</a>
-                        <a class="dropdown-item" href="/events/search_events">Chercher un évènement</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/user">Mes évènements</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Annuaire
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/yearbook">Tous les profils</a>
-                        <a class="dropdown-item" href="/yearbook/search_user">Chercher un profil</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/user">Mon profil</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/programs">Programmes perso</a>
-                </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2 search-text" type="search" placeholder="" aria-label="Search">
-                <button class="search-button" type="submit">Chercher</button>
-            </form>
-        </div>
-    </nav>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Accueil<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Profil
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/user">Voir mon profil</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/user/update">Éditer mes infos</a>
+                    {#                        TODO: Add the link for the edit info page#}
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Évènements
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/events">Tous les évènements</a>
+                    <a class="dropdown-item" href="/events/search_events">Chercher un évènement</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/user">Mes évènements</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Annuaire
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/yearbook">Tous les profils</a>
+                    <a class="dropdown-item" href="/yearbook/search_user">Chercher un profil</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/user">Mon profil</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/programs">Programmes perso</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2 search-text" type="search" placeholder="" aria-label="Search">
+            <button class="search-button" type="submit">Chercher</button>
+        </form>
+    </div>
+</nav>
 
-    {% block content %}{% endblock content %}
+{% block content %}{% endblock content %}
 
-    {% load static %}
+{% load static %}
 
-    <!-- Needed Javascript -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+<!-- Needed Javascript -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/js/bootstrap.min.js"
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/js/bootstrap.min.js"
         integrity="sha384-3qaqj0lc6sV/qpzrc1N5DC6i1VRn/HyX4qdPaiEFbn54VjQBEU341pvjz7Dv3n6P"
         crossorigin="anonymous"></script>
-    <script src="https://kit.fontawesome.com/de2f9892ea.js" crossorigin="anonymous"></script>
-    {% block myjssheet %}{% endblock myjssheet %}
+<script src="https://kit.fontawesome.com/de2f9892ea.js" crossorigin="anonymous"></script>
+{% block myjssheet %}{% endblock myjssheet %}
 </body>
 
 </html>

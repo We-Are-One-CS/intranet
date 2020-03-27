@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views import generic
 
-from .forms import EventCreationForm, UserUpdateForm
+from .forms import EventCreationForm
 from .forms import UserRegistrationForm, CompanyRegistrationForm
 from .models import User, Event
 
@@ -225,7 +225,6 @@ class UserView(generic.ListView):
 class UpdateUserView(generic.ListView):
 
     def update(request):
-
         return render(request, 'core/update.html')
 
     # def update_user(request):
