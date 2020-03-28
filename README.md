@@ -1,3 +1,4 @@
+![Django CI](https://github.com/We-Are-One-CS/intranet/workflows/Django%20CI/badge.svg)
 # We Are One (CentraleSupélec)
 
 GitHub repository for our member website. This repository contains all files needed to see and integrate in the original website the 4 functions discussed during the initial phase of the project. 
