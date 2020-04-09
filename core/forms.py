@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from phonenumber_field.formfields import PhoneNumberField
+from tempus_dominus.widgets import DateTimePicker
 
 from .models import User, Structure, Event
 
@@ -138,8 +139,18 @@ class EventCreationForm(forms.ModelForm):
             'photo': 'Photo de l\'événement',
         }
         widgets = {
-            'begin_date': DateInput(),
-            'end_date': DateInput(),
+            'begin_date': DateTimePicker(
+                attrs={
+                'append': 'fa fa-calendar',
+                'icon_toggle': True,
+            }
+            ),
+            'end_date': DateTimePicker(
+                attrs={
+                'append': 'fa fa-calendar',
+                'icon_toggle': True,
+            }
+            ),
         }
 
 

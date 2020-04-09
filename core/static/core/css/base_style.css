@@ -84,7 +84,7 @@ html {
     text-align: center;
 }
 
-.separator {
+.separators {
     display: inline-block;
     width: 30px;
     height: 1px;
@@ -92,7 +92,7 @@ html {
     background-color: #24c3e2;
 }
 
-.separator.header {
+.separators.header {
     margin-top: 0px;
     margin-bottom: 0px;
     background-color: #c9c9c9;

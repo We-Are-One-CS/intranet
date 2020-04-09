@@ -161,6 +161,16 @@ class AllEventsView(generic.ListView):
         events = Event.objects.all()
         return render(request, 'core/all_events.html', {'events': events})
 
+class EventInfoView(generic.ListView):
+    template_name = 'core/event_info.html'
+
+    def event_info(request, event_id):
+        """"
+        Temporary solution while we do not construct the queryset method
+        """
+        event = Event.objects.get(id=event_id)
+        return render(request, 'core/event_info.html', {'event' : event})
+
 
 class SearchEventsView(generic.ListView):
     template_name = 'core/search_events.html'

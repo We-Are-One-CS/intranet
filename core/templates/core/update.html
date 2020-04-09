@@ -5,13 +5,14 @@
 {% block title %}Éditer mes informations{% endblock title %}
 
 {% block mystylesheet %}
-    <link rel="stylesheet" type="text/css" href="{% static 'core/css/register.css' %}">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    {{ form.media }}
+<link rel="stylesheet" type="text/css" href="{% static 'core/css/register.css' %}">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+{{ form.media }}
 {% endblock mystylesheet %}
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Éditer mes informations</title>
@@ -19,72 +20,72 @@
 
 <body>
 
-{% block content %}
+    {% block content %}
     {#TODO: Check if the user is logged, if not show an error message ! Otherwise, proceed to the update page (user, company)#}
 
     {% if user.is_authenticated %}
 
-        <div class="yellow-header">
-            <p class="text-center text-white header-text">Éditer mes informations</p>
-            <div class="separated-div-wrapper">
-                <div class="separator header"></div>
-                <div class="separator header center-white"></div>
-                <div class="separator header"></div>
-            </div>
+    <div class="yellow-header">
+        <p class="text-center text-white header-text">Éditer mes informations</p>
+        <div class="separated-div-wrapper">
+            <div class="separators header"></div>
+            <div class="separators header center-white"></div>
+            <div class="separators header"></div>
         </div>
+    </div>
 
-        <div class="container py-2">
-            <p class="text-center"> Je suis :
-                {#                TODO: Change the url from form_user to another one that only does the update info#}
-                <a href="{% url 'form_user' %}">
-                    <button class="mx-4 button" type="button">
-                        Un utilisateur
-                    </button>
-                </a>
-                <a href="{% url 'form_company' %}">
-                    <button class="mx-4 button" type="button">
-                        Une entreprise
-                    </button>
-                </a>
-            </p>
-        </div>
+    <div class="container py-2">
+        <p class="text-center"> Je suis :
+            {#                TODO: Change the url from form_user to another one that only does the update info#}
+            <a href="{% url 'form_user' %}">
+                <button class="mx-4 button" type="button">
+                    Un utilisateur
+                </button>
+            </a>
+            <a href="{% url 'form_company' %}">
+                <button class="mx-4 button" type="button">
+                    Une entreprise
+                </button>
+            </a>
+        </p>
+    </div>
 
-        <div class="container py-2">
-            <div id="userForm">
-                <div class="card card-body">
-                    Les champs suivis d'une astérisque sont obligatoires. <br>
-                    <form method="POST" enctype='multipart/form-data'>
-                        {#                    TODO: Create a new form for update user info#}
-                        {% csrf_token %}
-                        {% for field in user_update_form %}
-                            <p>
-                                {{ field | as_crispy_field }}
-                                {% for error in field.errors %}
-                                    <small class="errors">{{ error }}</small>
-                                {% endfor %}
-                            </p>
+    <div class="container py-2">
+        <div id="userForm">
+            <div class="card card-body">
+                Les champs suivis d'une astérisque sont obligatoires. <br>
+                <form method="POST" enctype='multipart/form-data'>
+                    {#                    TODO: Create a new form for update user info#}
+                    {% csrf_token %}
+                    {% for field in user_update_form %}
+                    <p>
+                        {{ field | as_crispy_field }}
+                        {% for error in field.errors %}
+                        <small class="errors">{{ error }}</small>
                         {% endfor %}
-                        <button class="btn btn-primary" type="submit" name="user_registration">Mettre à jour</button>
-                    </form>
-                </div>
+                    </p>
+                    {% endfor %}
+                    <button class="btn btn-primary" type="submit" name="user_registration">Mettre à jour</button>
+                </form>
             </div>
         </div>
+    </div>
 
     {% else %}
 
 
-        <div class="yellow-header">
-            <p class="text-center text-white header-text">Vous n'êtes pas connecté!</p>
-            <div class="separated-div-wrapper">
-                <div class="separator header"></div>
-                <div class="separator header center-white"></div>
-                <div class="separator header"></div>
-            </div>
+    <div class="yellow-header">
+        <p class="text-center text-white header-text">Vous n'êtes pas connecté!</p>
+        <div class="separated-div-wrapper">
+            <div class="separators header"></div>
+            <div class="separators header center-white"></div>
+            <div class="separators header"></div>
         </div>
+    </div>
     {% endif %}
-{% endblock content %}
+    {% endblock content %}
 
-{% block myjssheet %}
+    {% block myjssheet %}
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
@@ -92,8 +93,9 @@
             $("#id_birthday").datepicker();
         });
     </script>
-{% endblock myjssheet %}
+    {% endblock myjssheet %}
 
 
 </body>
+
 </html>

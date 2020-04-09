@@ -46,7 +46,7 @@ body {
     border-radius: 20px;
 }
 
-.profile-pic {
+.photo {
     display: false;
     position: absolute;
     margin: false;
@@ -87,12 +87,26 @@ body {
     margin-bottom: 12px;
 }
 
-.user-job {
-    font-size: 18px;
-    letter-spacing: 3px;
+#event_address {
+    font-size: 14px;
+    letter-spacing: 2px;
     line-height: 30px;
     color: black;
     margin-top: 12px;
+}
+
+#event_price {
+    font-size: 14px;
+    letter-spacing: 2px;
+    line-height: 30px;
+    color: white;
+    margin-top: 12px;
+    background-color: #fedb00;
+    border-radius: 20px;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .profile-card-stats {
@@ -112,31 +126,15 @@ body {
 }
 
 .works::after {
-    content: "Evénements faits";
+    content: "Début de l'événement";
 }
 
 .followers::after {
-    content: "Evénements créés";
+    content: "Capacité de l'événement";
 }
 
 .following::after {
-    content: "Dernière connexion";
-}
-
-.twitter_icon {
-    padding: 8px;
-    background-color: #00acee;
-    border-radius: 50px;
-    color: white;
-    font-size: 18px;
-}
-
-.linkedin_icon {
-    padding: 8px;
-    background-color: #0e76a8;
-    border-radius: 50px;
-    color: white;
-    font-size: 18px;
+    content: "Fin de l'événement";
 }
 
 @media screen and (max-width: 1300px) {
@@ -158,7 +156,7 @@ body {
         padding: 0px;
     }
 
-    .profile-pic {
+    .photo {
         height: 140px;
         width: 140px;
         top: -70px;

@@ -17,6 +17,7 @@ urlpatterns = [
     path('login/', views.LoginView.login, name="login"),
     path('logout/', views.LogoutView.logout, name="logout"),
     path('events/all_events/', views.AllEventsView.all_events, name='events/all_events'),
+    path('events/event_info/<int:event_id>', views.EventInfoView.event_info, name='events/event_info'),
     path('events/search_events/', views.SearchEventsView.search_events, name='events/search_events'),
     path('events/subscribe_events/', views.SubscribeEventsView.subscribe_events, name='events/subscribe_events'),
     path('error', views.error, name='error'),

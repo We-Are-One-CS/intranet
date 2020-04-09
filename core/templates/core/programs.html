@@ -8,74 +8,73 @@
 
 {% block mystylesheet %}
 
-    {#    <link rel="stylesheet" type="text/css" href="{% static 'core/css/index.css' %}">#}
-    <link rel="stylesheet" type="text/css" href="{% static 'core/css/programs.css' %}">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    {{ form.media }}
+{#    <link rel="stylesheet" type="text/css" href="{% static 'core/css/index.css' %}">#}
+<link rel="stylesheet" type="text/css" href="{% static 'core/css/programs.css' %}">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+{{ form.media }}
 {% endblock mystylesheet %}
 
 {% block content %}
 
-    <div class="yellow-header">
-        <p class="text-center text-white header-text">Nos programmes perso</p>
-        <div class="separated-div-wrapper">
-            <div class="separator header"></div>
-            <div class="separator header center-white"></div>
-            <div class="separator header"></div>
-        </div>
+<div class="yellow-header">
+    <p class="text-center text-white header-text">Nos programmes perso</p>
+    <div class="separated-div-wrapper">
+        <div class="separators header"></div>
+        <div class="separators header center-white"></div>
+        <div class="separators header"></div>
     </div>
+</div>
 
-    <div class="container text-center pt-2">
-        <h4>C'est ici pour proposer ton programme perso We Are One ! </h4>
-        <div class="container text-center py-4">
-            {#        <button type="button" class="mx-4 btn btn-primary">Créer un évènement</button>#}
-            {#            <a href="{% url 'create_event' %}">#}
-            {#            </a>#}
-            <button type="button" class="mx-4 button" onclick="location.href='create_program/'">Proposer un programme
-                perso
-            </button>
-        </div>
-    </div>
-
-
-    <div class="white-header">
-        <p class="text-center header-text">Ce qui est en train d'arriver !</p>
-        <div class="separated-div-wrapper">
-            <div class="separator header"></div>
-            <div class="separator header center-yellow"></div>
-            <div class="separator header"></div>
-        </div>
-    </div>
-
+<div class="container text-center pt-2">
+    <h4>C'est ici pour proposer ton programme perso We Are One ! </h4>
     <div class="container text-center py-4">
-
-        <button type="button" class="mx-4 button" onclick="location.href='subscribe_programs/'">
-            M'inscrire à un programme perso
+        {#        <button type="button" class="mx-4 btn btn-primary">Créer un évènement</button>#}
+        {#            <a href="{% url 'create_event' %}">#}
+        {#            </a>#}
+        <button type="button" class="mx-4 button" onclick="location.href='create_program/'">Proposer un programme
+            perso
         </button>
     </div>
+</div>
 
 
-
-    <div class="white-header">
-        <p class="text-center header-text">Il reste encore des question ?</p>
-        <div class="separated-div-wrapper">
-            <div class="separator header"></div>
-            <div class="separator header center-yellow"></div>
-            <div class="separator header"></div>
-        </div>
+<div class="white-header">
+    <p class="text-center header-text">Ce qui est en train d'arriver !</p>
+    <div class="separated-div-wrapper">
+        <div class="separators header"></div>
+        <div class="separators header center-yellow"></div>
+        <div class="separators header"></div>
     </div>
+</div>
 
-    <div class="container text-center py-4">
-        <button type="button" class="mx-4 button" onclick="location.href='all_programs/'">Liste
-            des programmes perso
-        </button>
+<div class="container text-center py-4">
 
-        <button type="button" class="mx-4 button" onclick="location.href='search_programs/'">Chercher un programme perso
-        </button>
+    <button type="button" class="mx-4 button" onclick="location.href='subscribe_programs/'">
+        M'inscrire à un programme perso
+    </button>
+</div>
+
+
+
+<div class="white-header">
+    <p class="text-center header-text">Il reste encore des question ?</p>
+    <div class="separated-div-wrapper">
+        <div class="separators header"></div>
+        <div class="separators header center-yellow"></div>
+        <div class="separators header"></div>
     </div>
+</div>
+
+<div class="container text-center py-4">
+    <button type="button" class="mx-4 button" onclick="location.href='all_programs/'">Liste
+        des programmes perso
+    </button>
+
+    <button type="button" class="mx-4 button" onclick="location.href='search_programs/'">Chercher un programme perso
+    </button>
+</div>
 
 
 
 
 {% endblock content %}
-
