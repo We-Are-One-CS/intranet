@@ -9,11 +9,11 @@ from .managers import CustomUserManager
 # https://simpleisbetterthancomplex.com/tips/2018/02/10/django-tip-22-designing-better-models.html
 
 def upload_to_name(instance, filename):
-    return 'core/static/core/profile_pictures/' + filename  # A CHANGER EN 'static/core/profile_pictures/' EN PROD !!!
+    return 'wao/static/wao/profile_pictures/' + filename  # A CHANGER EN 'static/wao/profile_pictures/' EN PROD !!!
 
 
 def upload_to_name_event(instance, filename):
-    return 'core/static/core/event_pictures/' + filename  # A CHANGER EN 'static/core/event_pictures/' EN PROD !!!
+    return 'wao/static/wao/event_pictures/' + filename  # A CHANGER EN 'static/wao/event_pictures/' EN PROD !!!
 
 
 # Create your models here.

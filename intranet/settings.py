@@ -33,7 +33,7 @@ LOGOUT_REDIRECT_URL = 'index'
 # Application definition
 
 INSTALLED_APPS = [
-    'core.apps.CoreConfig',
+    'wao.apps.WaoConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'core.middleware.MessagesMiddleware',
+    'wao.middleware.MessagesMiddleware',
 ]
 
 ROOT_URLCONF = 'intranet.urls'
@@ -72,7 +72,7 @@ TEMPLATES = [
         },
     },
 ]
-AUTH_USER_MODEL = 'core.User'
+AUTH_USER_MODEL = 'wao.User'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 WSGI_APPLICATION = 'intranet.wsgi.application'
 
@@ -127,7 +127,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'core/static/'),
+    os.path.join(BASE_DIR, 'wao/static/'),
 )
 
 INTERNAL_IPS = ['127.0.0.1']

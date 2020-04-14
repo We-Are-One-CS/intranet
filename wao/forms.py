@@ -141,15 +141,15 @@ class EventCreationForm(forms.ModelForm):
         widgets = {
             'begin_date': DateTimePicker(
                 attrs={
-                'append': 'fa fa-calendar',
-                'icon_toggle': True,
-            }
+                    'append': 'fa fa-calendar',
+                    'icon_toggle': True,
+                }
             ),
             'end_date': DateTimePicker(
                 attrs={
-                'append': 'fa fa-calendar',
-                'icon_toggle': True,
-            }
+                    'append': 'fa fa-calendar',
+                    'icon_toggle': True,
+                }
             ),
         }
 

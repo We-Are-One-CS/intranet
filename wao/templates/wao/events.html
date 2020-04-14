@@ -1,0 +1,53 @@
+{% extends 'wao/layouts/base.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% block title %}Nos évènements{% endblock title %}
+
+{% block mystylesheet %}
+    <link rel="stylesheet" type="text/css" href="{% static 'wao/css/index.css' %}">
+{% endblock mystylesheet %}
+
+{% block content %}
+    <div class="yellow-header">
+        <p class="text-center text-white header-text">Évènements</p>
+        <div class="separated-div-wrapper">
+            <div class="separators header"></div>
+            <div class="separators header center-white"></div>
+            <div class="separators header"></div>
+        </div>
+
+    </div>
+    <div class="container text-center pt-2">
+        <h4>C'est ici pour créer ton évènement We Are One ! </h4>
+        <div class="container text-center py-4">
+
+            <button type="button" class="mx-4 button" onclick="location.href='create_event/'">Créer un évènement
+            </button>
+        </div>
+    </div>
+    <div class="container text-center pt-2">
+        <h4>Évènements à venir !</h4>
+    </div>
+
+    <div class="container text-center py-4">
+
+        <button type="button" class="mx-4 button" onclick="location.href='subscribe_events/'">M'inscrire à un
+            évènement
+        </button>
+    </div>
+
+
+    <div class="container text-center pt-2">
+        <h4>Pour voir tous les événements !</h4>
+    </div>
+
+    <div class="container text-center py-4">
+        <button type="button" class="mx-4 button" onclick="location.href='all_events/'">Liste d'évènements</button>
+
+        <button type="button" class="mx-4 button" onclick="location.href='search_events/'">Chercher un évènement
+        </button>
+    </div>
+{% endblock content %}

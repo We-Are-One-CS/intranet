@@ -10,17 +10,17 @@ from .models import User, Event
 
 def error(request, message="Bienvenue sur la page d'affichage d'erreurs !"):
     # This special view is called everytime there is an error to display it into the browser
-    return render(request, 'core/error.html', {'messages': request.messages, })
+    return render(request, 'wao/error.html', {'messages': request.messages, })
 
 
 class IndexView(generic.ListView):
-    template_name = 'core/index.html'
+    template_name = 'wao/index.html'
 
     def index(request):
         """"
         Temporary solution while we do not construct the queryset method
         """
-        return render(request, 'core/index.html')
+        return render(request, 'wao/index.html')
 
     # def get_queryset(self):
     #     """"
@@ -31,7 +31,7 @@ class IndexView(generic.ListView):
 
 class RegisterView:
     def register(request):
-        return render(request, 'core/register.html')
+        return render(request, 'wao/register.html')
 
     def register_user(request):
         context = {}
@@ -52,7 +52,7 @@ class RegisterView:
         else:
             user_form = UserRegistrationForm()
             context['user_registration_form'] = user_form
-        return render(request, 'core/register_user.html', context)
+        return render(request, 'wao/register_user.html', context)
 
     def register_company(request):
         context = {}
@@ -73,7 +73,7 @@ class RegisterView:
         else:
             company_form = CompanyRegistrationForm()
             context['company_registration_form'] = company_form
-        return render(request, 'core/register_company.html', context)
+        return render(request, 'wao/register_company.html', context)
 
 
 class LoginView(generic.ListView):
@@ -112,7 +112,7 @@ class LoginView(generic.ListView):
                 })
                 return error(request)
         else:
-            return render(request, 'core/login.html')
+            return render(request, 'wao/login.html')
 
 
 class LogoutView(generic.ListView):
@@ -122,17 +122,17 @@ class LogoutView(generic.ListView):
 
 
 class EventsView(generic.ListView):
-    template_name = 'core/events.html'
+    template_name = 'wao/events.html'
 
     def events(request):
         """"
         Temporary solution while we do not construct the queryset method
         """
-        return render(request, 'core/events.html')
+        return render(request, 'wao/events.html')
 
 
 class CreateEventView(generic.ListView):
-    template_name = 'core/create_event.html'
+    template_name = 'wao/create_event.html'
 
     def create_event(request):
         context = {}
@@ -148,75 +148,76 @@ class CreateEventView(generic.ListView):
         else:
             event_form = EventCreationForm()
             context['event_creation_form'] = event_form
-        return render(request, 'core/create_event.html', context)
+        return render(request, 'wao/create_event.html', context)
 
 
 class AllEventsView(generic.ListView):
-    template_name = 'core/all_events.html'
+    template_name = 'wao/all_events.html'
 
     def all_events(request):
         """"
         Temporary solution while we do not construct the queryset method
         """
         events = Event.objects.all()
-        return render(request, 'core/all_events.html', {'events': events})
+        return render(request, 'wao/all_events.html', {'events': events})
+
 
 class EventInfoView(generic.ListView):
-    template_name = 'core/event_info.html'
+    template_name = 'wao/event_info.html'
 
     def event_info(request, event_id):
         """"
         Temporary solution while we do not construct the queryset method
         """
         event = Event.objects.get(id=event_id)
-        return render(request, 'core/event_info.html', {'event' : event})
+        return render(request, 'wao/event_info.html', {'event': event})
 
 
 class SearchEventsView(generic.ListView):
-    template_name = 'core/search_events.html'
+    template_name = 'wao/search_events.html'
 
     def search_events(request):
         """"
         Temporary solution while we do not construct the queryset method
         """
-        return render(request, 'core/search_events.html')
+        return render(request, 'wao/search_events.html')
 
 
 class SubscribeEventsView(generic.ListView):
-    template_name = 'core/subscribe_events.html'
+    template_name = 'wao/subscribe_events.html'
 
     def subscribe_events(request):
         """"
         Temporary solution while we do not construct the queryset method
         """
-        return render(request, 'core/subscribe_events.html')
+        return render(request, 'wao/subscribe_events.html')
 
 
 class YearbookView(generic.ListView):
-    template_name = 'core/yearbook.html'
+    template_name = 'wao/yearbook.html'
 
     def yearbook(request):
         """"
         Temporary solution while we do not construct the queryset method
         """
         profiles = User.objects.all()
-        return render(request, 'core/yearbook.html', {'profiles': profiles})
+        return render(request, 'wao/yearbook.html', {'profiles': profiles})
 
     def search_user(request):
         """"
         Temporary solution while we do not construct the queryset method
         """
-        return render(request, 'core/search_user.html')
+        return render(request, 'wao/search_user.html')
 
 
 class ProgramsView(generic.ListView):
-    template_name = 'core/programs.html'
+    template_name = 'wao/programs.html'
 
     def programs(request):
         """"
         Temporary solution while we do not construct the queryset method
         """
-        return render(request, 'core/programs.html')
+        return render(request, 'wao/programs.html')
 
 
 class UserView(generic.ListView):
@@ -225,17 +226,17 @@ class UserView(generic.ListView):
         """"
         Temporary solution while we do not construct the queryset method
         """
-        return render(request, 'core/user.html')
+        return render(request, 'wao/user.html')
 
     def user_profile(request, user_id):
         user = User.objects.get(id=user_id)
-        return render(request, 'core/user.html', {'user': user})
+        return render(request, 'wao/user.html', {'user': user})
 
 
 class UpdateUserView(generic.ListView):
 
     def update(request):
-        return render(request, 'core/update.html')
+        return render(request, 'wao/update.html')
 
     # def update_user(request):
     #     context = {}
@@ -256,44 +257,44 @@ class UpdateUserView(generic.ListView):
     #     else:
     #         user_form = UserRegistrationForm()
     #         context['user_update_form'] = user_form
-    #     return render(request, 'core/update.html', context)
+    #     return render(request, 'wao/update.html', context)
 
 
 class CreateProgramView(generic.ListView):
-    template_name = 'core/create_program.html'
+    template_name = 'wao/create_program.html'
 
     def create_program(request):
         """"
         Temporary solution while we do not construct the queryset method
         """
-        return render(request, 'core/create_program.html')
+        return render(request, 'wao/create_program.html')
 
 
 class AllProgramsView(generic.ListView):
-    template_name = 'core/all_programs.html'
+    template_name = 'wao/all_programs.html'
 
     def all_programs(request):
         """"
         Temporary solution while we do not construct the queryset method
         """
-        return render(request, 'core/all_programs.html')
+        return render(request, 'wao/all_programs.html')
 
 
 class SearchProgramView(generic.ListView):
-    template_name = 'core/search_program.html'
+    template_name = 'wao/search_program.html'
 
     def search_program(request):
         """"
         Temporary solution while we do not construct the queryset method
         """
-        return render(request, 'core/search_program.html')
+        return render(request, 'wao/search_program.html')
 
 
 class SubscribeProgramsView(generic.ListView):
-    template_name = 'core/subscribe_programs.html'
+    template_name = 'wao/subscribe_programs.html'
 
     def subscribe_programs(request):
         """"
         Temporary solution while we do not construct the queryset method
         """
-        return render(request, 'core/subscribe_programs.html')
+        return render(request, 'wao/subscribe_programs.html')
