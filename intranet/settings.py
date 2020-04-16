@@ -74,6 +74,7 @@ TEMPLATES = [
 ]
 AUTH_USER_MODEL = 'core.User'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+DATETIME_FORMAT ='%m/%d/%Y %I:%M %p'
 WSGI_APPLICATION = 'intranet.wsgi.application'
 
 # Database

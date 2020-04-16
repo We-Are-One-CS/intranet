@@ -46,8 +46,9 @@
         </div>
 
         <div class="rela-block profile-card-stats">
-            <div class="floated profile-stat works" id="num_works">{{ event.begin_date }}<br></div>
-            <div class="floated profile-stat following" id="num_following">{{ event.end_date }}<br></div>
+            <div class="floated profile-stat works" id="num_works">{{ event.begin_date|date:"j F o à G:i" }}<br></div>
+            <div class="floated profile-stat following" id="num_following">{{ event.end_date|date:"j F o à G:i" }}<br>
+            </div>
             <div class="floated profile-stat followers" id="num_followers">{{ event.capacity }}<br></div>
         </div>
     </div>

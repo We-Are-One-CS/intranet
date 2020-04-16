@@ -113,6 +113,12 @@ class CompanyRegistrationForm(UserCreationForm):
 
 class EventCreationForm(forms.ModelForm):
     title = forms.CharField(label='Nom de l\'événement : ', required=True)
+    begin_date = forms.DateTimeField(input_formats=['%m/%d/%Y %I:%M %p'], label="Date de début de l\'événement", widget=DateTimePicker(attrs={
+                'append': 'fa fa-calendar',
+                'icon_toggle': True,}))
+    end_date = forms.DateTimeField(input_formats=['%m/%d/%Y %I:%M %p'], label="Date de fin de l\'évènement", widget=DateTimePicker(attrs={
+                'append': 'fa fa-calendar',
+                'icon_toggle': True,}))
 
     class Meta:
         model = Event
@@ -137,20 +143,6 @@ class EventCreationForm(forms.ModelForm):
             'price': 'Prix : ',
             'capacity': 'Nombre de places : ',
             'photo': 'Photo de l\'événement',
-        }
-        widgets = {
-            'begin_date': DateTimePicker(
-                attrs={
-                'append': 'fa fa-calendar',
-                'icon_toggle': True,
-            }
-            ),
-            'end_date': DateTimePicker(
-                attrs={
-                'append': 'fa fa-calendar',
-                'icon_toggle': True,
-            }
-            ),
         }
 
 
