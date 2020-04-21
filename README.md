@@ -25,7 +25,7 @@ $ cd intranet/
 Migrate the database: 
 
 ```bash
-$ python manage.py makemigrations core 
+$ python manage.py makemigrations wao 
 
 $ python manage.py migrate --noinput
 ```

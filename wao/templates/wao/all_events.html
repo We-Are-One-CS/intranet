@@ -34,7 +34,7 @@
                 </div>
                 <div class="description text-left">
                     <h1>{{ event.title }}</h1>
-                    <h2>{{ event.begin_date }}</h2>
+                    <h2>{{ event.begin_date|date:"j F o à G:i" }}</h2>
                     <p class="text">{{ event.description|truncatechars:90 }}</p>
                     <p class="read-more">
                         <a href="/events/event_info/{{ event.id }}">Voir plus</a>
