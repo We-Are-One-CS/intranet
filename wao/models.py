@@ -5,7 +5,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 from .managers import CustomUserManager
 
 
-# TODO: Use the standard of models in order to better write all of our models
+# Use the standard of models in order to better write all of our models
 # https://simpleisbetterthancomplex.com/tips/2018/02/10/django-tip-22-designing-better-models.html
 
 def upload_to_name(instance, filename):
@@ -15,8 +15,6 @@ def upload_to_name(instance, filename):
 def upload_to_name_event(instance, filename):
     return 'wao/static/wao/event_pictures/' + filename  # A CHANGER EN 'static/wao/event_pictures/' EN PROD !!!
 
-
-# Create your models here.
 
 class SubjectImpact(models.Model):
     """
@@ -30,14 +28,27 @@ class SubjectImpact(models.Model):
         5. Gender Equality.
     """
 
+    # CHOICES
+
+    # DATABASE FIELDS
+    name = models.CharField(unique=True, max_length=300, verbose_name='Nom')
+
+    # MANAGERS
+
+    # META CLASS
     class Meta:
         verbose_name = "Sujet d'impact"
         verbose_name_plural = "Sujets d'impact"
 
-    name = models.CharField(unique=True, max_length=300, verbose_name='Nom')
-
+    # TO STRING METHOD
     def __str__(self):
         return self.name
+
+    # SAVE METHOD
+
+    # ABSOLUTE URL METHOD
+
+    # OTHER METHODS
 
 
 class Beneficiary(models.Model):
@@ -45,14 +56,27 @@ class Beneficiary(models.Model):
     # TODO: Ask for documentation (Call Alexandre)
     """
 
+    # CHOICES
+
+    # DATABASE FIELDS
+    name = models.CharField(unique=True, max_length=300, verbose_name='Nom')
+
+    # MANAGERS
+
+    # META CLASS
     class Meta:
         verbose_name = "Beneficiaire"
         verbose_name_plural = "Beneficiaires"
 
-    name = models.CharField(unique=True, max_length=300, verbose_name='Nom')
-
+    # TO STRING METHOD
     def __str__(self):
         return self.name
+
+    # SAVE METHOD
+
+    # ABSOLUTE URL METHOD
+
+    # OTHER METHODS
 
 
 class Category(models.Model):
@@ -64,14 +88,27 @@ class Category(models.Model):
     that will depend on the implication at We Are One.
     """
 
+    # CHOICES
+
+    # DATABASE FIELDS
+    name = models.CharField(unique=True, max_length=300, verbose_name='Nom')
+
+    # MANAGERS
+
+    # META CLASS
     class Meta:
         verbose_name = 'Catégorie'
         verbose_name_plural = 'Catégories'
 
-    name = models.CharField(unique=True, max_length=300, verbose_name='Nom')
+    # TO STRING METHOD
 
+    # SAVE METHOD
     def __str__(self):
         return self.name
+
+    # ABSOLUTE URL METHOD
+
+    # OTHER METHODS
 
 
 class Structure(models.Model):
@@ -84,14 +121,27 @@ class Structure(models.Model):
     The same person can belong to several structures.
     """
 
+    # CHOICES
+
+    # DATABASE FIELDS
+    name = models.CharField(unique=True, max_length=300, verbose_name='Nom')
+
+    # MANAGERS
+
+    # META CLASS
     class Meta:
         verbose_name = 'Structure'
         verbose_name_plural = 'Structures'
 
-    name = models.CharField(unique=True, max_length=300, verbose_name='Nom')
-
+    # TO STRING METHOD
     def __str__(self):
         return self.name
+
+    # SAVE METHOD
+
+    # ABSOLUTE URL METHOD
+
+    # OTHER METHODS
 
 
 class MembershipType(models.Model):
@@ -110,15 +160,29 @@ class MembershipType(models.Model):
         8. Corporate
     """
 
+    # CHOICES
+
+    # DATABASE FIELDS
+    name = models.CharField(unique=True, max_length=300, verbose_name='Nom')
+
+    # company_cotisation = models.BooleanField(verbose_name='Pour les entreprises', blank=True)
+
+    # MANAGERS
+
+    # META CLASS
     class Meta:
         verbose_name = 'Cotisation utilisateur'
         verbose_name_plural = 'Types de cotisation utilisateurs'
 
-    name = models.CharField(unique=True, max_length=300, verbose_name='Nom')
-
-    # company_cotisation = models.BooleanField(verbose_name='Pour les entreprises', blank=True)
+    # TO STRING METHOD
     def __str__(self):
         return self.name
+
+    # SAVE METHOD
+
+    # ABSOLUTE URL METHOD
+
+    # OTHER METHODS
 
 
 class Company(models.Model):
@@ -126,14 +190,18 @@ class Company(models.Model):
     # TODO: Create documentation for company model
     """
 
-    class Meta:
-        verbose_name = 'Entreprise'
-        verbose_name_plural = 'Entreprises'
+    # CHOICES
+    PUBLIC_LIMITED_COMPANY = 'PLC'
+    PRIVATE_COMPANY_LIMITED = 'LTD'
+    LIMITED_LIABILITY_PARTNERSHIP = 'LLP'
+    COMPANY_TYPE_CHOICES = (
+        (PUBLIC_LIMITED_COMPANY, 'Public limited company'),
+        (PRIVATE_COMPANY_LIMITED, 'Private company limited by shares'),
+        (LIMITED_LIABILITY_PARTNERSHIP, 'Limited liability partnership'),
+    )
 
-    # TO STRING METHOD
-    def __str__(self):
-        return self.name
-
+    # DATABASE FIELDS
+    type = models.CharField(max_length=4, choices=COMPANY_TYPE_CHOICES)
     name = models.CharField(max_length=300, blank=True, null=True)
     email = models.EmailField(unique=True)
     telephone = PhoneNumberField(blank=True, null=True)
@@ -150,16 +218,22 @@ class Company(models.Model):
     facebook_link = models.CharField(max_length=200, blank=True, null=True)
     linkedin_link = models.CharField(max_length=200, blank=True, null=True)
 
-    # CHOICES
-    PUBLIC_LIMITED_COMPANY = 'PLC'
-    PRIVATE_COMPANY_LIMITED = 'LTD'
-    LIMITED_LIABILITY_PARTNERSHIP = 'LLP'
-    COMPANY_TYPE_CHOICES = (
-        (PUBLIC_LIMITED_COMPANY, 'Public limited company'),
-        (PRIVATE_COMPANY_LIMITED, 'Private company limited by shares'),
-        (LIMITED_LIABILITY_PARTNERSHIP, 'Limited liability partnership'),
-    )
-    type = models.CharField(max_length=4, choices=COMPANY_TYPE_CHOICES)
+    # MANAGERS
+
+    # META CLASS
+    class Meta:
+        verbose_name = 'Entreprise'
+        verbose_name_plural = 'Entreprises'
+
+    # TO STRING METHOD
+    def __str__(self):
+        return self.name
+
+    # SAVE METHOD
+
+    # ABSOLUTE URL METHOD
+
+    # OTHER METHODS
 
 
 class User(AbstractBaseUser):
@@ -183,20 +257,19 @@ class User(AbstractBaseUser):
 
     """
 
-    class Meta:
-        verbose_name = 'Utilisateur'
-        verbose_name_plural = 'Utilisateurs'
-
-    first_name = models.CharField(max_length=300, blank=True, null=True)
-    last_name = models.CharField(max_length=500)
-    email = models.EmailField(unique=True)
-    telephone = PhoneNumberField(blank=True, null=True)
-    birthday = models.DateField('Date de naissance', blank=True, null=True)
+    # CHOICES
     GENDER_CHOICES = (
         ('M', 'Homme'),
         ('F', 'Femme'),
         ('O', 'Autre / ne se prononce pas')
     )
+
+    # DATABASE FIELDS
+    first_name = models.CharField(max_length=300, blank=True, null=True)
+    last_name = models.CharField(max_length=500)
+    email = models.EmailField(unique=True)
+    telephone = PhoneNumberField(blank=True, null=True)
+    birthday = models.DateField('Date de naissance', blank=True, null=True)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     photo = models.FileField(upload_to=upload_to_name,
                              blank=True)
@@ -229,9 +302,22 @@ class User(AbstractBaseUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
+    # MANAGERS
+
+    # META CLASS
+    class Meta:
+        verbose_name = 'Utilisateur'
+        verbose_name_plural = 'Utilisateurs'
+
+    # TO STRING METHOD
     def __str__(self):
         return "%s %s" % (self.first_name, self.last_name)
 
+    # SAVE METHOD
+
+    # ABSOLUTE URL METHOD
+
+    # OTHER METHODS
     def has_perm(self, perm, obj=None):
         return self.is_admin
 
@@ -289,10 +375,9 @@ class Event(models.Model):
 
     """
 
-    class Meta:
-        verbose_name = 'Evénement'
-        verbose_name_plural = 'Evénements'
+    # CHOICES
 
+    # DATABASE FIELDS
     description = models.CharField(max_length=500)
     begin_date = models.DateTimeField("Date de début de l'événement")
     end_date = models.DateTimeField("Date de fin de l'évènement")
@@ -307,8 +392,22 @@ class Event(models.Model):
         default=False)  # This is used to know whether normal users will see the event or not
     validated = models.BooleanField(default=False)  # The admin needs to check the event in order to show it
 
+    # MANAGERS
+
+    # META CLASS
+    class Meta:
+        verbose_name = 'Evénement'
+        verbose_name_plural = 'Evénements'
+
+    # TO STRING METHOD
     def __str__(self):
         return self.title
+
+    # SAVE METHOD
+
+    # ABSOLUTE URL METHOD
+
+    # OTHER METHODS
 
 
 class Yearbook:
@@ -333,6 +432,23 @@ class Yearbook:
         - Confirming the directory profile with the DB
 
     """
+
+    # CHOICES
+
+    # DATABASE FIELDS
+
+    # MANAGERS
+
+    # META CLASS
+
+    # TO STRING METHOD
+
+    # SAVE METHOD
+
+    # ABSOLUTE URL METHOD
+
+    # OTHER METHODS
+
     pass
 
 
@@ -356,4 +472,21 @@ class SelfDevelopmentProgram:
         - Are you a subscriber (was it well done ?)
 
     """
+
+    # CHOICES
+
+    # DATABASE FIELDS
+
+    # MANAGERS
+
+    # META CLASS
+
+    # TO STRING METHOD
+
+    # SAVE METHOD
+
+    # ABSOLUTE URL METHOD
+
+    # OTHER METHODS
+
     pass
