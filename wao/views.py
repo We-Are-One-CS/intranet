@@ -6,6 +6,7 @@ from django.views import generic
 from .forms import EventCreationForm
 from .forms import UserRegistrationForm, CompanyRegistrationForm
 from .models import User, Event
+from django.db.models import Q
 
 
 def error(request, message="Bienvenue sur la page d'affichage d'erreurs !"):
@@ -180,7 +181,12 @@ class SearchEventsView(generic.ListView):
         """"
         Temporary solution while we do not construct the queryset method
         """
-        return render(request, 'wao/search_events.html')
+        query = request.GET.get('q')
+        searched_events = Event.objects.filter(
+            Q(title__icontains=query) | Q(description__icontains=query) | Q(type__icontains=query)
+        )
+
+        return render(request, 'wao/all_events.html', {'events': searched_events})
 
 
 class SubscribeEventsView(generic.ListView):
@@ -207,7 +213,12 @@ class YearbookView(generic.ListView):
         """"
         Temporary solution while we do not construct the queryset method
         """
-        return render(request, 'wao/search_user.html')
+        query = request.GET.get('q')
+        searched_profiles = User.objects.filter(
+            Q(first_name__icontains=query) | Q(last_name__icontains=query)
+        )
+
+        return render(request, 'wao/yearbook.html', {'profiles': searched_profiles})
 
 
 class ProgramsView(generic.ListView):
