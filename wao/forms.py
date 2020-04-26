@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from phonenumber_field.formfields import PhoneNumberField
 from tempus_dominus.widgets import DateTimePicker
 
-from .models import User, Structure, Event
+from .models import User, Structure, Event, Category
 
 
 class DateInput(forms.DateInput):
@@ -18,6 +18,12 @@ class UserRegistrationForm(UserCreationForm):
         help_text="Vous pouvez sélectionner plusieurs éléments",
         required=False
     )
+    category = forms.ModelMultipleChoiceField(
+        queryset=Category.objects.all(),
+        label='Catégorie : ',
+        help_text="Vous pouvez sélectionner juste une élément !",
+        required=True
+    )
     twitter_link = forms.CharField(label='Lien Twitter : ', required=False)
     linkedin_link = forms.CharField(label='Lien LinkedIn : ', required=False)
     first_name = forms.CharField(label='Prénom : ', required=True)
@@ -28,12 +34,15 @@ class UserRegistrationForm(UserCreationForm):
             'first_name',
             'last_name',
             'email',
+            'password1',
+            'password2',
             'telephone',
             'gender',
             'photo',
             'birthday',
             'job_title',
             'structure',
+            'category',
             'membership_type',
             'twitter_link',
             'linkedin_link',
@@ -42,9 +51,7 @@ class UserRegistrationForm(UserCreationForm):
             'address_complement',
             'zip_code',
             'city',
-            'country',
-            'password1',
-            'password2'
+            'country'
         )
         labels = {
             'email': 'Email : ',
