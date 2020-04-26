@@ -9,7 +9,7 @@ The project is currently in development. Started at CentraleSupélec with Lattit
 ### Prerequisites 
 
 
-1. `Django 2.2.10` 
+1. [`Django 2.2.10`](https://docs.djangoproject.com/en/3.0/releases/2.2.10/)
 2. [`Python 3.7.4`](https://www.python.org/downloads/release/python-374/)
 3. [`PostgreSQL 10`](https://www.postgresql.org/download/)
 3. For others requirements, see `requirements.txt`
