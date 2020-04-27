@@ -133,7 +133,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # TEST
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'wao/static/'),
-    STATIC_URL,
     STATIC_ROOT
 )
 
