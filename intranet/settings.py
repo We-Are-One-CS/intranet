@@ -33,9 +33,9 @@ load_dotenv(dotenv_path)
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'weareone-intranet.herokuapp.com']
+ALLOWED_HOSTS = ['weareone-intranet.herokuapp.com']
 
 # Authentification
 LOGIN_REDIRECT_URL = 'index'
@@ -132,8 +132,7 @@ USE_TZ = True  # Enable time zone
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # TEST
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'wao/static/'),
-    STATIC_ROOT
+    os.path.join(BASE_DIR, 'wao/static')
 )
 
 INTERNAL_IPS = ['127.0.0.1']
