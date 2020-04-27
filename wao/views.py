@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views import generic
 
-from .forms import EventCreationForm
+from .forms import EventCreationForm, UserUpdateForm
 from .forms import UserRegistrationForm, CompanyRegistrationForm
 from .models import User, Event
 from django.db.models import Q
@@ -246,29 +246,24 @@ class UserView(generic.ListView):
 
 class UpdateUserView(generic.ListView):
 
-    def update(request):
-        return render(request, 'wao/update.html')
+    # def update(request):
+    #     return render(request, 'wao/update.html')
 
-    # def update_user(request):
-    #     context = {}
-    #     if request.POST:
-    #         if 'user_update' in request.POST:
-    #             form = UserUpdateForm(request.POST, request.FILES or None)
-    #             if form.is_valid():
-    #                 incomplete_user = form.save(commit=False)
-    #                 incomplete_user.is_enterprise = False
-    #                 incomplete_user.is_active = False
-    #                 email = form.cleaned_data.get('email')
-    #                 raw_password = form.cleaned_data.get('password1')
-    #                 incomplete_user.save()
-    #                 login(request, incomplete_user, backend='django.contrib.auth.backends.ModelBackend')
-    #                 return redirect('login')
-    #             else:
-    #                 context['user_update_form'] = form
-    #     else:
-    #         user_form = UserRegistrationForm()
-    #         context['user_update_form'] = user_form
-    #     return render(request, 'wao/update.html', context)
+    def update(request):
+        context = {}
+        if request.POST:
+            if 'user_update' in request.POST:
+                form = UserUpdateForm(request.POST, request.FILES or None)
+                if form.is_valid():
+                    incomplete_user = form.save(commit=False)
+                    incomplete_user.save()
+                    return redirect('index')
+                else:
+                    context['user_update_form'] = form
+        else:
+            user_form = UserUpdateForm()
+            context['user_update_form'] = user_form
+        return render(request, 'wao/update.html', context)
 
 
 class CreateProgramView(generic.ListView):
