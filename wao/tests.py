@@ -73,23 +73,24 @@ class TestCreateUser(TestCase):
         self.assertRaises(TypeError, User.objects.create_superuser,
                           email=None, password="superuser")
 
-class TestUser(TestCase):
-    def test_get_full_name(self): # TODO
-        self.fail("Test not yet completed")
-
-    def test_get_short_name(self): # TODO
-        self.fail("Test not yet completed")
-
-    def test_email_user(self): # TODO
-        self.fail("Test not yet completed")
-
-
-class TestViews(TestCase): # TODO
-    def test_error(self):
-        self.fail("Test not yet completed")
-
-    def test_index(self): # TODO
-        self.fail("Test not yet completed")
+# TODO: Finalize these tests
+# class TestUser(TestCase):
+#     def test_get_full_name(self): # TODO
+#         self.fail("Test not yet completed")
+#
+#     def test_get_short_name(self): # TODO
+#         self.fail("Test not yet completed")
+#
+#     def test_email_user(self): # TODO
+#         self.fail("Test not yet completed")
+#
+#
+# class TestViews(TestCase): # TODO
+#     def test_error(self):
+#         self.fail("Test not yet completed")
+#
+#     def test_index(self): # TODO
+#         self.fail("Test not yet completed")
 
 
 """
@@ -108,15 +109,16 @@ EVENTS
 # TEST 13: Do not display past events
 # TEST 14: Publication well done
 
-class TestUser(TestCase): # TODO
-    def test_get_full_name(self): # TODO
-        self.fail("Test not yet completed")
-
-    def test_get_short_name(self): # TODO
-        self.fail("Test not yet completed")
-
-    def test_email_user(self): # TODO
-        self.fail("Test not yet completed")
+# TODO: Finalize these tests
+# class TestUser(TestCase): # TODO
+#     def test_get_full_name(self): # TODO
+#         self.fail("Test not yet completed")
+#
+#     def test_get_short_name(self): # TODO
+#         self.fail("Test not yet completed")
+#
+#     def test_email_user(self): # TODO
+#         self.fail("Test not yet completed")
 
 """
 DEV PROGRAMS
