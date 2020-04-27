@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from os.path import join, dirname
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -18,13 +20,19 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
+# Create .env file path.
+dotenv_path = join(BASE_DIR, '.env')
+
+# Load file from the path.
+load_dotenv(dotenv_path)
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'rd4l0b65&9*u+3g2j^1th5rl6sc*m!r^f*()5ij7(kot75p^2_'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # Authentification
 LOGIN_REDIRECT_URL = 'index'
@@ -74,7 +82,7 @@ TEMPLATES = [
 ]
 AUTH_USER_MODEL = 'wao.User'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-DATETIME_FORMAT ='%m/%d/%Y %I:%M %p'
+DATETIME_FORMAT = '%m/%d/%Y %I:%M %p'
 WSGI_APPLICATION = 'intranet.wsgi.application'
 
 # Database
@@ -83,11 +91,11 @@ WSGI_APPLICATION = 'intranet.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'weareone',  # Name of the database used (we recommend using a dedicated db)
-        'USER': 'postgres',
-        'PASSWORD': 'admin',
-        'HOST': 'localhost',
-        'PORT': '',
+        'NAME': os.getenv('NAME'),  # Name of the database used (we recommend using a dedicated db)
+        'USER': os.getenv('USER'),
+        'PASSWORD': os.getenv('PASSWORD'),
+        'HOST': os.getenv('HOST'),
+        'PORT': os.getenv('PORT'),
     }
 
 }
@@ -134,3 +142,22 @@ STATICFILES_DIRS = (
 INTERNAL_IPS = ['127.0.0.1']
 
 FILE_UPLOAD_PERMISSIONS = 0o644
+
+# All security features in order to pass the Django test: ``python manage.py check --deploy``
+SECURE_HSTS_SECONDS = 0  # The server will use HTTPS in the future, after 0 seconds
+
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
+SECURE_HSTS_PRELOAD = True
+
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+SECURE_BROWSER_XSS_FILTER = True
+
+SECURE_SSL_REDIRECT = True
+
+SESSION_COOKIE_SECURE = True
+
+CSRF_COOKIE_SECURE = True
+
+X_FRAME_OPTIONS = 'DENY'
