@@ -381,6 +381,7 @@ class Event(models.Model):
     description = models.CharField(max_length=500)
     begin_date = models.DateTimeField("Date de début de l'événement")
     end_date = models.DateTimeField("Date de fin de l'évènement")
+    user = models.ManyToManyField(User)
     title = models.CharField(max_length=100)
     address = models.CharField(max_length=300)
     price = models.FloatField()
