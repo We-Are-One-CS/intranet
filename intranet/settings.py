@@ -134,7 +134,7 @@ USE_TZ = True  # Enable time zone
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # TEST
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # TEST
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'wao/static/'),
