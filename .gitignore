@@ -27,3 +27,9 @@ profile_pictures/
 
 # event pictures for tests
 event_pictures/
+
+# Environment variables (and credentials)
+!/.env
+
+# Jetbrains project folder
+.idea/
