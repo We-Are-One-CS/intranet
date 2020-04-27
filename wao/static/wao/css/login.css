@@ -1,0 +1,12 @@
+.form-control {
+    display: block;
+    margin: auto !important;
+    width: 50% !important;
+}
+
+.form {
+    padding: 30px;
+    padding-right: 4rem;
+    padding-left: 4rem;
+    text-align: center;
+}

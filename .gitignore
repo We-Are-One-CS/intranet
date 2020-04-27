@@ -17,3 +17,13 @@ migrations
 
 # Vscode config files
 .vscode/
+# Ignore sqlite database
+db
+#settings because no postgres
+settings.py
+
+#profile pictures for tests
+profile_pictures/
+
+# event pictures for tests
+event_pictures/

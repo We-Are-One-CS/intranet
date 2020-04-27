@@ -11,9 +11,9 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -24,19 +24,24 @@ SECRET_KEY = 'rd4l0b65&9*u+3g2j^1th5rl6sc*m!r^f*()5ij7(kot75p^2_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
+# Authentification
+LOGIN_REDIRECT_URL = 'index'
+LOGOUT_REDIRECT_URL = 'index'
 
 # Application definition
 
 INSTALLED_APPS = [
-    'core.apps.CoreConfig',
+    'wao.apps.WaoConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
+    'tempus_dominus',
 ]
 
 MIDDLEWARE = [
@@ -47,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'wao.middleware.MessagesMiddleware',
 ]
 
 ROOT_URLCONF = 'intranet.urls'
@@ -66,9 +72,10 @@ TEMPLATES = [
         },
     },
 ]
-
+AUTH_USER_MODEL = 'wao.User'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+DATETIME_FORMAT ='%m/%d/%Y %I:%M %p'
 WSGI_APPLICATION = 'intranet.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -76,13 +83,14 @@ WSGI_APPLICATION = 'intranet.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
+        'NAME': 'weareone',  # Name of the database used (we recommend using a dedicated db)
         'USER': 'postgres',
-        'HOST': 'db', # set in docker-compose.yml
-        'PORT': 5432, # default postgres port
+        'PASSWORD': 'admin',
+        'HOST': 'localhost',
+        'PORT': '',
     }
-}
 
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -102,22 +110,27 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fr-fr'  # Change the interface to french
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'CET'  # Use the Central European Time Zone
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
-
+USE_TZ = True  # Enable time zone
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'wao/static/'),
+)
+
+INTERNAL_IPS = ['127.0.0.1']
+
+FILE_UPLOAD_PERMISSIONS = 0o644

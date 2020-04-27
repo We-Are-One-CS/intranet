@@ -1,3 +1,7 @@
-django==2.2.8
+django==2.2.10
 mysqlclient==1.4.6
 psycopg2==2.8.4
+django-phonenumber-field==4.0.0
+phonenumbers==8.11.1
+django-crispy-forms==1.8.1
+django-tempus-dominus

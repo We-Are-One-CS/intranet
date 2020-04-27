@@ -1,0 +1,172 @@
+* {
+    box-sizing: border-box;
+    -webkit-transition: 0.3s cubic-bezier(0.75, 0, 0.2, 1), color 0.3s ease;
+    transition: 0.3s cubic-bezier(0.75, 0, 0.2, 1), color 0.3s ease;
+}
+
+.rela-block {
+    display: block;
+    position: relative;
+    margin: auto;
+}
+
+.rela-inline {
+    display: inline-block;
+    position: relative;
+    margin: auto;
+}
+
+.floated {
+    display: inline-block;
+    position: relative;
+    float: left;
+}
+
+body {
+    font-family: montserrat;
+    font-size: 18px;
+    letter-spacing: 2px;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+.container {
+    z-index: 1;
+    width: 92%;
+    max-width: 1126px;
+    padding: 70px 0;
+}
+
+.profile-card {
+    width: calc(100% - 40px);
+    padding-top: 100px;
+    margin: 70px auto 30px;
+    background-color: #fff;
+    box-shadow: 3px 2px 10px rgba(128, 128, 128, 0.575);
+    border-radius: 20px;
+}
+
+.profile-pic {
+    display: false;
+    position: absolute;
+    margin: false;
+    top: -90px;
+    left: 50%;
+    right: false;
+    bottom: false;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    height: 180px;
+    width: 180px;
+    border: 5px solid #fedb00;
+    border-radius: 100%;
+    background-color: white !important;
+    background: center no-repeat;
+    background-size: cover;
+    box-shadow: 3px 2px 10px rgba(128, 128, 128, 0.3);
+}
+
+.profile-name-container {
+    margin: 0 auto 10px;
+    padding: 10px;
+    text-align: center;
+}
+
+.user-name {
+    font-family: "Montserrat";
+    font-size: 24px;
+    letter-spacing: 3px;
+    font-weight: 400;
+    line-height: 30px;
+    margin-bottom: 12px;
+}
+
+.user-desc {
+    letter-spacing: 1px;
+    color: #999;
+    margin-bottom: 12px;
+}
+
+.user-job {
+    font-size: 18px;
+    letter-spacing: 3px;
+    line-height: 30px;
+    color: black;
+    margin-top: 12px;
+}
+
+.profile-card-stats {
+    height: 75px;
+    padding: 10px 0px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.profile-stat {
+    height: 100%;
+    width: 33.3333%;
+}
+
+.profile-stat:after {
+    color: #999;
+}
+
+.works::after {
+    content: "Evénements faits";
+}
+
+.followers::after {
+    content: "Evénements créés";
+}
+
+.following::after {
+    content: "Dernière connexion";
+}
+
+.twitter_icon {
+    padding: 8px;
+    background-color: #00acee;
+    border-radius: 50px;
+    color: white;
+    font-size: 18px;
+}
+
+.linkedin_icon {
+    padding: 8px;
+    background-color: #0e76a8;
+    border-radius: 50px;
+    color: white;
+    font-size: 18px;
+}
+
+@media screen and (max-width: 1300px) {
+    .container {
+        max-width: 843px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .container {
+        max-width: 562px;
+    }
+}
+
+@media screen and (max-width: 550px) {
+
+    .profile-card-stats {
+        height: 0;
+        padding: 0px;
+    }
+
+    .profile-pic {
+        height: 140px;
+        width: 140px;
+        top: -70px;
+    }
+
+    .profile-card {
+        padding-top: 70px;
+        margin: 50px auto 30px;
+    }
+}
+  

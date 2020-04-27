@@ -1,0 +1,22 @@
+{% extends 'wao/layouts/base.html' %}
+{% load static %}
+
+{% block title %}Erreur !{% endblock title %}
+
+{% block mystylesheet %}
+    <link rel="stylesheet" type="text/css" href="{% static 'wao/css/error.css' %}">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+{% endblock mystylesheet %}
+
+{% block content %}
+    <div class="ui {{ message.type }} floating message container">
+        {% for message in messages %}
+            <h3>Erreur</h3>
+            <hr class="light my-4"/>
+            <div class="header">
+                {{ message.header }}
+            </div>
+            <p>{{ message.content }}</p>
+        {% endfor %}
+    </div>
+{% endblock content %}

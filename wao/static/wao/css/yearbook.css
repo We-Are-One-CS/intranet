@@ -1,0 +1,143 @@
+/* Dropdown Button */
+.dropbtn {
+    background-color: #fedb00;
+    border-radius: 100px;
+    font-size: 14px;
+    padding: 10px 25px;
+    border: 1px solid #fedb00;
+    color: white;
+    font-family: montserrat, serif;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    padding: 10px 25px 10px 24px;
+    min-width: 160px;
+    font-size: 14px;
+    z-index: 1;
+    border: 2px solid #fedb00;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: rgba(0, 0, 0, 0.7);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-transform: none;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+    color: rgba(0, 0, 0, 0.9);
+    text-decoration: none;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+#drop:hover, #dropbtn:hover {
+    background-color: #fedb00;
+    border-radius: 20px 20px 0 0;
+}
+
+.foundus {
+    padding-top: 5rem;
+    padding-bottom: 4rem;
+    font-weight: bold;
+    max-width: 100% !important;
+    color: white;
+}
+
+
+.my-4 {
+    background: rgb(241, 196, 15);
+    width: 70%;
+}
+
+#separators {
+    margin-bottom: 10px !important;
+}
+
+.dress-card-head {
+    height: 210px;
+}
+
+.dress-card-img-top {
+    max-height: 210px;
+    max-width: 180px;
+    border-radius: 20px;
+    padding: 10px;
+    transition: all 0.5s cubic-bezier(.25, .8, .25, 1);
+}
+
+.dress-card-body {
+    padding: 14px;
+    background: #fff;
+    border-radius: 20px;
+    color: #0d363c;
+}
+
+.dress-card-title {
+    line-height: 0.5rem;
+}
+
+.dress-card-para {
+    font-size: 14px;
+    margin-bottom: 0rem;
+}
+
+.dress-card {
+    background: white;
+    display: inline-block;
+    border-radius: 20px;
+    width: 200px;
+    height: 300px;
+    margin: 10px;
+    box-shadow: 3px 2px 10px rgba(128, 128, 128, 0.4);
+    transition: all 0.5s cubic-bezier(.25, .8, .25, 1);;
+}
+
+.dress-card:hover {
+    transform: translateY(-10px);
+}
+
+.form-inline {
+    display : block !important;
+    padding:20px;
+}
+
+.search-button-user {
+    background-color: #fedb00;
+    font-size: 12px;
+    border-radius: 100px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-right: 25px;
+    padding-left: 25px;
+    border: 1px solid #fedb00;
+    color: white;
+    font-family: montserrat;
+    margin: 10px;
+}
+
+@media screen and (max-width: 991px) {
+
+    .dress-card:hover {
+        transform: translateY(0px);
+    }
+
+}
