@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from phonenumber_field.formfields import PhoneNumberField
 from tempus_dominus.widgets import DateTimePicker
 
-from .models import User, Structure, Event
+from .models import User, Structure, Event, Category
 
 
 class DateInput(forms.DateInput):
@@ -18,6 +18,12 @@ class UserRegistrationForm(UserCreationForm):
         help_text="Vous pouvez sélectionner plusieurs éléments",
         required=False
     )
+    category = forms.ModelMultipleChoiceField(
+        queryset=Category.objects.all(),
+        label='Catégorie : ',
+        help_text="Vous pouvez sélectionner juste une élément !",
+        required=True
+    )
     twitter_link = forms.CharField(label='Lien Twitter : ', required=False)
     linkedin_link = forms.CharField(label='Lien LinkedIn : ', required=False)
     first_name = forms.CharField(label='Prénom : ', required=True)
@@ -28,12 +34,15 @@ class UserRegistrationForm(UserCreationForm):
             'first_name',
             'last_name',
             'email',
+            'password1',
+            'password2',
             'telephone',
             'gender',
             'photo',
             'birthday',
             'job_title',
             'structure',
+            'category',
             'membership_type',
             'twitter_link',
             'linkedin_link',
@@ -42,9 +51,7 @@ class UserRegistrationForm(UserCreationForm):
             'address_complement',
             'zip_code',
             'city',
-            'country',
-            'password1',
-            'password2'
+            'country'
         )
         labels = {
             'email': 'Email : ',
@@ -113,12 +120,14 @@ class CompanyRegistrationForm(UserCreationForm):
 
 class EventCreationForm(forms.ModelForm):
     title = forms.CharField(label='Nom de l\'événement : ', required=True)
-    begin_date = forms.DateTimeField(input_formats=['%m/%d/%Y %I:%M %p'], label="Date de début de l\'événement", widget=DateTimePicker(attrs={
-                'append': 'fa fa-calendar',
-                'icon_toggle': True,}))
-    end_date = forms.DateTimeField(input_formats=['%m/%d/%Y %I:%M %p'], label="Date de fin de l\'évènement", widget=DateTimePicker(attrs={
-                'append': 'fa fa-calendar',
-                'icon_toggle': True,}))
+    begin_date = forms.DateTimeField(input_formats=['%m/%d/%Y %I:%M %p'], label="Date de début de l\'événement",
+                                     widget=DateTimePicker(attrs={
+                                         'append': 'fa fa-calendar',
+                                         'icon_toggle': True, }))
+    end_date = forms.DateTimeField(input_formats=['%m/%d/%Y %I:%M %p'], label="Date de fin de l\'évènement",
+                                   widget=DateTimePicker(attrs={
+                                       'append': 'fa fa-calendar',
+                                       'icon_toggle': True, }))
 
     class Meta:
         model = Event
@@ -154,6 +163,12 @@ class UserUpdateForm(UserChangeForm):
         help_text="Vous pouvez sélectionner plusieurs éléments",
         required=False
     )
+    category = forms.ModelMultipleChoiceField(
+        queryset=Category.objects.all(),
+        label='Catégorie : ',
+        help_text="Vous pouvez sélectionner juste une élément !",
+        required=True
+    )
     twitter_link = forms.CharField(label='Lien Twitter : ', required=False)
     linkedin_link = forms.CharField(label='Lien LinkedIn : ', required=False)
     first_name = forms.CharField(label='Prénom : ', required=True)
@@ -170,6 +185,7 @@ class UserUpdateForm(UserChangeForm):
             'birthday',
             'job_title',
             'structure',
+            'category',
             'membership_type',
             'twitter_link',
             'linkedin_link',
@@ -178,9 +194,9 @@ class UserUpdateForm(UserChangeForm):
             'address_complement',
             'zip_code',
             'city',
-            'country',
-            'password'
+            'country'
         )
+
         labels = {
             'email': 'Email : ',
             'last_name': 'Nom : ',
@@ -193,7 +209,4 @@ class UserUpdateForm(UserChangeForm):
             'address_complement': 'Complément d\'addresse : ',
             'zip_code': 'Code postal : ',
             'city': 'Ville : ',
-        }
-        widgets = {
-            'birthday': DateInput(),
         }

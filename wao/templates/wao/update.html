@@ -10,16 +10,6 @@
     {{ form.media }}
 {% endblock mystylesheet %}
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Éditer mes informations</title>
-</head>
-
-<body>
-
 {% block content %}
     {#TODO: Check if the user is logged, if not show an error message ! Otherwise, proceed to the update page (user, company)#}
 
@@ -32,22 +22,6 @@
                 <div class="separators header center-white"></div>
                 <div class="separators header"></div>
             </div>
-        </div>
-
-        <div class="container py-2">
-            <p class="text-center"> Je suis :
-                {#                TODO: Change the url from form_user to another one that only does the update info#}
-                <a href="{% url 'form_user' %}">
-                    <button class="mx-4 button" type="button">
-                        Un utilisateur
-                    </button>
-                </a>
-                <a href="{% url 'form_company' %}">
-                    <button class="mx-4 button" type="button">
-                        Une entreprise
-                    </button>
-                </a>
-            </p>
         </div>
 
         <div class="container py-2">
@@ -95,7 +69,3 @@
     </script>
 {% endblock myjssheet %}
 
-
-</body>
-
-</html>
