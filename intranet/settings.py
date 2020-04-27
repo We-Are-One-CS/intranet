@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # Create .env file path.
-dotenv_path = join(BASE_DIR, '.env-dev')
+dotenv_path = join(BASE_DIR, '.env')
 
 # Load file from the path.
 load_dotenv(dotenv_path)
