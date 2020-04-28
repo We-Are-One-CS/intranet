@@ -21,12 +21,32 @@ class EventAdmin(admin.ModelAdmin):
         'id', 'title', 'description', 'price', 'capacity', 'type', 'photo')
 
 
+class CategoryAdmin(admin.ModelAdmin):
+    pass
+
+
+class StructureAdmin(admin.ModelAdmin):
+    pass
+
+
+class MembershipTypeAdmin(admin.ModelAdmin):
+    pass
+
+
+class SubjectImpactAdmin(admin.ModelAdmin):
+    pass
+
+
+class CompanyAdmin(admin.ModelAdmin):
+    pass
+
+
 admin.site.register(User, MyUserAdmin)
-admin.site.register(Category)
-admin.site.register(Structure)
-admin.site.register(MembershipType)
-admin.site.register(SubjectImpact)
+admin.site.register(Category, CategoryAdmin)
+admin.site.register(Structure, StructureAdmin)
+admin.site.register(MembershipType, MembershipTypeAdmin)
+admin.site.register(SubjectImpact, StructureAdmin)
 admin.site.register(Event, EventAdmin)
-admin.site.register(Company)
+admin.site.register(Company, CompanyAdmin)
 # admin.site.register(Yearbook) # Uncomment when Yearbook model is ready
 # admin.site.register(SelfDevelopmentProgram) # Uncomment when SelfDevelopmentProgram model is ready
