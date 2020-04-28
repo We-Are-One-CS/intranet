@@ -129,10 +129,10 @@ USE_TZ = True  # Enable time zone
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # TEST
+STATIC_ROOT = '/app/static'  # TEST
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'wao/'),
+    os.path.join(BASE_DIR, 'wao/static'),
 )
 
 INTERNAL_IPS = ['127.0.0.1']
