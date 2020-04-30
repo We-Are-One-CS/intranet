@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
@@ -23,13 +25,11 @@ class IndexView(generic.ListView):
         """"
         Temporary solution while we do not construct the queryset method
         """
-        return render(request, 'wao/index.html')
 
-    # def get_queryset(self):
-    #     """"
-    #
-    #     """
-    #     return
+        # The next 5 events from today on
+        events = Event.objects.filter(begin_date__gt=datetime.date.today()).order_by("begin_date")[:5]
+
+        return render(request, 'wao/index.html', context={'events': events})
 
 
 class RegisterView:

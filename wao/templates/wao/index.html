@@ -5,6 +5,8 @@
 
 {% block mystylesheet %}
     <link rel="stylesheet" type="text/css" href="{% static 'wao/css/index.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'wao/css/all_events.css' %}">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 {% endblock mystylesheet %}
 
 {% block content %}
@@ -52,6 +54,32 @@
         <br>
     </div>
 
+    {% for event in events %}
+        <div class="blog-card">
+            <div class="meta">
+                {% if event.photo == "" %}
+                    <div class="photo"
+                         style="background-image: url('../../static/wao/event_pictures/default-event-image.png')">
+                    </div>
+                {% else %}
+                    {% with photo=event.photo.url|cut:"wao/static/wao/" %}
+                        <div class="photo" style="background-image: url('../../static/wao/{{ photo }}')">
+                        </div>
+                    {% endwith %}
+                {% endif %}
+            </div>
+            <div class="description text-left">
+                <h1>{{ event.title }}</h1>
+                <h2>{{ event.begin_date|date:"j F o à G:i" }}</h2>
+                <p class="text">{{ event.description|truncatechars:90 }}</p>
+                <p class="read-more">
+                    <a href="/events/event_info/{{ event.id }}">Voir plus</a>
+                </p>
+            </div>
+        </div>
+    {% endfor %}
+
 {% endblock content %}
+
 {% block myjssheet %}
 {% endblock myjssheet %}
