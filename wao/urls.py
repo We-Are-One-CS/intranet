@@ -8,7 +8,7 @@ urlpatterns = [
     path('user/', views.UserView.user, name='user'),
     path('user/<int:user_id>', views.UserView.user_profile),
     path('user/update/', views.UpdateUserView.update),
-    path('user/change-password', views.ChangeUserPasswordView.change_password, name='change_password'),
+    path('user/change-password/', views.ChangeUserPasswordView.change_password, name='change_password'),
 
     path('register/', views.RegisterView.register, name="register"),
     path('register/user/', views.RegisterView.register_user, name="form_user"),
