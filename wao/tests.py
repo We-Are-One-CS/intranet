@@ -52,7 +52,7 @@ class TestCreateUser(TestCase):
         self.assertRaises(TypeError, User.objects.create_user, email=None, passord=None)
 
 
-class TestCreateSupeUser(TestCase):
+class TestCreateSuperUser(TestCase):
     """
     Tests the create_superuser function on wao/managers.py
     """
