@@ -1,4 +1,6 @@
-from django.contrib.auth import login, authenticate, logout
+from django.contrib import messages
+from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views import generic
@@ -264,6 +266,25 @@ class UpdateUserView(generic.ListView):
             user_form = UserUpdateForm()
             context['user_update_form'] = user_form
         return render(request, 'wao/update.html', context)
+
+
+class ChangeUserPasswordView(generic.ListView):
+
+    def change_password(request):
+        if request.method == 'POST':
+            form = PasswordChangeForm(request.user, request.POST)
+            if form.is_valid():
+                user = form.save()
+                update_session_auth_hash(request, user)  # Important!
+                messages.success(request, 'Your password was successfully updated!')
+                return redirect('change_password')
+            else:
+                messages.error(request, 'Please correct the error below.')
+        else:
+            form = PasswordChangeForm(request.user)
+        return render(request, 'wao/change_password.html', {
+            'form': form
+        })
 
 
 class CreateProgramView(generic.ListView):
