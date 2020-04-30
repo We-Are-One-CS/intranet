@@ -14,6 +14,7 @@ class MyUserAdmin(admin.ModelAdmin):
     list_filter = ('company', 'is_superuser', 'membership_paid')
     list_editable = ('is_superuser', 'company', 'is_active', 'membership_paid')
     search_fields = ('last_name', 'first_name', 'email')
+    # TODO: Create readonly fields
 
 
 class EventAdmin(admin.ModelAdmin):
