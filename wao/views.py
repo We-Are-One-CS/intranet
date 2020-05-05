@@ -1,4 +1,8 @@
-from django.contrib.auth import login, authenticate, logout
+import datetime
+
+from django.contrib import messages
+from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views import generic
@@ -21,13 +25,11 @@ class IndexView(generic.ListView):
         """"
         Temporary solution while we do not construct the queryset method
         """
-        return render(request, 'wao/index.html')
 
-    # def get_queryset(self):
-    #     """"
-    #
-    #     """
-    #     return
+        # The next 5 events from today on
+        events = Event.objects.filter(begin_date__gt=datetime.date.today()).order_by("begin_date")[:5]
+
+        return render(request, 'wao/index.html', context={'events': events})
 
 
 class RegisterView:
@@ -264,6 +266,25 @@ class UpdateUserView(generic.ListView):
             user_form = UserUpdateForm()
             context['user_update_form'] = user_form
         return render(request, 'wao/update.html', context)
+
+
+class ChangeUserPasswordView(generic.ListView):
+
+    def change_password(request):
+        if request.method == 'POST':
+            form = PasswordChangeForm(request.user, request.POST)
+            if form.is_valid():
+                user = form.save()
+                update_session_auth_hash(request, user)  # Important!
+                messages.success(request, 'Your password was successfully updated!')
+                return redirect('change_password')
+            else:
+                messages.error(request, 'Please correct the error below.')
+        else:
+            form = PasswordChangeForm(request.user)
+        return render(request, 'wao/change_password.html', {
+            'form': form
+        })
 
 
 class CreateProgramView(generic.ListView):
