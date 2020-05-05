@@ -74,7 +74,7 @@ TEMPLATES = [
 ]
 AUTH_USER_MODEL = 'wao.User'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-DATETIME_FORMAT ='%m/%d/%Y %I:%M %p'
+DATETIME_FORMAT = '%m/%d/%Y %I:%M %p'
 WSGI_APPLICATION = 'intranet.wsgi.application'
 
 # Database
@@ -96,14 +96,14 @@ DATABASES = {
 if os.environ.get('GITHUB_WORKFLOW'):
     DATABASES = {
         'default': {
-           'ENGINE': 'django.db.backends.postgresql',
-           'NAME': 'github_actions',
-           'USER': 'postgres',
-           'PASSWORD': 'postgres',
-           'HOST': '127.0.0.1',
-           'PORT': '5432',
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'github_actions',
+            'USER': 'postgres',
+            'PASSWORD': 'postgres',
+            'HOST': '127.0.0.1',
+            'PORT': '5432',
         }
-
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
