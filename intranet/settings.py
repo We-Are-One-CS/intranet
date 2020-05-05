@@ -93,7 +93,7 @@ DATABASES = {
 }
 
 # For Django CI
-if os.environ.get('GITHUB_WORKFLOW'):
+if os.environ.get('django.yml'):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
