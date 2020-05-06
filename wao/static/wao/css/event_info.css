@@ -137,6 +137,13 @@ body {
     content: "Fin de l'événement";
 }
 
+.participant {
+    background-color: transparent !important;
+    border: 2.5px solid rgb(72, 138, 70) !important;
+    color: rgb(72, 138, 70) !important;
+    font-weight: bold;
+}
+
 @media screen and (max-width: 1300px) {
     .container {
         max-width: 843px;
