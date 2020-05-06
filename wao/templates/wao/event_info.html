@@ -59,9 +59,15 @@
                 onclick="location.href='/events/subscribe_events/{{ event.id }}/{{ user.id }}'">Participer</button>
         </div>
         <br>
+
         {% for participant in event.participants.all %}
         {{participant.first_name}}
         {% endfor %}
+
+        <div class="text-center">
+            <button class="mx-4 button text-center" type="submit"
+                onclick="location.href='/events/get_participants/{{ event.id }}'">Liste des participants</button>
+        </div>
         <br>
     </div>
 </div>
