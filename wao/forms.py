@@ -18,12 +18,6 @@ class UserRegistrationForm(UserCreationForm):
         help_text="Vous pouvez sélectionner plusieurs éléments",
         required=False
     )
-    category = forms.ModelMultipleChoiceField(
-        queryset=Category.objects.all(),
-        label='Catégorie : ',
-        help_text="Vous pouvez sélectionner juste une élément !",
-        required=True
-    )
     twitter_link = forms.CharField(label='Lien Twitter : ', required=False)
     linkedin_link = forms.CharField(label='Lien LinkedIn : ', required=False)
     first_name = forms.CharField(label='Prénom : ', required=True)
