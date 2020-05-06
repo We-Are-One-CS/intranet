@@ -194,11 +194,16 @@ class SearchEventsView(generic.ListView):
 class SubscribeEventsView(generic.ListView):
     template_name = 'wao/subscribe_events.html'
 
-    def subscribe_events(request):
+    def subscribe_events(request, event_id, user_id):
         """"
         Temporary solution while we do not construct the queryset method
         """
-        return render(request, 'wao/subscribe_events.html')
+        
+        event = Event.objects.get(id=event_id)
+        user = User.objects.get(id=user_id)
+        event.participants.add(user) 
+        event.save()
+        return render(request, 'wao/event_info.html', {'event': event})
 
 
 class YearbookView(generic.ListView):
