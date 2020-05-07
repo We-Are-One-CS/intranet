@@ -60,11 +60,12 @@
         </div>
 
         <br>
-
+        {% if event.owner.id = user.id %}
         <div class="text-center">
             <button class="mx-4 button text-center participant" type="submit"
                 onclick="location.href='/events/get_participants/{{ event.id }}'">Liste des participants</button>
         </div>
+        {% endif %}
         <br>
     </div>
 </div>

@@ -18,6 +18,9 @@ def error(request, message="Bienvenue sur la page d'affichage d'erreurs !"):
     # This special view is called everytime there is an error to display it into the browser
     return render(request, 'wao/error.html', {'messages': request.messages, })
 
+def give_user(user):
+    return user
+
 
 class IndexView(generic.ListView):
     template_name = 'wao/index.html'
@@ -145,6 +148,7 @@ class CreateEventView(generic.ListView):
                 form = EventCreationForm(request.POST, request.FILES or None)
                 if form.is_valid():
                     event = form.save(commit=False)
+                    event.owner = request.user
                     event.save()
                     return HttpResponseRedirect('/events/all_events')
                 else:
