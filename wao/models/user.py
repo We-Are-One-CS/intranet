@@ -11,7 +11,7 @@ from .category import Category
 
 
 def upload_to_name(instance, filename):
-    return STATIC_URL + '/wao/event_pictures/' + filename  # A CHANGER EN 'static/wao/event_pictures/' EN PROD !!!
+    return 'static/wao/event_pictures/' + filename  # A CHANGER EN 'static/wao/event_pictures/' EN PROD !!!
 
 
 class User(AbstractBaseUser):

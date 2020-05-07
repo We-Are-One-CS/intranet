@@ -5,7 +5,7 @@ from .user import User
 
 
 def upload_to_name_event(instance, filename):
-    return STATIC_URL + '/wao/event_pictures/' + filename  # A CHANGER EN 'static/wao/event_pictures/' EN PROD !!!
+    return 'static/wao/event_pictures/' + filename  # A CHANGER EN 'static/wao/event_pictures/' EN PROD !!!
 
 
 class Event(models.Model):
