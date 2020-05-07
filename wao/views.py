@@ -178,7 +178,13 @@ class EventInfoView(generic.ListView):
         Temporary solution while we do not construct the queryset method
         """
         event = Event.objects.get(id=event_id)
-        return render(request, 'wao/event_info.html', {'event': event})
+        
+        show_participate = True
+        for participant in event.participants.all():
+            if request.user == participant:
+                show_participate = False
+
+        return render(request, 'wao/event_info.html', {'event': event, 'show_participate': show_participate})
 
 
 class SearchEventsView(generic.ListView):
@@ -207,6 +213,14 @@ class SubscribeEventsView(generic.ListView):
         event = Event.objects.get(id=event_id)
         user = User.objects.get(id=user_id)
         event.participants.add(user)
+
+        show_participate = True
+        
+        for participant in event.participants.all():
+            if request.user == participant:
+                show_participate = False
+
+
         return HttpResponseRedirect('/events/event_info/'+ str(event.id))
     
     def get_participants(request, event_id):

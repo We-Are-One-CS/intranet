@@ -54,13 +54,20 @@
             <div class="floated profile-stat followers" id="num_followers">{{ event.capacity }}<br></div>
         </div>
 
+        {% if show_participate %}
         <div class="text-center">
             <button class="mx-4 button text-center" type="submit"
                 onclick="location.href='/events/subscribe_events/{{ event.id }}/{{ user.id }}'">Participer</button>
         </div>
+        {% else %}
+        <div class="text-center">
+            <button class="mx-4 button text-center participant">Vous participez à cet événement</button>
+        </div>
+        {% endif %}
 
+
+        {% if event.owner.id == user.id %}
         <br>
-        {% if event.owner.id = user.id %}
         <div class="text-center">
             <button class="mx-4 button text-center participant" type="submit"
                 onclick="location.href='/events/get_participants/{{ event.id }}'">Liste des participants</button>
