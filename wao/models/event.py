@@ -54,6 +54,8 @@ class Event(models.Model):
     is_private = models.BooleanField(
         default=False)  # This is used to know whether normal users will see the event or not
     validated = models.BooleanField(default=False)  # The admin needs to check the event in order to show it
+    owner = models.ForeignKey(User, on_delete = models.CASCADE, related_name = 'owner', blank=True, null=True, default=1)
+
 
     # MANAGERS
 
