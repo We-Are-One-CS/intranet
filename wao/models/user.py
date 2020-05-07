@@ -2,6 +2,7 @@ from django.contrib.auth.base_user import AbstractBaseUser
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
+from intranet.settings import STATIC_URL
 from wao.managers import CustomUserManager
 from .company import Company
 from .membership_type import MembershipType
@@ -10,7 +11,7 @@ from .category import Category
 
 
 def upload_to_name(instance, filename):
-    return 'wao/static/wao/profile_pictures/' + filename  # A CHANGER EN 'static/wao/profile_pictures/' EN PROD !!!
+    return STATIC_URL + '/wao/event_pictures/' + filename  # A CHANGER EN 'static/wao/event_pictures/' EN PROD !!!
 
 
 class User(AbstractBaseUser):
