@@ -22,6 +22,7 @@ urlpatterns = [
     path('events/event_info/<int:event_id>', views.EventInfoView.event_info, name='events/event_info'),
     path('events/search_events/', views.SearchEventsView.search_events, name='events/search_events'),
     path('events/subscribe_events/<int:event_id>/<int:user_id>/', views.SubscribeEventsView.subscribe_events, name='events/subscribe_events'),
+    path('events/unsubscribe_events/<int:event_id>/<int:user_id>/', views.SubscribeEventsView.unsubscribe_events, name='events/unsubscribe_events'),
     path('events/get_participants/<int:event_id>/', views.SubscribeEventsView.get_participants, name='events/get_participants'),
     path('error', views.error, name='error'),
 

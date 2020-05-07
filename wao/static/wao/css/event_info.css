@@ -144,6 +144,11 @@ body {
     font-weight: bold;
 }
 
+.unsubscribe{
+    background-color: rgba(255, 0, 0, 0.8) !important;
+    border: 1px solid rgba(255, 0, 0, 0.8) !important;
+}
+
 @media screen and (max-width: 1300px) {
     .container {
         max-width: 843px;

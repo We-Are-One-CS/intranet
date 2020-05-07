@@ -222,6 +222,24 @@ class SubscribeEventsView(generic.ListView):
 
 
         return HttpResponseRedirect('/events/event_info/'+ str(event.id))
+
+    def unsubscribe_events(request, event_id, user_id):
+        """"
+        Temporary solution while we do not construct the queryset method
+        """
+        
+        event = Event.objects.get(id=event_id)
+        user = User.objects.get(id=user_id)
+        event.participants.remove(user)
+
+        show_participate = True
+        
+        for participant in event.participants.all():
+            if request.user == participant:
+                show_participate = False
+
+
+        return HttpResponseRedirect('/events/event_info/'+ str(event.id))
     
     def get_participants(request, event_id):
         

@@ -63,6 +63,13 @@
         <div class="text-center">
             <button class="mx-4 button text-center participant">Vous participez à cet événement</button>
         </div>
+        <br>
+        <div class="text-center">
+            <button class="mx-4 button text-center unsubscribe"
+                onclick="location.href='/events/unsubscribe_events/{{ event.id }}/{{ user.id }}'">Annuler la
+                participation</button>
+        </div>
+
         {% endif %}
 
 
