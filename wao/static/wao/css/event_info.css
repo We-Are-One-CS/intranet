@@ -17,7 +17,6 @@
 }
 
 .floated {
-    display: inline-block;
     position: relative;
     float: left;
 }
@@ -130,7 +129,7 @@ body {
 }
 
 .followers::after {
-    content: "Capacité de l'événement";
+    content: "Places restantes / places totales";
 }
 
 .following::after {
