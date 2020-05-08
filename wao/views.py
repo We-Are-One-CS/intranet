@@ -179,12 +179,14 @@ class EventInfoView(generic.ListView):
         """
         event = Event.objects.get(id=event_id)
         
+        total = len(event.participants.all()) + event.capacity
         show_participate = True
+
         for participant in event.participants.all():
             if request.user == participant:
                 show_participate = False
 
-        return render(request, 'wao/event_info.html', {'event': event, 'show_participate': show_participate})
+        return render(request, 'wao/event_info.html', {'event': event, 'show_participate': show_participate, 'total':total})
 
 
 class SearchEventsView(generic.ListView):
@@ -213,7 +215,10 @@ class SubscribeEventsView(generic.ListView):
         event = Event.objects.get(id=event_id)
         user = User.objects.get(id=user_id)
         event.participants.add(user)
+        event.capacity = event.capacity -1
+        event.save()
 
+        total = len(event.participants.all()) + event.capacity
         show_participate = True
         
         for participant in event.participants.all():
@@ -231,7 +236,10 @@ class SubscribeEventsView(generic.ListView):
         event = Event.objects.get(id=event_id)
         user = User.objects.get(id=user_id)
         event.participants.remove(user)
+        event.capacity = event.capacity +1
+        event.save()
 
+        total = len(event.participants.all()) + event.capacity
         show_participate = True
         
         for participant in event.participants.all():

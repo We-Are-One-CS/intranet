@@ -51,7 +51,8 @@
             </div>
             <div class="floated profile-stat following" id="num_following">{{ event.end_date|date:"j F o à G:i" }}<br>
             </div>
-            <div class="floated profile-stat followers" id="num_followers">{{ event.capacity }}<br></div>
+            <div class="floated profile-stat followers" id="num_followers">
+                {{ event.capacity }}/{{ total }}<br></div>
         </div>
 
         {% if show_participate %}
