@@ -18,9 +18,6 @@ def error(request, message="Bienvenue sur la page d'affichage d'erreurs !"):
     # This special view is called everytime there is an error to display it into the browser
     return render(request, 'wao/error.html', {'messages': request.messages, })
 
-def give_user(user):
-    return user
-
 
 class IndexView(generic.ListView):
     template_name = 'wao/index.html'
