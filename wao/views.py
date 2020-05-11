@@ -1,5 +1,9 @@
-from django.contrib.auth import login, authenticate, logout
-from django.http import HttpResponseRedirect
+import datetime
+
+from django.contrib import messages
+from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
 from django.views import generic
 
@@ -7,6 +11,7 @@ from .forms import EventCreationForm, UserUpdateForm
 from .forms import UserRegistrationForm, CompanyRegistrationForm
 from .models import User, Event
 from django.db.models import Q
+import xlwt
 
 
 def error(request, message="Bienvenue sur la page d'affichage d'erreurs !"):
@@ -21,13 +26,11 @@ class IndexView(generic.ListView):
         """"
         Temporary solution while we do not construct the queryset method
         """
-        return render(request, 'wao/index.html')
 
-    # def get_queryset(self):
-    #     """"
-    #
-    #     """
-    #     return
+        # The next 5 events from today on
+        events = Event.objects.filter(begin_date__gt=datetime.date.today()).order_by("begin_date")[:5]
+
+        return render(request, 'wao/index.html', context={'events': events})
 
 
 class RegisterView:
@@ -142,6 +145,7 @@ class CreateEventView(generic.ListView):
                 form = EventCreationForm(request.POST, request.FILES or None)
                 if form.is_valid():
                     event = form.save(commit=False)
+                    event.owner = request.user
                     event.save()
                     return HttpResponseRedirect('/events/all_events')
                 else:
@@ -171,7 +175,15 @@ class EventInfoView(generic.ListView):
         Temporary solution while we do not construct the queryset method
         """
         event = Event.objects.get(id=event_id)
-        return render(request, 'wao/event_info.html', {'event': event})
+        
+        total = len(event.participants.all()) + event.capacity
+        show_participate = True
+
+        for participant in event.participants.all():
+            if request.user == participant:
+                show_participate = False
+
+        return render(request, 'wao/event_info.html', {'event': event, 'show_participate': show_participate, 'total':total})
 
 
 class SearchEventsView(generic.ListView):
@@ -190,13 +202,86 @@ class SearchEventsView(generic.ListView):
 
 
 class SubscribeEventsView(generic.ListView):
-    template_name = 'wao/subscribe_events.html'
+    template_name = 'wao/event_info.html'
 
-    def subscribe_events(request):
+    def subscribe_events(request, event_id, user_id):
         """"
         Temporary solution while we do not construct the queryset method
         """
-        return render(request, 'wao/subscribe_events.html')
+        
+        event = Event.objects.get(id=event_id)
+        user = User.objects.get(id=user_id)
+        event.participants.add(user)
+        event.capacity = event.capacity -1
+        event.save()
+
+        total = len(event.participants.all()) + event.capacity
+        show_participate = True
+        
+        for participant in event.participants.all():
+            if request.user == participant:
+                show_participate = False
+
+
+        return HttpResponseRedirect('/events/event_info/'+ str(event.id))
+
+    def unsubscribe_events(request, event_id, user_id):
+        """"
+        Temporary solution while we do not construct the queryset method
+        """
+        
+        event = Event.objects.get(id=event_id)
+        user = User.objects.get(id=user_id)
+        event.participants.remove(user)
+        event.capacity = event.capacity +1
+        event.save()
+
+        total = len(event.participants.all()) + event.capacity
+        show_participate = True
+        
+        for participant in event.participants.all():
+            if request.user == participant:
+                show_participate = False
+
+
+        return HttpResponseRedirect('/events/event_info/'+ str(event.id))
+    
+    def get_participants(request, event_id):
+        
+        response = HttpResponse(content_type='application/ms-excel')
+        response['Content-Disposition'] = "attachment; filename=participants.xls"
+
+        wb = xlwt.Workbook(encoding='utf-8')
+        ws = wb.add_sheet('Participants')
+
+        # Sheet header, first row
+        row_num = 0
+
+        font_style = xlwt.XFStyle()
+        font_style.font.bold = True
+
+        columns = ['Prénom', 'Nom', 'Email', 'Téléphone', ]
+
+        for col_num in range(len(columns)):
+            ws.write(row_num, col_num, columns[col_num], font_style)
+
+        # Sheet body, remaining rows
+        font_style = xlwt.XFStyle()
+
+        event = Event.objects.get(id=event_id)
+        rows = event.participants.all().values_list('first_name', 'last_name', 'email', 'telephone')
+        
+        for row in rows:
+            row_num += 1
+            for col_num in range(len(row)):
+                ws.write(row_num, col_num, row[col_num], font_style)
+
+        
+        wb.save(response)
+        return response
+
+
+
 
 
 class YearbookView(generic.ListView):
@@ -264,6 +349,25 @@ class UpdateUserView(generic.ListView):
             user_form = UserUpdateForm()
             context['user_update_form'] = user_form
         return render(request, 'wao/update.html', context)
+
+
+class ChangeUserPasswordView(generic.ListView):
+
+    def change_password(request):
+        if request.method == 'POST':
+            form = PasswordChangeForm(request.user, request.POST)
+            if form.is_valid():
+                user = form.save()
+                update_session_auth_hash(request, user)  # Important!
+                messages.success(request, 'Your password was successfully updated!')
+                return redirect('change_password')
+            else:
+                messages.error(request, 'Please correct the error below.')
+        else:
+            form = PasswordChangeForm(request.user)
+        return render(request, 'wao/change_password.html', {
+            'form': form
+        })
 
 
 class CreateProgramView(generic.ListView):

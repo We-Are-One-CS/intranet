@@ -3,59 +3,92 @@
 {% load crispy_forms_tags %}
 
 {% block title %}Créer un évènement{% endblock title %} {% block mystylesheet %}
-    <link rel="stylesheet" type="text/css" href="{% static 'wao/css/event_info.css' %}">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    {{ form.media }}
+<link rel="stylesheet" type="text/css" href="{% static 'wao/css/event_info.css' %}">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+{{ form.media }}
 {% endblock mystylesheet %}
 
 {% block content %}
-    <div class="yellow-header">
-        <p class="text-center text-white header-text">Détail de l'événement</p>
-        <div class="separated-div-wrapper">
-            <div class="separators header"></div>
-            <div class="separators header center-white"></div>
-            <div class="separators header"></div>
-        </div>
+<div class="yellow-header">
+    <p class="text-center text-white header-text">Détail de l'événement</p>
+    <div class="separated-div-wrapper">
+        <div class="separators header"></div>
+        <div class="separators header center-white"></div>
+        <div class="separators header"></div>
     </div>
+</div>
 
-    <div class="rela-block container">
-        <div class="rela-block profile-card">
-            {% if event.photo == "" %}
-                <div class="photo"
-                     style="background-image: url('../../static/wao/event_pictures/default-event-image.png')">
-                </div>
-            {% else %}
-                {% with photo=event.photo.url|cut:"wao/static/wao/" %}
-                    <div class="photo" style="background-image: url('../../static/wao/{{ photo }}')">
-                    </div>
-                {% endwith %}
-            {% endif %}
+<div class="rela-block container">
+    <div class="rela-block profile-card">
+        {% if event.photo == "" %}
+        <div class="photo" style="background-image: url('../../static/wao/event_pictures/default-event-image.png')">
+        </div>
+        {% else %}
+        {% with photo=event.photo.url|cut:"wao/static/wao/" %}
+        <div class="photo" style="background-image: url('../../static/wao/{{ photo }}')">
+        </div>
+        {% endwith %}
+        {% endif %}
 
-            <div class="rela-block profile-name-container">
-                <div class="rela-block user-name" id="user_name">{{ event.title }}</div>
-                <div class="rela-block user-desc" id="user_description"><i class="fas fa-inbox"></i> {{ event.type }}
-                </div>
-                <div class="row">
-                    <div class="rela-block user-job" id="event_price"><i class="fas fa-tag"></i>
-                        {{ event.price }} €
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-md-12 rela-block user-job" id="event_address"><i class="fas fa-map-pin"></i>
-                        {{ event.address }}</div>
+        <div class="rela-block profile-name-container">
+            <div class="rela-block user-name" id="user_name">{{ event.title }}</div>
+            <div class="rela-block user-desc" id="user_description"><i class="fas fa-inbox"></i> {{ event.type }}
+            </div>
+            <div class="row">
+                <div class="rela-block user-job" id="event_price"><i class="fas fa-tag"></i>
+                    {{ event.price }} €
                 </div>
             </div>
-
-            <div class="rela-block profile-card-stats">
-                <div class="floated profile-stat works" id="num_works">{{ event.begin_date|date:"j F o à G:i" }}<br>
-                </div>
-                <div class="floated profile-stat following"
-                     id="num_following">{{ event.end_date|date:"j F o à G:i" }}<br></div>
-                <div class="floated profile-stat followers" id="num_followers">{{ event.capacity }}<br></div>
+            <br>
+            <div class="row">
+                <div class="col-md-12 rela-block user-job" id="event_address"><i class="fas fa-map-pin"></i>
+                    {{ event.address }}</div>
             </div>
         </div>
+
+        <div class="rela-block profile-card-stats">
+            <div class="floated profile-stat works" id="num_works">{{ event.begin_date|date:"j F o à G:i" }}<br>
+            </div>
+            <div class="floated profile-stat following" id="num_following">{{ event.end_date|date:"j F o à G:i" }}<br>
+            </div>
+            <div class="floated profile-stat followers" id="num_followers">
+                {{ event.capacity }}/{{ total }}<br></div>
+        </div>
+        {% if event.capacity == 0 %}
+        <div class="text-center">
+            <button class="mx-4 button text-center">Cet événement est complet</button>
+        </div>
+        <br>
+        {% elif show_participate %}
+        <div class="text-center">
+            <button class="mx-4 button text-center" type="submit"
+                onclick="location.href='/events/subscribe_events/{{ event.id }}/{{ user.id }}'">Participer</button>
+        </div>
+        <br>
+        {% endif %}
+        {% if not show_participate %}
+        <div class="text-center">
+            <button class="mx-4 button text-center participant">Vous participez à cet événement</button>
+        </div>
+        <br>
+        <div class="text-center">
+            <button class="mx-4 button text-center unsubscribe"
+                onclick="location.href='/events/unsubscribe_events/{{ event.id }}/{{ user.id }}'">Annuler la
+                participation</button>
+        </div>
+        <br>
+        {% endif %}
+
+
+        {% if event.owner.id == user.id %}
+        <div class="text-center">
+            <button class="mx-4 button text-center participant" type="submit"
+                onclick="location.href='/events/get_participants/{{ event.id }}'">Liste des participants</button>
+        </div>
+        {% endif %}
+        <br>
     </div>
+</div>
 
 
 
