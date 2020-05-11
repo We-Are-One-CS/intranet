@@ -40,7 +40,7 @@ jobs:
         pip install -r requirements.txt
     - uses: harmon758/postgresql-action@v1
       with:
-        postgresql version: '10'
+        postgresql version: '11'  # See https://hub.docker.com/_/postgres for available versions
     - name: Migrate the database
       run: python manage.py migrate
     - name: Run Tests
