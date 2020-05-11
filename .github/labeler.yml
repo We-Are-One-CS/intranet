@@ -1,10 +1,10 @@
 test: wao/tests.py
 
-html: *.html
+html: ./*.html
 
-css: *.css
+css: ./*.css
 
-py file: *.py
+py file: ./*.py
 
 models: wao/models/*
 
