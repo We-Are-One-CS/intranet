@@ -42,7 +42,9 @@ jobs:
       with:
         postgresql version: '11'  # See https://hub.docker.com/_/postgres for available versions
     - name: Migrate the database
-      run: python manage.py migrate
+      run: |
+        python manage.py makemigrations wao
+        python manage.py migrate
     - name: Run Tests
       run: |
         python manage.py test
