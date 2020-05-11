@@ -23,7 +23,7 @@ jobs:
          POSTGRES_PASSWORD: postgres
          POSTGRES_DB: github_actions
        ports:
-          - 5432
+          - 5432:5432
        # needed because the postgres container does not provide a healthcheck
        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
@@ -40,7 +40,7 @@ jobs:
         pip install -r requirements.txt
     - uses: harmon758/postgresql-action@v1
       with:
-        postgresql version: '11'
+        postgresql version: '10'
     - name: Migrate the database
       run: python manage.py migrate
     - name: Run Tests
