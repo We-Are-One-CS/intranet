@@ -20,14 +20,14 @@ urls: wao/urls.py
 
 views: wao/views.py
 
-README: ./README.md
+README: README.md
 
-requirements: ./requirements.txt
+dependencies: requirements.txt
 
-static: ./wao/static/*
+static: wao/static/*
 
-intranet: ./intranet/*
+intranet: intranet/*
 
-settings: ./intranet/settings.py
+settings: intranet/settings.py
 
 github-actions: .github/*
