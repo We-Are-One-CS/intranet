@@ -416,10 +416,10 @@ class ModerationView(generic.ListView):
         """"
         Temporary solution while we do not construct the queryset method
         """
-        return render(request, 'wao/subscribe_programs.html')
+        return render(request, 'wao/moderate_user.html')
 
     def moderate_event(request):
         """"
         Temporary solution while we do not construct the queryset method
         """
-        return render(request, 'wao/subscribe_programs.html')
+        return render(request, 'wao/moderate_event.html')
