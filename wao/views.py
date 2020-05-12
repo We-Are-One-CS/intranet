@@ -408,3 +408,18 @@ class SubscribeProgramsView(generic.ListView):
         Temporary solution while we do not construct the queryset method
         """
         return render(request, 'wao/subscribe_programs.html')
+
+
+class ModerationView(generic.ListView):
+
+    def moderate_user(request):
+        """"
+        Temporary solution while we do not construct the queryset method
+        """
+        return render(request, 'wao/subscribe_programs.html')
+
+    def moderate_event(request):
+        """"
+        Temporary solution while we do not construct the queryset method
+        """
+        return render(request, 'wao/subscribe_programs.html')

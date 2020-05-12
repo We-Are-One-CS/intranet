@@ -35,4 +35,7 @@ urlpatterns = [
 
     path('yearbook/', views.YearbookView.yearbook, name='yearbook'),
     path('yearbook/search_user/', views.YearbookView.search_user, name='yearbook/search_user'),
+
+    path('moderate_user', views.ModerationView.moderate_user, name='moderate_user'),
+    path('moderate_event', views.ModerationView.moderate_event, name='moderate_event'),
 ]
