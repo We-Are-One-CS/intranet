@@ -1,0 +1,99 @@
+.foundus {
+    max-width:100% !important;
+  }
+
+.my-4{
+    background: rgb(241, 196, 15);
+    width:80%;
+  }
+  
+  *,
+  *::before,
+  *::after { 
+    box-sizing: border-box;
+  }
+  
+
+  .cards {
+    color: #999999;
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-rendering: optimizeLegibility;
+  }
+  
+  .cards__item {
+    display: flex;
+    padding: 1rem;
+  }
+
+  .field{
+    color: #0d363c;
+    font-family: montserrat;
+    font-size: 0.9rem;
+    font-weight:20;
+  }
+
+  .moderate{
+      font-size: 0.8rem !important;
+  }
+
+  @media(min-width: 40rem) {
+    .cards__item {
+      width: 50%;
+  }
+}
+
+  @media(min-width: 56rem) {
+    .cards__item {
+      width: 33.3333%;
+    }
+  }
+  
+  .card {
+    background-color: white;
+    border-radius: 0.5rem !important;
+    box-shadow: 0 10px 20px -10px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;}
+  
+  .card__content {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    padding: 1rem;
+  }
+  
+  .card__name {
+    color: #696969;
+    font-size: 1.15rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  
+  .card__email {
+    color: #696969;
+    font-size: 0.8rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    text-transform: lowercase;
+  }
+
+  .card__text {
+    font-family : montserrat-light;
+    color:#868686;
+    font-weight:10 !important;
+    flex: 1 1 auto;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin-bottom: 1.25rem;
+  }
+
+
+.uploaded_file{
+  width:150px;
+}
