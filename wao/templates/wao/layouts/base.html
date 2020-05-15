@@ -75,6 +75,18 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/programs">Programmes perso</a>
                 </li>
+                {% if user.is_superuser %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Modération
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/moderate_user">Modération User</a>
+                        <a class="dropdown-item" href="/moderate_event">Modération Event</a>
+                    </div>
+                </li>
+                {% endif %}
             </ul>
         </div>
     </nav>

@@ -408,3 +408,37 @@ class SubscribeProgramsView(generic.ListView):
         Temporary solution while we do not construct the queryset method
         """
         return render(request, 'wao/subscribe_programs.html')
+
+
+class ModerationView(generic.ListView):
+
+    def moderate_user(request, user_id=None):
+        """"
+        Temporary solution while we do not construct the queryset method
+        """
+        inactive_users = User.objects.all().filter(is_active = False)
+
+        if not request.method == 'POST':
+            return render(request, 'wao/moderate_user.html', {'inactive_users' : inactive_users})
+        
+        else:
+            user_to_activate = User.objects.get(id=user_id)
+            user_to_activate.is_active = True
+            user_to_activate.save()
+            return render(request, 'wao/moderate_user.html', {'inactive_users' : inactive_users})
+
+
+    def moderate_event(request, event_id=None):
+        """"
+        Temporary solution while we do not construct the queryset method
+        """
+        unmoderated_events = Event.objects.all().filter(validated = False)
+
+        if not request.method == 'POST':
+            return render(request, 'wao/moderate_event.html', {'unmoderated_events' : unmoderated_events})
+        
+        else:
+            event_to_validate = Event.objects.get(id=event_id)
+            event_to_validate.validated = True
+            event_to_validate.save()
+            return render(request, 'wao/moderate_event.html', {'unmoderated_events' : unmoderated_events})

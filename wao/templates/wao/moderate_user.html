@@ -1,0 +1,71 @@
+{% extends 'wao/layouts/base.html' %}
+{% load static %}
+
+{% block title %}Modération{% endblock title %}
+
+{% block mystylesheet %}
+<link rel="stylesheet" type="text/css" href="{% static 'wao/css/moderation.css' %}">
+{% endblock mystylesheet %}
+
+
+{% block content %}
+<div class="yellow-header">
+    <p class="text-center text-white header-text">Modération d'utilisateurs</p>
+    <div class="separated-div-wrapper">
+        <div class="separators header"></div>
+        <div class="separators header center-white"></div>
+        <div class="separators header"></div>
+    </div>
+</div>
+
+<div class="container foundus">
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+
+            <ul class="cards">
+                {% for user in inactive_users %}
+                <li class="cards__item">
+                    <div class="card">
+                        <div class="card__content">
+                            <div class="card__name">{{user.first_name}} {{user.last_name}} | <strong
+                                    class="card__email">{{user.email}}
+                                </strong>
+                            </div>
+                            <hr class="light my-4" />
+                            <p class="card__text text-justify">
+                                <strong class="field"> Téléphone </strong> : {{user.telephone}}
+                                <br />
+                                <strong class="field">Date de naissance</strong> : {{user.birthday}}
+                                <br />
+                                <strong class="field">Métier</strong> : {{user.job_title}}
+                                <br />
+                                <strong class="field">Structure</strong> :
+                                {{user.description}}
+                                <br />
+                                <strong class="field">Catégorie</strong> :
+                                {{user.category}}
+                                <br />
+                                <strong class="field">Membership Type</strong> :
+                                {{user.membership_type}}
+                                <br />
+                                <strong class="field">Adresse</strong> :
+                                {{user.address}}, {{user.zip_code}}, {{user.city}}, {{user.country}}
+                                <br />
+                            </p>
+                            <form class="text-center" action="/moderate_user/{{user.id}}" method="POST">
+                                {% csrf_token %}
+                                <button onclick="return confirm('Etes-vous sûr de vouloir valider cet utilisateur ?')"
+                                    class="mx-4 button moderate">Activer le compte</button>
+                            </form>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+
+            </ul>
+
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
