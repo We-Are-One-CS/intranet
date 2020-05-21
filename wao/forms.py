@@ -4,7 +4,7 @@ from phonenumber_field.formfields import PhoneNumberField
 from tempus_dominus.widgets import DateTimePicker
 
 from .models import User, Structure, Event, Category
-from .models.event_type import EventType
+from multiselectfield import MultiSelectFormField
 
 
 class DateInput(forms.DateInput):
@@ -123,13 +123,15 @@ class EventCreationForm(forms.ModelForm):
                                    widget=DateTimePicker(attrs={
                                        'append': 'fa fa-calendar',
                                        'icon_toggle': True, }))
-    type = forms.ModelMultipleChoiceField(
-        queryset=EventType.objects.all(),
+
+    type = MultiSelectFormField(
+        widget= forms.SelectMultiple,
         label='Type d\'événement : ',
         help_text="Vous pouvez sélectionner plusieurs éléments",
-        required=False
+        required=False,
+        choices = Event.TYPE_CHOICES,
     )
-    
+
     class Meta:
         model = Event
         fields = (
