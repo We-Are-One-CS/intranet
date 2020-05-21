@@ -19,7 +19,7 @@ class MyUserAdmin(admin.ModelAdmin):
 
 class EventAdmin(admin.ModelAdmin):
     list_display = (
-        'id', 'title', 'description', 'price', 'capacity', 'type', 'photo')
+        'id', 'title', 'description', 'price', 'capacity', 'photo')
 
 
 class CategoryAdmin(admin.ModelAdmin):
