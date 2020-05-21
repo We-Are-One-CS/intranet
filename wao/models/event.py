@@ -1,7 +1,7 @@
 from django.db import models
 
 from .user import User
-
+from .event_type import EventType
 
 def upload_to_name_event(instance, filename):
     return 'wao/static/wao/event_pictures/' + filename  # A CHANGER EN 'static/wao/event_pictures/' EN PROD !!!
@@ -48,7 +48,7 @@ class Event(models.Model):
     address = models.CharField(max_length=300)
     price = models.FloatField()
     capacity = models.IntegerField()
-    type = models.CharField(max_length=100)
+    type = models.ManyToManyField(EventType, blank=True)
     publication_date = models.DateTimeField(name="Date de création de l'évènement", auto_now_add=True)
     photo = models.FileField(upload_to=upload_to_name_event, blank=True)
     is_private = models.BooleanField(
