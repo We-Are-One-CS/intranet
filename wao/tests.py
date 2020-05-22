@@ -21,14 +21,14 @@ class TestCreateUser(TestCase):
 
     def test_normal_create_user(self):
         """
-        Tests if the correctly inputted user is subscribed
+        Tests if the correctly inputted user is created
         """
         user_normal = User.objects.create_user(email='user_normal@user.com', password="user")
 
         self.assertIsNotNone(User.objects.get(email='user_normal@user.com'),
-                             msg='Testing if the correctly inputted user is subscribed')
+                             msg='Testing if the correctly inputted user is created')
         self.assertEqual(user_normal.email, "user_normal@user.com",
-                         msg='Testing if the correctly inputted user is subscribed')
+                         msg='Testing if the correctly inputted user is created')
 
     def test_passwordless_create_user(self):
         """
