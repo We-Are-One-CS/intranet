@@ -2,9 +2,9 @@
 # python manage.py test
 import unittest
 
-from django.test import TestCase
-from .models import User
-
+from django.test import TestCase, Client
+from .models import User, Category, MembershipType
+from .forms import UserRegistrationForm
 """
 USERS TESTS
 """
@@ -18,64 +18,82 @@ class TestCreateUser(TestCase):
     """
     Tests the create_user function on wao/managers.py
     """
-
-    def test_normal_create_user(self):
+    
+    def setUp(cls): 
         """
-        Tests if the correctly inputted user is created
+        Setting up the test database (create one category and one membership type)
+
         """
-        user_normal = User.objects.create_user(email='user_normal@user.com', password="user")
+        category = Category(name='Adherent')
+        category.save()
+        membership_type = MembershipType.objects.create(name='student')
+        print(membership_type)
+        membership_type.save()
 
-        self.assertIsNotNone(User.objects.get(email='user_normal@user.com'),
-                             msg='Testing if the correctly inputted user is created')
-        self.assertEqual(user_normal.email, "user_normal@user.com",
-                         msg='Testing if the correctly inputted user is created')
-
-    def test_passwordless_create_user(self):
+    def test_create_user(self):
         """
-        TODO : these tests bugged, because we cannot access the passwords.
-        TODO : Check if these tests commented below are needed
+        User can be created if all the mandatory field are correctly filled
+
         """
-        user_empty_password = User.objects.create_user(email="user_empty_password@user.com", password="")
-        user_none_password = User.objects.create_user(email="user_none_password@user.com", password=None)
-        # self.assertIsNone(user_empty_password.password,
-        #                  msg="Testing if user has no password if his password input is ''.")
+        category = Category.objects.get(pk=1).pk
+        print(category)
+        data = { 'first_name': 'john', 'last_name': 'smith', 'email':'johnsmith@gmail.com', 'password1':'Alilou02', 'password2':'Alilou02', 'gender':'M', 'category': category}
+        form = UserRegistrationForm(data=data)
+        
+        self.assertTrue(form.is_valid())
+        # print(User.objects.get(email='johnsmith@gmail.com'))
+        #self.assertIsNotNone(User.objects.get(email='johnsmith@gmail.com'), msg='Testing if the correctly inputted user is created')
+        #self.assertEqual(user_normal.email, "user_normal@user.com",
+        #                 msg='Testing if the correctly inputted user is created')
 
-        # self.assertIsNone(user_none_password.password,
-        #                  msg="Testing if user has no password if his password input is not inputted.")
+    # def test_passwordless_create_user(self):
+    #     """
+    #     TODO : these tests bugged, because we cannot access the passwords.
+    #     TODO : Check if these tests commented below are needed
+    #     """
+    #     user_empty_password = User.objects.create_user(email="user_empty_password@user.com", password="")
+    #     user_empty_password.save()
+    #     user_none_password = User.objects.create_user(email="user_none_password@user.com", password=None)
+    #     #print(user_empty_password.email)
+    #     # self.assertIsNone(User.objects.get(email="user_empty_password@user.com"),
+    #     #                   msg="Testing if user has no password if his password input is ''.")
 
-    def test_emailless_create_user(self):
-        """
-        #Testing if when a user types an empty mail or invalid mail, there is a TypeError
-        """
+    #     # self.assertIsNone(user_none_password.password,
+    #     #                   msg="Testing if user has no password if his password input is not inputted.")
 
-        self.assertRaises(TypeError, User.objects.create_user, email=None, passord="user")
-        self.assertRaises(TypeError, User.objects.create_user, email=None, passord=None)
+    # def test_emailless_create_user(self):
+    #     """
+    #     #Testing if when a user types an empty mail or invalid mail, there is a TypeError
+    #     """
+
+    #     self.assertRaises(TypeError, User.objects.create_user, email=None, passord="user")
+    #     self.assertRaises(TypeError, User.objects.create_user, email=None, passord=None)
 
 
-class TestCreateSuperUser(TestCase):
-    """
-    Tests the create_superuser function on wao/managers.py
-    """
+# class TestCreateSuperUser(TestCase):
+#     """
+#     Tests the create_superuser function on wao/managers.py
+#     """
 
-    def test_normal_create_superuser(self):
-        """
-        Tests if the correctly inputted superuser is subscribed
-        """
+#     def test_normal_create_superuser(self):
+#         """
+#         Tests if the correctly inputted superuser is subscribed
+#         """
 
-        User.objects.create_superuser(email='superuser_normal@user.com', password="superuser")
-        superuser_normal = User.objects.get(email='superuser_normal@user.com')
-        self.assertIsNotNone(superuser_normal)
-        self.assertTrue(superuser_normal, "superuser_normal@user.com")
+#         User.objects.create_superuser(email='superuser_normal@user.com', password="superuser")
+#         superuser_normal = User.objects.get(email='superuser_normal@user.com')
+#         self.assertIsNotNone(superuser_normal)
+#         self.assertTrue(superuser_normal, "superuser_normal@user.com")
 
-    def test_passwordless_create_superuser(self):
-        # Testing if there is a TypeError  when a user types an empty or invalid password
-        self.assertRaises(TypeError, User.objects.create_superuser,
-                          email="superuser_none_password@user.com", password=None)
+#     def test_passwordless_create_superuser(self):
+#         # Testing if there is a TypeError  when a user types an empty or invalid password
+#         self.assertRaises(TypeError, User.objects.create_superuser,
+#                           email="superuser_none_password@user.com", password=None)
 
-    def test_emailless_create_superuser(self):
-        # Testing if there is a TypeError  when a superuser types an empty mail or invalid mail
-        self.assertRaises(TypeError, User.objects.create_superuser,
-                          email=None, password="superuser")
+#     def test_emailless_create_superuser(self):
+#         # Testing if there is a TypeError  when a superuser types an empty mail or invalid mail
+#         self.assertRaises(TypeError, User.objects.create_superuser,
+#                           email=None, password="superuser")
 
 
 # TODO: Finalize these tests
