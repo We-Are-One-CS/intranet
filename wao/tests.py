@@ -32,19 +32,19 @@ class TestCreateUser(TestCase):
 
     def test_create_user(self):
         """
-        User can be created if all the mandatory field are correctly filled
+        User can be created with the sign up form if all the mandatory field are correctly filled
 
         """
         category = Category.objects.get(pk=1).pk
-        print(category)
         data = { 'first_name': 'john', 'last_name': 'smith', 'email':'johnsmith@gmail.com', 'password1':'Alilou02', 'password2':'Alilou02', 'gender':'M', 'category': category}
-        form = UserRegistrationForm(data=data)
         
+        form = UserRegistrationForm(data=data)
+
         self.assertTrue(form.is_valid())
-        # print(User.objects.get(email='johnsmith@gmail.com'))
-        #self.assertIsNotNone(User.objects.get(email='johnsmith@gmail.com'), msg='Testing if the correctly inputted user is created')
-        #self.assertEqual(user_normal.email, "user_normal@user.com",
-        #                 msg='Testing if the correctly inputted user is created')
+        form.save()
+
+        self.assertIsNotNone(User.objects.get(email='johnsmith@gmail.com'), msg='Testing if the correctly inputted user is created')
+        self.assertEqual(User.objects.get(email='johnsmith@gmail.com').email, "johnsmith@gmail.com", msg='Testing if the correctly inputted user is created')
 
     # def test_passwordless_create_user(self):
     #     """
