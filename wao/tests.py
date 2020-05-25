@@ -34,7 +34,7 @@ class TestCreateUser(TestCase):
         User can be created with the sign up form if all the mandatory field are correctly filled
 
         """
-        data = {'first_name': 'john', 'last_name': 'smith', 'email':'johnsmith@gmail.com', 'password1':'Alilou02', 'password2':'Alilou02', 'gender':'M', 'category': 1}
+        data = {'first_name': 'john', 'last_name': 'smith', 'email':'johnsmith@gmail.com', 'password1':'ComplicatedPass1', 'password2':'ComplicatedPass1', 'gender':'M', 'category': 1}
         
         form = UserRegistrationForm(data=data)
 
@@ -58,17 +58,21 @@ class TestCreateUser(TestCase):
         data = {'first_name': 'john', 'last_name': 'smith', 'email':'johnsmith@gmail.com', 'password1':None , 'password2':None, 'gender':'M', 'category': 1}
         
         form = UserRegistrationForm(data=data)
-        
+
         self.assertFalse(form.is_valid()) #The form is not valid, thus it can't be saved and the user isn't created
         self.assertIsNotNone(User.objects.filter(email='johnsmith@gmail.com'), msg='Testing if the incorrectly inputted user is not created')
 
-    # def test_emailless_create_user(self):
-    #     """
-    #     #Testing if when a user types an empty mail or invalid mail, there is a TypeError
-    #     """
+    def test_emailless_create_user(self):
+        """
+        User cannot be created with the sign up form if email is empty or invalid
+        #Testing if when a user types an empty mail or invalid mail, there is a TypeError
+        """
+        data = {'first_name': 'john', 'last_name': 'smith', 'email':'johnsmith', 'password1':'ComplicatedPass1', 'password2':'ComplicatedPass1', 'gender':'M', 'category': 1}
+        
+        form = UserRegistrationForm(data=data)
 
-    #     self.assertRaises(TypeError, User.objects.create_user, email=None, passord="user")
-    #     self.assertRaises(TypeError, User.objects.create_user, email=None, passord=None)
+        self.assertFalse(form.is_valid()) #The form is not valid, thus it can't be saved and the user isn't created
+        self.assertIsNotNone(User.objects.filter(email='johnsmith'), msg='Testing if the incorrectly inputted user is not created')
 
 
 # class TestCreateSuperUser(TestCase):
