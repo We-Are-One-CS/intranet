@@ -58,6 +58,7 @@ class TestCreateUser(TestCase):
         data = {'first_name': 'john', 'last_name': 'smith', 'email':'johnsmith@gmail.com', 'password1':None , 'password2':None, 'gender':'M', 'category': 1}
         
         form = UserRegistrationForm(data=data)
+        
         self.assertFalse(form.is_valid()) #The form is not valid, thus it can't be saved and the user isn't created
         self.assertIsNotNone(User.objects.filter(email='johnsmith@gmail.com'), msg='Testing if the incorrectly inputted user is not created')
 
