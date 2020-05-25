@@ -27,7 +27,6 @@ class TestCreateUser(TestCase):
         category = Category(name='Adherent')
         category.save()
         membership_type = MembershipType.objects.create(name='student')
-        print(membership_type)
         membership_type.save()
 
     def test_create_user(self):
