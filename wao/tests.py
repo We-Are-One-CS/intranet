@@ -34,7 +34,7 @@ class TestCreateUser(TestCase):
         User can be created with the sign up form if all the mandatory field are correctly filled
 
         """
-        data = { 'first_name': 'john', 'last_name': 'smith', 'email':'johnsmith@gmail.com', 'password1':'Alilou02', 'password2':'Alilou02', 'gender':'M', 'category': 1}
+        data = {'first_name': 'john', 'last_name': 'smith', 'email':'johnsmith@gmail.com', 'password1':'Alilou02', 'password2':'Alilou02', 'gender':'M', 'category': 1}
         
         form = UserRegistrationForm(data=data)
 
@@ -46,19 +46,20 @@ class TestCreateUser(TestCase):
 
     def test_passwordless_create_user(self):
         """
-        User cannot be created with the sign up form if password is empty
+        User cannot be created with the sign up form if password is empty or is None
         """
-        data = { 'first_name': 'john', 'last_name': 'smith', 'email':'johnsmith@gmail.com', 'password1':'', 'password2':'', 'gender':'M', 'category': 1}
+        data = {'first_name': 'john', 'last_name': 'smith', 'email':'johnsmith@gmail.com', 'password1':'', 'password2':'', 'gender':'M', 'category': 1}
         
         form = UserRegistrationForm(data=data)
 
         self.assertFalse(form.is_valid()) #The form is not valid, thus it can't be saved and the user isn't created
-        #print(user_empty_password.email)
-        # self.assertIsNone(User.objects.get(email="user_empty_password@user.com"),
-        #                   msg="Testing if user has no password if his password input is ''.")
+        self.assertIsNotNone(User.objects.filter(email='johnsmith@gmail.com'), msg='Testing if the incorrectly inputted user is not created')
 
-        # self.assertIsNone(user_none_password.password,
-        #                   msg="Testing if user has no password if his password input is not inputted.")
+        data = {'first_name': 'john', 'last_name': 'smith', 'email':'johnsmith@gmail.com', 'password1':None , 'password2':None, 'gender':'M', 'category': 1}
+        
+        form = UserRegistrationForm(data=data)
+        self.assertFalse(form.is_valid()) #The form is not valid, thus it can't be saved and the user isn't created
+        self.assertIsNotNone(User.objects.filter(email='johnsmith@gmail.com'), msg='Testing if the incorrectly inputted user is not created')
 
     # def test_emailless_create_user(self):
     #     """
