@@ -75,20 +75,20 @@ class TestCreateUser(TestCase):
         self.assertIsNotNone(User.objects.filter(email='johnsmith'), msg='Testing if the incorrectly inputted user is not created')
 
 
-# class TestCreateSuperUser(TestCase):
-#     """
-#     Tests the create_superuser function on wao/managers.py
-#     """
+class TestCreateSuperUser(TestCase):
+    """
+    Tests the create_superuser function on wao/managers.py
+    """
 
-#     def test_normal_create_superuser(self):
-#         """
-#         Tests if the correctly inputted superuser is subscribed
-#         """
+    def test_normal_create_superuser(self):
+        """
+        Tests if the correctly inputted superuser is subscribed
+        """
 
-#         User.objects.create_superuser(email='superuser_normal@user.com', password="superuser")
-#         superuser_normal = User.objects.get(email='superuser_normal@user.com')
-#         self.assertIsNotNone(superuser_normal)
-#         self.assertTrue(superuser_normal, "superuser_normal@user.com")
+        User.objects.create_superuser(email='superuser_normal@user.com', password="superuser")
+        superuser_normal = User.objects.get(email='superuser_normal@user.com')
+        self.assertIsNotNone(superuser_normal)
+        self.assertTrue(superuser_normal, "superuser_normal@user.com")
 
 #     def test_passwordless_create_superuser(self):
 #         # Testing if there is a TypeError  when a user types an empty or invalid password
