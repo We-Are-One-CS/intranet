@@ -97,14 +97,14 @@ class TestCreateSuperUser(TestCase):
         """
         User.objects.create_superuser(email='superuser_normal@user.com', password="superuser")
         superuser_normal = User.objects.get(email='superuser_normal@user.com')
-        
+
         self.assertIsNotNone(superuser_normal)
         self.assertTrue(superuser_normal, "superuser_normal@user.com")
 
-#     def test_passwordless_create_superuser(self):
-#         # Testing if there is a TypeError  when a user types an empty or invalid password
-#         self.assertRaises(TypeError, User.objects.create_superuser,
-#                           email="superuser_none_password@user.com", password=None)
+    def test_passwordless_create_superuser(self):
+        # Testing if there is a TypeError  when a user types an empty or invalid password
+        self.assertRaises(TypeError, User.objects.create_superuser,
+                          email="superuser_none_password@user.com", password=None)
 
 #     def test_emailless_create_superuser(self):
 #         # Testing if there is a TypeError  when a superuser types an empty mail or invalid mail
