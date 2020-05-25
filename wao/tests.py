@@ -47,6 +47,7 @@ class TestCreateUser(TestCase):
     def test_create_passwordless_user(self):
         """
         User cannot be created with the sign up form if password is empty or is None
+
         """
         data = {'first_name': 'john', 'last_name': 'smith', 'email':'johnsmith@gmail.com', 'password1':'', 'password2':'', 'gender':'M', 'category': 1}
         
@@ -65,7 +66,7 @@ class TestCreateUser(TestCase):
     def test_create_user_invalid_email(self):
         """
         User cannot be created with the sign up form if email is empty or invalid
-        #Testing if when a user types an empty mail or invalid mail, there is a TypeError
+
         """
         data = {'first_name': 'john', 'last_name': 'smith', 'email':'johnsmith', 'password1':'ComplicatedPass1', 'password2':'ComplicatedPass1', 'gender':'M', 'category': 1}
         
@@ -79,14 +80,24 @@ class TestCreateSuperUser(TestCase):
     """
     Tests the create_superuser function on wao/managers.py
     """
+    def setUp(cls): 
+        """
+        Setting up the test database (create one category and one membership type)
+
+        """
+        category = Category(name='Adherent')
+        category.save()
+        membership_type = MembershipType.objects.create(name='student')
+        membership_type.save()
 
     def test_normal_create_superuser(self):
         """
-        Tests if the correctly inputted superuser is subscribed
-        """
+        Tests if the correctly inputted superuser is created
 
+        """
         User.objects.create_superuser(email='superuser_normal@user.com', password="superuser")
         superuser_normal = User.objects.get(email='superuser_normal@user.com')
+        
         self.assertIsNotNone(superuser_normal)
         self.assertTrue(superuser_normal, "superuser_normal@user.com")
 
