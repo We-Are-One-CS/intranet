@@ -34,8 +34,7 @@ class TestCreateUser(TestCase):
         User can be created with the sign up form if all the mandatory field are correctly filled
 
         """
-        category = Category.objects.get(pk=1).pk
-        data = { 'first_name': 'john', 'last_name': 'smith', 'email':'johnsmith@gmail.com', 'password1':'Alilou02', 'password2':'Alilou02', 'gender':'M', 'category': category}
+        data = { 'first_name': 'john', 'last_name': 'smith', 'email':'johnsmith@gmail.com', 'password1':'Alilou02', 'password2':'Alilou02', 'gender':'M', 'category': 1}
         
         form = UserRegistrationForm(data=data)
 
@@ -45,20 +44,21 @@ class TestCreateUser(TestCase):
         self.assertIsNotNone(User.objects.get(email='johnsmith@gmail.com'), msg='Testing if the correctly inputted user is created')
         self.assertEqual(User.objects.get(email='johnsmith@gmail.com').email, "johnsmith@gmail.com", msg='Testing if the correctly inputted user is created')
 
-    # def test_passwordless_create_user(self):
-    #     """
-    #     TODO : these tests bugged, because we cannot access the passwords.
-    #     TODO : Check if these tests commented below are needed
-    #     """
-    #     user_empty_password = User.objects.create_user(email="user_empty_password@user.com", password="")
-    #     user_empty_password.save()
-    #     user_none_password = User.objects.create_user(email="user_none_password@user.com", password=None)
-    #     #print(user_empty_password.email)
-    #     # self.assertIsNone(User.objects.get(email="user_empty_password@user.com"),
-    #     #                   msg="Testing if user has no password if his password input is ''.")
+    def test_passwordless_create_user(self):
+        """
+        User cannot be created with the sign up form if password is empty
+        """
+        data = { 'first_name': 'john', 'last_name': 'smith', 'email':'johnsmith@gmail.com', 'password1':'', 'password2':'', 'gender':'M', 'category': 1}
+        
+        form = UserRegistrationForm(data=data)
 
-    #     # self.assertIsNone(user_none_password.password,
-    #     #                   msg="Testing if user has no password if his password input is not inputted.")
+        self.assertFalse(form.is_valid()) #The form is not valid, thus it can't be saved and the user isn't created
+        #print(user_empty_password.email)
+        # self.assertIsNone(User.objects.get(email="user_empty_password@user.com"),
+        #                   msg="Testing if user has no password if his password input is ''.")
+
+        # self.assertIsNone(user_none_password.password,
+        #                   msg="Testing if user has no password if his password input is not inputted.")
 
     # def test_emailless_create_user(self):
     #     """
