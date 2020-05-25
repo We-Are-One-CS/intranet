@@ -44,7 +44,7 @@ class TestCreateUser(TestCase):
         self.assertIsNotNone(User.objects.get(email='johnsmith@gmail.com'), msg='Testing if the correctly inputted user is created')
         self.assertEqual(User.objects.get(email='johnsmith@gmail.com').email, "johnsmith@gmail.com", msg='Testing if the correctly inputted user is created')
 
-    def test_passwordless_create_user(self):
+    def test_create_passwordless_user(self):
         """
         User cannot be created with the sign up form if password is empty or is None
         """
@@ -62,7 +62,7 @@ class TestCreateUser(TestCase):
         self.assertFalse(form.is_valid()) #The form is not valid, thus it can't be saved and the user isn't created
         self.assertIsNotNone(User.objects.filter(email='johnsmith@gmail.com'), msg='Testing if the incorrectly inputted user is not created')
 
-    def test_emailless_create_user(self):
+    def test_create_user_invalid_email(self):
         """
         User cannot be created with the sign up form if email is empty or invalid
         #Testing if when a user types an empty mail or invalid mail, there is a TypeError
