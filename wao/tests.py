@@ -5,6 +5,8 @@ import unittest
 from django.test import TestCase, Client
 from .models import User, Category, MembershipType
 from .forms import UserRegistrationForm
+from django.core.exceptions import ValidationError
+
 """
 USERS TESTS
 """
@@ -108,14 +110,16 @@ class TestCreateSuperUser(TestCase):
 
         """
         self.assertRaises(TypeError, User.objects.create_superuser, email="superuser_none_password@user.com", password=None)
+        self.assertRaises(TypeError, User.objects.create_superuser, email="superuser_none_password@user.com", password="")
 
     def test_create_superuser_invalid_email(self):
         """
         Testing if there is a TypeError  when a superuser types an empty mail or invalid mail
 
         """
-        self.assertRaises(TypeError, User.objects.create_superuser,
-                          email="bibi", password="superuser")
+        self.assertRaises(ValidationError, User.objects.create_user, email="johnsmith", password="superuser")
+        self.assertRaises(TypeError, User.objects.create_user, email=None, password="superuser")
+        
 
 
 # TODO: Finalize these tests
