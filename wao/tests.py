@@ -121,19 +121,36 @@ class TestCreateSuperUser(TestCase):
         self.assertRaises(TypeError, User.objects.create_user, email=None, password="superuser")
         
 
+class TestUser(TestCase):
+    """
+    Tests that the registration parameters are accessible
+    """
+    def setUp(cls): 
+        """
+        Setting up the test database (create one category, one membership type and one user)
 
-# TODO: Finalize these tests
-# class TestUser(TestCase):
-#     def test_get_full_name(self): # TODO
-#         self.fail("Test not yet completed")
-#
-#     def test_get_short_name(self): # TODO
-#         self.fail("Test not yet completed")
-#
-#     def test_email_user(self): # TODO
-#         self.fail("Test not yet completed")
-#
-#
+        """
+        category = Category(name='Adherent')
+        category.save()
+        membership_type = MembershipType.objects.create(name='student')
+        membership_type.save()
+        category = Category.objects.all()[0].pk
+        data = {'first_name': 'john', 'last_name': 'smith', 'email':'johnsmith@gmail.com', 'password1':'ComplicatedPass1', 'password2':'ComplicatedPass1', 'gender':'M', 'category': category}
+        form = UserRegistrationForm(data=data)
+        form.save()
+
+    def test_get_last_name(self):
+        self.assertEqual(User.objects.get(email='johnsmith@gmail.com').last_name, "smith", msg='Testing if the correctly inputted user is created and is accessible')
+
+    def test_get_first_name(self):
+        self.assertEqual(User.objects.get(email='johnsmith@gmail.com').first_name, "john", msg='Testing if the correctly inputted user is created and is accessible')
+
+    def test_email_user(self):
+        self.assertEqual(User.objects.get(email='johnsmith@gmail.com').email, "johnsmith@gmail.com", msg='Testing if the correctly inputted user is created and is accessible')
+
+    def test_user_is_not_superuser(self):
+        self.assertFalse(User.objects.get(email='johnsmith@gmail.com').is_superuser, msg='Testing if the basic user is not a superuser')
+
 # class TestViews(TestCase): # TODO
 #     def test_error(self):
 #         self.fail("Test not yet completed")
