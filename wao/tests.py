@@ -176,7 +176,11 @@ class TestLoginUser(TestCase):
         self.assertIsNotNone(response.context['user']) #The user is not None because  the email and password are correct
         self.assertTrue(response.context['user'].is_authenticated) #The user is authenticated
     
-    #def test_user_incorrect_password(self):
+    def test_user_incorrect_password(self):
+        response = self.client.post('/login/', {'email':'johnsmith@gmail.com', 'password':'IncorrectPassword'}, follow=True)
+
+        self.assertFalse(response.context['user'].is_authenticated) #The user is not authenticated because of incorrect password
+        self.assertEqual(response.context[1]["messages"][0]["content"],"Mot de passe incorrect") #The error displayed is the message "Mot de passe incorrect"
     
     
     # def test_email_user(self):
