@@ -151,13 +151,6 @@ class TestUser(TestCase):
     def test_user_is_not_superuser(self):
         self.assertFalse(User.objects.get(email='johnsmith@gmail.com').is_superuser, msg='Testing if the basic user is not a superuser')
 
-# class TestViews(TestCase): # TODO
-#     def test_error(self):
-#         self.fail("Test not yet completed")
-#
-#     def test_index(self): # TODO
-#         self.fail("Test not yet completed")
-
 
 """
 EVENTS
