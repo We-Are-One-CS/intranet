@@ -182,7 +182,12 @@ class TestLoginUser(TestCase):
         self.assertFalse(response.context['user'].is_authenticated) #The user is not authenticated because of incorrect password
         self.assertEqual(response.context[1]["messages"][0]["content"],"Mot de passe incorrect") #The error displayed is the message "Mot de passe incorrect"
     
-    
+    def test_user_incorrect_email(self):
+        response = self.client.post('/login/', {'email':'johnsmith', 'password':'ComplicatedPass1'}, follow=True)
+
+        self.assertFalse(response.context['user'].is_authenticated) #The user is not authenticated because of incorrect password
+        self.assertEqual(response.context[1]["messages"][0]["content"],"E-mail incorrect") #The error displayed is the message "E-mail incorrect"
+
     # def test_email_user(self):
     #     self.assertEqual(User.objects.get(email='johnsmith@gmail.com').email, "johnsmith@gmail.com", msg='Testing if the correctly inputted user is created and is accessible')
 
