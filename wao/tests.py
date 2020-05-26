@@ -4,8 +4,9 @@ import unittest
 
 from django.test import TestCase
 from .models import User, Category, MembershipType
-from .forms import UserRegistrationForm
+from .forms import UserRegistrationForm, EventCreationForm
 from django.core.exceptions import ValidationError
+from datetime import datetime
 
 """
 USERS TESTS
@@ -204,16 +205,31 @@ EVENTS
 # TEST 13: Do not display past events
 # TEST 14: Publication well done
 
-# TODO: Finalize these tests
-# class TestUser(TestCase): # TODO
-#     def test_get_full_name(self): # TODO
-#         self.fail("Test not yet completed")
-#
-#     def test_get_short_name(self): # TODO
-#         self.fail("Test not yet completed")
-#
-#     def test_email_user(self): # TODO
-#         self.fail("Test not yet completed")
+class TestCreateEvent(TestCase):
+    """
+    Tests that the registration parameters are accessible
+    """
+    def setUp(cls): 
+        """
+        Setting up the test database (create one category, one membership type and one user) because the event needs an owner
+
+        """
+        category = Category(name='Adherent')
+        category.save()
+        membership_type = MembershipType.objects.create(name='student')
+        membership_type.save()
+        category = Category.objects.all()[0].pk
+        data = {'first_name': 'john', 'last_name': 'smith', 'email':'johnsmith@gmail.com', 'password1':'ComplicatedPass1', 'password2':'ComplicatedPass1', 'gender':'M', 'category': category}
+        form = UserRegistrationForm(data=data)
+        form.save()
+
+    def test_create_event(self):
+        data = {'title':'formation dev', 'description':'description de l\'événement', 'type':['etude','informatique'], 'begin_date':datetime.now(), 'end_date':datetime.now(), 'address':'numéro de rue ville code postal', 'price':10, 'capacity':100}
+        
+        form = EventCreationForm(data=data)
+
+        self.assertTrue(form.is_valid(), msg='Testing if the correctly inputted event is created')
+        form.save()
 
 """
 DEV PROGRAMS
