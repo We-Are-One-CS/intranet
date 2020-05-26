@@ -139,6 +139,18 @@ class TestUser(TestCase):
         form = UserRegistrationForm(data=data)
         form.save()
 
+    def test_get_last_name(self):
+        self.assertEqual(User.objects.get(email='johnsmith@gmail.com').last_name, "smith", msg='Testing if the correctly inputted user is created and is accessible')
+
+    def test_get_first_name(self):
+        self.assertEqual(User.objects.get(email='johnsmith@gmail.com').first_name, "john", msg='Testing if the correctly inputted user is created and is accessible')
+
+    def test_email_user(self):
+        self.assertEqual(User.objects.get(email='johnsmith@gmail.com').email, "johnsmith@gmail.com", msg='Testing if the correctly inputted user is created and is accessible')
+
+    def test_user_is_not_superuser(self):
+        self.assertFalse(User.objects.get(email='johnsmith@gmail.com').is_superuser, msg='Testing if the basic user is not a superuser')
+
 
 class TestLoginUser(TestCase):
     """
@@ -158,17 +170,20 @@ class TestLoginUser(TestCase):
         form = UserRegistrationForm(data=data)
         form.save()
 
-    def test_get_last_name(self):
-        self.assertEqual(User.objects.get(email='johnsmith@gmail.com').last_name, "smith", msg='Testing if the correctly inputted user is created and is accessible')
+    def login_test(self):
+        c = Client()
+        response = c.post('/login/', {'name': 'fred', 'passwd': 'secret'})
+        print(response.status_code)
+        print(response.context)
+    
+    # def test_get_first_name(self):
+    #     self.assertEqual(User.objects.get(email='johnsmith@gmail.com').first_name, "john", msg='Testing if the correctly inputted user is created and is accessible')
 
-    def test_get_first_name(self):
-        self.assertEqual(User.objects.get(email='johnsmith@gmail.com').first_name, "john", msg='Testing if the correctly inputted user is created and is accessible')
+    # def test_email_user(self):
+    #     self.assertEqual(User.objects.get(email='johnsmith@gmail.com').email, "johnsmith@gmail.com", msg='Testing if the correctly inputted user is created and is accessible')
 
-    def test_email_user(self):
-        self.assertEqual(User.objects.get(email='johnsmith@gmail.com').email, "johnsmith@gmail.com", msg='Testing if the correctly inputted user is created and is accessible')
-
-    def test_user_is_not_superuser(self):
-        self.assertFalse(User.objects.get(email='johnsmith@gmail.com').is_superuser, msg='Testing if the basic user is not a superuser')
+    # def test_user_is_not_superuser(self):
+    #     self.assertFalse(User.objects.get(email='johnsmith@gmail.com').is_superuser, msg='Testing if the basic user is not a superuser')
 
 
 """
