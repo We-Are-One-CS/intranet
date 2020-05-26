@@ -188,13 +188,6 @@ class TestLoginUser(TestCase):
         self.assertFalse(response.context['user'].is_authenticated) #The user is not authenticated because of incorrect password
         self.assertEqual(response.context[1]["messages"][0]["content"],"E-mail incorrect") #The error displayed is the message "E-mail incorrect"
 
-    # def test_email_user(self):
-    #     self.assertEqual(User.objects.get(email='johnsmith@gmail.com').email, "johnsmith@gmail.com", msg='Testing if the correctly inputted user is created and is accessible')
-
-    # def test_user_is_not_superuser(self):
-    #     self.assertFalse(User.objects.get(email='johnsmith@gmail.com').is_superuser, msg='Testing if the basic user is not a superuser')
-
-
 """
 EVENTS
 
