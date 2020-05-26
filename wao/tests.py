@@ -2,7 +2,7 @@
 # python manage.py test
 import unittest
 
-from django.test import TestCase, Client
+from django.test import TestCase
 from .models import User, Category, MembershipType
 from .forms import UserRegistrationForm
 from django.core.exceptions import ValidationError
@@ -170,15 +170,15 @@ class TestLoginUser(TestCase):
         form = UserRegistrationForm(data=data)
         form.save()
 
-    def login_test(self):
-        c = Client()
-        response = c.post('/login/', {'name': 'fred', 'passwd': 'secret'})
-        print(response.status_code)
-        print(response.context)
+    def test_user_login(self):    
+        response = self.client.post('/login/', {'email':'johnsmith@gmail.com', 'password':'ComplicatedPass1'}, follow=True)
+ 
+        self.assertIsNotNone(response.context['user']) #The user is not None because  the email and password are correct
+        self.assertTrue(response.context['user'].is_authenticated) #The user is authenticated
     
-    # def test_get_first_name(self):
-    #     self.assertEqual(User.objects.get(email='johnsmith@gmail.com').first_name, "john", msg='Testing if the correctly inputted user is created and is accessible')
-
+    #def test_user_incorrect_password(self):
+    
+    
     # def test_email_user(self):
     #     self.assertEqual(User.objects.get(email='johnsmith@gmail.com').email, "johnsmith@gmail.com", msg='Testing if the correctly inputted user is created and is accessible')
 
