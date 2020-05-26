@@ -139,6 +139,25 @@ class TestUser(TestCase):
         form = UserRegistrationForm(data=data)
         form.save()
 
+
+class TestLoginUser(TestCase):
+    """
+    Tests that the registration parameters are accessible
+    """
+    def setUp(cls): 
+        """
+        Setting up the test database (create one category, one membership type and one user)
+
+        """
+        category = Category(name='Adherent')
+        category.save()
+        membership_type = MembershipType.objects.create(name='student')
+        membership_type.save()
+        category = Category.objects.all()[0].pk
+        data = {'first_name': 'john', 'last_name': 'smith', 'email':'johnsmith@gmail.com', 'password1':'ComplicatedPass1', 'password2':'ComplicatedPass1', 'gender':'M', 'category': category}
+        form = UserRegistrationForm(data=data)
+        form.save()
+
     def test_get_last_name(self):
         self.assertEqual(User.objects.get(email='johnsmith@gmail.com').last_name, "smith", msg='Testing if the correctly inputted user is created and is accessible')
 
