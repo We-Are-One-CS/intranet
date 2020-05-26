@@ -3,8 +3,9 @@ from django.db import models
 from .user import User
 from multiselectfield import MultiSelectField
 
+
 def upload_to_name_event(instance, filename):
-    return 'wao/static/wao/event_pictures/' + filename  # A CHANGER EN 'static/wao/event_pictures/' EN PROD !!!
+    return 'static/wao/event_pictures/' + filename  # A CHANGER EN 'static/wao/event_pictures/' EN PROD !!!
 
 
 class Event(models.Model):
@@ -39,21 +40,21 @@ class Event(models.Model):
 
     # CHOICES
     TYPE_CHOICES = (('art', 'Art'),
-              ('culinaire', 'Culinaire'),
-              ('divertissement', 'Divertissement'),
-              ('entreprise', 'Entreprise'),
-              ('ecologie', 'Ecologie'),
-              ('etude', 'Etudes'),
-              ('festif', 'Festif'),
-              ('finance', 'Finance'),
-              ('humanitaire', 'Humanitaire'),
-              ('informatique', 'Informatique'),
-              ('international', 'International'),
-              ('musique', 'Musique'),
-              ('science', 'Sciences et Techniques'),
-              ('sport', 'Sport'),
-              ('social', 'Social'),
-              ('theatre', 'Théâtre'),)
+                    ('culinaire', 'Culinaire'),
+                    ('divertissement', 'Divertissement'),
+                    ('entreprise', 'Entreprise'),
+                    ('ecologie', 'Ecologie'),
+                    ('etude', 'Etudes'),
+                    ('festif', 'Festif'),
+                    ('finance', 'Finance'),
+                    ('humanitaire', 'Humanitaire'),
+                    ('informatique', 'Informatique'),
+                    ('international', 'International'),
+                    ('musique', 'Musique'),
+                    ('science', 'Sciences et Techniques'),
+                    ('sport', 'Sport'),
+                    ('social', 'Social'),
+                    ('theatre', 'Théâtre'),)
 
     # DATABASE FIELDS
     description = models.CharField(max_length=500)
@@ -70,8 +71,7 @@ class Event(models.Model):
     is_private = models.BooleanField(
         default=False)  # This is used to know whether normal users will see the event or not
     validated = models.BooleanField(default=False)  # The admin needs to check the event in order to show it
-    owner = models.ForeignKey(User, on_delete = models.CASCADE, related_name = 'owner', blank=True, null=True, default=1)
-
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='owner', blank=True, null=True, default=1)
 
     # MANAGERS
 
