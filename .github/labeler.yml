@@ -1,0 +1,33 @@
+test: wao/tests.py
+
+html: /*.html
+
+css: /*.css
+
+py file: /*.py
+
+models: wao/models/*
+
+forms: wao/forms.py
+
+managers: wao/managers.py
+
+middleware: wao/middleware.py
+
+admin: wao/admin.py
+
+urls: wao/urls.py
+
+views: wao/views.py
+
+README: README.md
+
+dependencies: requirements.txt
+
+static: wao/static/*
+
+intranet: intranet/*
+
+settings: intranet/settings.py
+
+github-actions: .github/*

@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'tempus_dominus',
     'storages',
+    'multiselectfield',
 ]
 
 MIDDLEWARE = [
@@ -105,7 +106,7 @@ if os.environ.get('GITHUB_WORKFLOW'):
             'USER': 'postgres',
             'PASSWORD': 'postgres',
             'HOST': '127.0.0.1',
-            'PORT': '5432',
+            'PORT': '8000',
         }
     }
 
@@ -162,6 +163,11 @@ STATIC_ROOT = 'static'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'wao/static/'),
+)
 
 INTERNAL_IPS = ['127.0.0.1']
 

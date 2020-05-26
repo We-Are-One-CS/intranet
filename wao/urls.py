@@ -21,7 +21,9 @@ urlpatterns = [
     path('events/all_events/', views.AllEventsView.all_events, name='events/all_events'),
     path('events/event_info/<int:event_id>', views.EventInfoView.event_info, name='events/event_info'),
     path('events/search_events/', views.SearchEventsView.search_events, name='events/search_events'),
-    path('events/subscribe_events/', views.SubscribeEventsView.subscribe_events, name='events/subscribe_events'),
+    path('events/subscribe_events/<int:event_id>/<int:user_id>/', views.SubscribeEventsView.subscribe_events, name='events/subscribe_events'),
+    path('events/unsubscribe_events/<int:event_id>/<int:user_id>/', views.SubscribeEventsView.unsubscribe_events, name='events/unsubscribe_events'),
+    path('events/get_participants/<int:event_id>/', views.SubscribeEventsView.get_participants, name='events/get_participants'),
     path('error', views.error, name='error'),
 
     path('programs/', views.ProgramsView.programs, name='programs'),
@@ -33,4 +35,9 @@ urlpatterns = [
 
     path('yearbook/', views.YearbookView.yearbook, name='yearbook'),
     path('yearbook/search_user/', views.YearbookView.search_user, name='yearbook/search_user'),
+
+    path('moderate_user/', views.ModerationView.moderate_user, name='moderate_user'),
+    path('moderate_user/<int:user_id>', views.ModerationView.moderate_user, name='moderate_user'),
+    path('moderate_event/', views.ModerationView.moderate_event, name='moderate_event'),
+    path('moderate_event/<int:event_id>', views.ModerationView.moderate_event, name='moderate_event'),
 ]

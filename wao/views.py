@@ -3,7 +3,7 @@ import datetime
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
 from django.views import generic
 
@@ -11,6 +11,7 @@ from .forms import EventCreationForm, UserUpdateForm
 from .forms import UserRegistrationForm, CompanyRegistrationForm
 from .models import User, Event
 from django.db.models import Q
+import xlwt
 
 
 def error(request, message="Bienvenue sur la page d'affichage d'erreurs !"):
@@ -144,6 +145,7 @@ class CreateEventView(generic.ListView):
                 form = EventCreationForm(request.POST, request.FILES or None)
                 if form.is_valid():
                     event = form.save(commit=False)
+                    event.owner = request.user
                     event.save()
                     return HttpResponseRedirect('/events/all_events')
                 else:
@@ -173,7 +175,15 @@ class EventInfoView(generic.ListView):
         Temporary solution while we do not construct the queryset method
         """
         event = Event.objects.get(id=event_id)
-        return render(request, 'wao/event_info.html', {'event': event})
+        
+        total = len(event.participants.all()) + event.capacity
+        show_participate = True
+
+        for participant in event.participants.all():
+            if request.user == participant:
+                show_participate = False
+
+        return render(request, 'wao/event_info.html', {'event': event, 'show_participate': show_participate, 'total':total})
 
 
 class SearchEventsView(generic.ListView):
@@ -192,13 +202,86 @@ class SearchEventsView(generic.ListView):
 
 
 class SubscribeEventsView(generic.ListView):
-    template_name = 'wao/subscribe_events.html'
+    template_name = 'wao/event_info.html'
 
-    def subscribe_events(request):
+    def subscribe_events(request, event_id, user_id):
         """"
         Temporary solution while we do not construct the queryset method
         """
-        return render(request, 'wao/subscribe_events.html')
+        
+        event = Event.objects.get(id=event_id)
+        user = User.objects.get(id=user_id)
+        event.participants.add(user)
+        event.capacity = event.capacity -1
+        event.save()
+
+        total = len(event.participants.all()) + event.capacity
+        show_participate = True
+        
+        for participant in event.participants.all():
+            if request.user == participant:
+                show_participate = False
+
+
+        return HttpResponseRedirect('/events/event_info/'+ str(event.id))
+
+    def unsubscribe_events(request, event_id, user_id):
+        """"
+        Temporary solution while we do not construct the queryset method
+        """
+        
+        event = Event.objects.get(id=event_id)
+        user = User.objects.get(id=user_id)
+        event.participants.remove(user)
+        event.capacity = event.capacity +1
+        event.save()
+
+        total = len(event.participants.all()) + event.capacity
+        show_participate = True
+        
+        for participant in event.participants.all():
+            if request.user == participant:
+                show_participate = False
+
+
+        return HttpResponseRedirect('/events/event_info/'+ str(event.id))
+    
+    def get_participants(request, event_id):
+        
+        response = HttpResponse(content_type='application/ms-excel')
+        response['Content-Disposition'] = "attachment; filename=participants.xls"
+
+        wb = xlwt.Workbook(encoding='utf-8')
+        ws = wb.add_sheet('Participants')
+
+        # Sheet header, first row
+        row_num = 0
+
+        font_style = xlwt.XFStyle()
+        font_style.font.bold = True
+
+        columns = ['Prénom', 'Nom', 'Email', 'Téléphone', ]
+
+        for col_num in range(len(columns)):
+            ws.write(row_num, col_num, columns[col_num], font_style)
+
+        # Sheet body, remaining rows
+        font_style = xlwt.XFStyle()
+
+        event = Event.objects.get(id=event_id)
+        rows = event.participants.all().values_list('first_name', 'last_name', 'email', 'telephone')
+        
+        for row in rows:
+            row_num += 1
+            for col_num in range(len(row)):
+                ws.write(row_num, col_num, row[col_num], font_style)
+
+        
+        wb.save(response)
+        return response
+
+
+
 
 
 class YearbookView(generic.ListView):
@@ -325,3 +408,37 @@ class SubscribeProgramsView(generic.ListView):
         Temporary solution while we do not construct the queryset method
         """
         return render(request, 'wao/subscribe_programs.html')
+
+
+class ModerationView(generic.ListView):
+
+    def moderate_user(request, user_id=None):
+        """"
+        Temporary solution while we do not construct the queryset method
+        """
+        inactive_users = User.objects.all().filter(is_active = False)
+
+        if not request.method == 'POST':
+            return render(request, 'wao/moderate_user.html', {'inactive_users' : inactive_users})
+        
+        else:
+            user_to_activate = User.objects.get(id=user_id)
+            user_to_activate.is_active = True
+            user_to_activate.save()
+            return render(request, 'wao/moderate_user.html', {'inactive_users' : inactive_users})
+
+
+    def moderate_event(request, event_id=None):
+        """"
+        Temporary solution while we do not construct the queryset method
+        """
+        unmoderated_events = Event.objects.all().filter(validated = False)
+
+        if not request.method == 'POST':
+            return render(request, 'wao/moderate_event.html', {'unmoderated_events' : unmoderated_events})
+        
+        else:
+            event_to_validate = Event.objects.get(id=event_id)
+            event_to_validate.validated = True
+            event_to_validate.save()
+            return render(request, 'wao/moderate_event.html', {'unmoderated_events' : unmoderated_events})

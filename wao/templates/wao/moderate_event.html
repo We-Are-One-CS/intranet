@@ -1,0 +1,71 @@
+{% extends 'wao/layouts/base.html' %}
+{% load static %}
+
+{% block title %}Modération{% endblock title %}
+
+{% block mystylesheet %}
+<link rel="stylesheet" type="text/css" href="{% static 'wao/css/moderation.css' %}">
+{% endblock mystylesheet %}
+
+
+{% block content %}
+<div class="yellow-header">
+    <p class="text-center text-white header-text">Modération d'événements</p>
+    <div class="separated-div-wrapper">
+        <div class="separators header"></div>
+        <div class="separators header center-white"></div>
+        <div class="separators header"></div>
+    </div>
+</div>
+<br>
+
+<div class="container foundus">
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+
+            <ul class="cards">
+                {% for event in unmoderated_events %}
+                <li class="cards__item">
+                    <div class="card">
+                        <div class="card__content">
+                            <div class="card__name">{{event.title}} | <strong class="card__email"> créé par
+                                    {{event.owner}}
+                                </strong>
+                            </div>
+                            <hr class="light my-4" />
+                            <p class="card__text text-justify">
+                                <strong class="field"> Description </strong> : {{event.description}}
+                                <br />
+                                <strong class="field">Type</strong> : {{event.type}}
+                                <br />
+                                <strong class="field">Prix et capacité</strong> : {{event.price|floatformat}} € |
+                                {{event.capacity}}
+                                personnes
+                                <br />
+                                <strong class="field">Début de l'événement</strong> :
+                                {{event.begin_date|date:"j F o à G:i"}}
+                                <br />
+                                <strong class="field">Fin de l'événement</strong> :
+                                {{event.end_date|date:"j F o à G:i"}}
+                                <br />
+                                <strong class="field">Adresse</strong> :
+                                {{event.address}}
+                                <br />
+                            </p>
+                            <form class="text-center" action="/moderate_event/{{event.id}}" method="POST">
+                                {% csrf_token %}
+                                <button onclick="return confirm('Etes-vous sûr de vouloir modérer cet événement ?')"
+                                    class="mx-4 button moderate">Modérer l'event</button>
+                            </form>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+
+            </ul>
+
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

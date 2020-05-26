@@ -28,8 +28,8 @@ profile_pictures/
 # event pictures for tests
 event_pictures/
 
-# Environment variables (and credentials)
-!/.env
+# Environment variables for using in production
+.env
 
-# Jetbrains project folder
+# Jetbrains project files
 .idea/

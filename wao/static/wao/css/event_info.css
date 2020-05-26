@@ -17,7 +17,6 @@
 }
 
 .floated {
-    display: inline-block;
     position: relative;
     float: left;
 }
@@ -25,7 +24,6 @@
 body {
     font-family: montserrat;
     font-size: 18px;
-    letter-spacing: 2px;
     font-weight: 400;
     line-height: 24px;
 }
@@ -35,6 +33,7 @@ body {
     width: 92%;
     max-width: 1126px;
     padding: 70px 0;
+    letter-spacing: 2px;
 }
 
 .profile-card {
@@ -130,11 +129,23 @@ body {
 }
 
 .followers::after {
-    content: "Capacité de l'événement";
+    content: "Places restantes / places totales";
 }
 
 .following::after {
     content: "Fin de l'événement";
+}
+
+.participant {
+    background-color: transparent !important;
+    border: 2.5px solid rgb(72, 138, 70) !important;
+    color: rgb(72, 138, 70) !important;
+    font-weight: bold;
+}
+
+.unsubscribe{
+    background-color: rgba(255, 0, 0, 0.8) !important;
+    border: 1px solid rgba(255, 0, 0, 0.8) !important;
 }
 
 @media screen and (max-width: 1300px) {

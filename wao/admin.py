@@ -19,7 +19,27 @@ class MyUserAdmin(admin.ModelAdmin):
 
 class EventAdmin(admin.ModelAdmin):
     list_display = (
-        'id', 'title', 'description', 'price', 'capacity', 'type', 'photo')
+        'id', 'title', 'description', 'price', 'capacity', 'photo')
+
+
+class CategoryAdmin(admin.ModelAdmin):
+    pass
+
+
+class StructureAdmin(admin.ModelAdmin):
+    pass
+
+
+class MembershipTypeAdmin(admin.ModelAdmin):
+    pass
+
+
+class SubjectImpactAdmin(admin.ModelAdmin):
+    pass
+
+
+class CompanyAdmin(admin.ModelAdmin):
+    pass
 
 
 class CategoryAdmin(admin.ModelAdmin):
