@@ -34,7 +34,8 @@ class TestCreateUser(TestCase):
         User can be created with the sign up form if all the mandatory field are correctly filled
 
         """
-        data = {'first_name': 'john', 'last_name': 'smith', 'email':'johnsmith@gmail.com', 'password1':'ComplicatedPass1', 'password2':'ComplicatedPass1', 'gender':'M', 'category': 1}
+        category = Category.objects.all()[0].pk
+        data = {'first_name': 'john', 'last_name': 'smith', 'email':'johnsmith@gmail.com', 'password1':'ComplicatedPass1', 'password2':'ComplicatedPass1', 'gender':'M', 'category': category}
         
         form = UserRegistrationForm(data=data)
 
@@ -102,9 +103,11 @@ class TestCreateSuperUser(TestCase):
         self.assertTrue(superuser_normal, "superuser_normal@user.com")
 
     def test_passwordless_create_superuser(self):
-        # Testing if there is a TypeError  when a user types an empty or invalid password
-        self.assertRaises(TypeError, User.objects.create_superuser,
-                          email="superuser_none_password@user.com", password=None)
+        """
+        Testing if there is a TypeError  when password is None
+
+        """
+        self.assertRaises(TypeError, User.objects.create_superuser, email="superuser_none_password@user.com", password=None)
 
 #     def test_emailless_create_superuser(self):
 #         # Testing if there is a TypeError  when a superuser types an empty mail or invalid mail
