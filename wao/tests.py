@@ -3,7 +3,10 @@
 import unittest
 
 from django.test import TestCase
-from .models import User
+from .models import User, Category, MembershipType
+from .forms import UserRegistrationForm, EventCreationForm
+from django.core.exceptions import ValidationError
+from datetime import datetime
 
 """
 USERS TESTS
@@ -18,85 +21,173 @@ class TestCreateUser(TestCase):
     """
     Tests the create_user function on wao/managers.py
     """
-
-    def test_normal_create_user(self):
+    
+    def setUp(cls): 
         """
-        Tests if the correctly inputted user is subscribed
-        """
-        user_normal = User.objects.create_user(email='user_normal@user.com', password="user")
+        Setting up the test database (create one category and one membership type)
 
-        self.assertIsNotNone(User.objects.get(email='user_normal@user.com'),
-                             msg='Testing if the correctly inputted user is subscribed')
-        self.assertEqual(user_normal.email, "user_normal@user.com",
-                         msg='Testing if the correctly inputted user is subscribed')
-
-    def test_passwordless_create_user(self):
         """
-        TODO : these tests bugged, because we cannot access the passwords.
-        TODO : Check if these tests commented below are needed
-        """
-        user_empty_password = User.objects.create_user(email="user_empty_password@user.com", password="")
-        user_none_password = User.objects.create_user(email="user_none_password@user.com", password=None)
-        # self.assertIsNone(user_empty_password.password,
-        #                  msg="Testing if user has no password if his password input is ''.")
+        category = Category(name='Adherent')
+        category.save()
+        membership_type = MembershipType.objects.create(name='student')
+        membership_type.save()
 
-        # self.assertIsNone(user_none_password.password,
-        #                  msg="Testing if user has no password if his password input is not inputted.")
-
-    def test_emailless_create_user(self):
+    def test_create_user(self):
         """
-        #Testing if when a user types an empty mail or invalid mail, there is a TypeError
-        """
+        User can be created with the sign up form if all the mandatory field are correctly filled
 
-        self.assertRaises(TypeError, User.objects.create_user, email=None, passord="user")
-        self.assertRaises(TypeError, User.objects.create_user, email=None, passord=None)
+        """
+        category = Category.objects.all()[0].pk
+        data = {'first_name': 'john', 'last_name': 'smith', 'email':'johnsmith@gmail.com', 'password1':'ComplicatedPass1', 'password2':'ComplicatedPass1', 'gender':'M', 'category': category}
+        
+        form = UserRegistrationForm(data=data)
+
+        self.assertTrue(form.is_valid())
+        form.save()
+
+        self.assertIsNotNone(User.objects.get(email='johnsmith@gmail.com'), msg='Testing if the correctly inputted user is created')
+        self.assertEqual(User.objects.get(email='johnsmith@gmail.com').email, "johnsmith@gmail.com", msg='Testing if the correctly inputted user is created')
+
+    def test_create_passwordless_user(self):
+        """
+        User cannot be created with the sign up form if password is empty or is None
+
+        """
+        data = {'first_name': 'john', 'last_name': 'smith', 'email':'johnsmith@gmail.com', 'password1':'', 'password2':'', 'gender':'M', 'category': 1}
+        
+        form = UserRegistrationForm(data=data)
+
+        self.assertFalse(form.is_valid()) #The form is not valid, thus it can't be saved and the user isn't created
+        self.assertIsNotNone(User.objects.filter(email='johnsmith@gmail.com'), msg='Testing if the incorrectly inputted user is not created')
+
+        data = {'first_name': 'john', 'last_name': 'smith', 'email':'johnsmith@gmail.com', 'password1':None , 'password2':None, 'gender':'M', 'category': 1}
+        
+        form = UserRegistrationForm(data=data)
+
+        self.assertFalse(form.is_valid()) #The form is not valid, thus it can't be saved and the user isn't created
+        self.assertIsNotNone(User.objects.filter(email='johnsmith@gmail.com'), msg='Testing if the incorrectly inputted user is not created')
+
+    def test_create_user_invalid_email(self):
+        """
+        User cannot be created with the sign up form if email is empty or invalid
+
+        """
+        data = {'first_name': 'john', 'last_name': 'smith', 'email':'johnsmith', 'password1':'ComplicatedPass1', 'password2':'ComplicatedPass1', 'gender':'M', 'category': 1}
+        
+        form = UserRegistrationForm(data=data)
+
+        self.assertFalse(form.is_valid()) #The form is not valid, thus it can't be saved and the user isn't created
+        self.assertIsNotNone(User.objects.filter(email='johnsmith'), msg='Testing if the incorrectly inputted user is not created')
 
 
 class TestCreateSuperUser(TestCase):
     """
     Tests the create_superuser function on wao/managers.py
     """
+    def setUp(cls): 
+        """
+        Setting up the test database (create one category and one membership type)
+
+        """
+        category = Category(name='Adherent')
+        category.save()
+        membership_type = MembershipType.objects.create(name='student')
+        membership_type.save()
 
     def test_normal_create_superuser(self):
         """
-        Tests if the correctly inputted superuser is subscribed
-        """
+        Tests if the correctly inputted superuser is created
 
+        """
         User.objects.create_superuser(email='superuser_normal@user.com', password="superuser")
         superuser_normal = User.objects.get(email='superuser_normal@user.com')
+
         self.assertIsNotNone(superuser_normal)
         self.assertTrue(superuser_normal, "superuser_normal@user.com")
 
-    def test_passwordless_create_superuser(self):
-        # Testing if there is a TypeError  when a user types an empty or invalid password
-        self.assertRaises(TypeError, User.objects.create_superuser,
-                          email="superuser_none_password@user.com", password=None)
+    def test_create_passwordless_superuser(self):
+        """
+        Testing if there is a TypeError  when password is None
 
-    def test_emailless_create_superuser(self):
-        # Testing if there is a TypeError  when a superuser types an empty mail or invalid mail
-        self.assertRaises(TypeError, User.objects.create_superuser,
-                          email=None, password="superuser")
+        """
+        self.assertRaises(TypeError, User.objects.create_superuser, email="superuser_none_password@user.com", password=None)
+        self.assertRaises(TypeError, User.objects.create_superuser, email="superuser_none_password@user.com", password="")
+
+    def test_create_superuser_invalid_email(self):
+        """
+        Testing if there is a TypeError  when a superuser types an empty mail or invalid mail
+
+        """
+        self.assertRaises(ValidationError, User.objects.create_user, email="johnsmith", password="superuser")
+        self.assertRaises(TypeError, User.objects.create_user, email=None, password="superuser")
+        
+
+class TestUser(TestCase):
+    """
+    Tests that the registration parameters are accessible
+    """
+    def setUp(cls): 
+        """
+        Setting up the test database (create one category, one membership type and one user)
+
+        """
+        category = Category(name='Adherent')
+        category.save()
+        membership_type = MembershipType.objects.create(name='student')
+        membership_type.save()
+        category = Category.objects.all()[0].pk
+        data = {'first_name': 'john', 'last_name': 'smith', 'email':'johnsmith@gmail.com', 'password1':'ComplicatedPass1', 'password2':'ComplicatedPass1', 'gender':'M', 'category': category}
+        form = UserRegistrationForm(data=data)
+        form.save()
+
+    def test_get_last_name(self):
+        self.assertEqual(User.objects.get(email='johnsmith@gmail.com').last_name, "smith", msg='Testing if the correctly inputted user is created and is accessible')
+
+    def test_get_first_name(self):
+        self.assertEqual(User.objects.get(email='johnsmith@gmail.com').first_name, "john", msg='Testing if the correctly inputted user is created and is accessible')
+
+    def test_email_user(self):
+        self.assertEqual(User.objects.get(email='johnsmith@gmail.com').email, "johnsmith@gmail.com", msg='Testing if the correctly inputted user is created and is accessible')
+
+    def test_user_is_not_superuser(self):
+        self.assertFalse(User.objects.get(email='johnsmith@gmail.com').is_superuser, msg='Testing if the basic user is not a superuser')
 
 
-# TODO: Finalize these tests
-# class TestUser(TestCase):
-#     def test_get_full_name(self): # TODO
-#         self.fail("Test not yet completed")
-#
-#     def test_get_short_name(self): # TODO
-#         self.fail("Test not yet completed")
-#
-#     def test_email_user(self): # TODO
-#         self.fail("Test not yet completed")
-#
-#
-# class TestViews(TestCase): # TODO
-#     def test_error(self):
-#         self.fail("Test not yet completed")
-#
-#     def test_index(self): # TODO
-#         self.fail("Test not yet completed")
+class TestLoginUser(TestCase):
+    """
+    Tests that the registration parameters are accessible
+    """
+    def setUp(cls): 
+        """
+        Setting up the test database (create one category, one membership type and one user)
 
+        """
+        category = Category(name='Adherent')
+        category.save()
+        membership_type = MembershipType.objects.create(name='student')
+        membership_type.save()
+        category = Category.objects.all()[0].pk
+        data = {'first_name': 'john', 'last_name': 'smith', 'email':'johnsmith@gmail.com', 'password1':'ComplicatedPass1', 'password2':'ComplicatedPass1', 'gender':'M', 'category': category}
+        form = UserRegistrationForm(data=data)
+        form.save()
+
+    def test_user_login(self):    
+        response = self.client.post('/login/', {'email':'johnsmith@gmail.com', 'password':'ComplicatedPass1'}, follow=True)
+ 
+        self.assertIsNotNone(response.context['user']) #The user is not None because  the email and password are correct
+        self.assertTrue(response.context['user'].is_authenticated) #The user is authenticated
+    
+    def test_user_incorrect_password(self):
+        response = self.client.post('/login/', {'email':'johnsmith@gmail.com', 'password':'IncorrectPassword'}, follow=True)
+
+        self.assertFalse(response.context['user'].is_authenticated) #The user is not authenticated because of incorrect password
+        self.assertEqual(response.context[1]["messages"][0]["content"],"Mot de passe incorrect") #The error displayed is the message "Mot de passe incorrect"
+    
+    def test_user_incorrect_email(self):
+        response = self.client.post('/login/', {'email':'johnsmith', 'password':'ComplicatedPass1'}, follow=True)
+
+        self.assertFalse(response.context['user'].is_authenticated) #The user is not authenticated because of incorrect password
+        self.assertEqual(response.context[1]["messages"][0]["content"],"E-mail incorrect") #The error displayed is the message "E-mail incorrect"
 
 """
 EVENTS
@@ -114,16 +205,31 @@ EVENTS
 # TEST 13: Do not display past events
 # TEST 14: Publication well done
 
-# TODO: Finalize these tests
-# class TestUser(TestCase): # TODO
-#     def test_get_full_name(self): # TODO
-#         self.fail("Test not yet completed")
-#
-#     def test_get_short_name(self): # TODO
-#         self.fail("Test not yet completed")
-#
-#     def test_email_user(self): # TODO
-#         self.fail("Test not yet completed")
+class TestCreateEvent(TestCase):
+    """
+    Tests that the registration parameters are accessible
+    """
+    def setUp(cls): 
+        """
+        Setting up the test database (create one category, one membership type and one user) because the event needs an owner
+
+        """
+        category = Category(name='Adherent')
+        category.save()
+        membership_type = MembershipType.objects.create(name='student')
+        membership_type.save()
+        category = Category.objects.all()[0].pk
+        data = {'first_name': 'john', 'last_name': 'smith', 'email':'johnsmith@gmail.com', 'password1':'ComplicatedPass1', 'password2':'ComplicatedPass1', 'gender':'M', 'category': category}
+        form = UserRegistrationForm(data=data)
+        form.save()
+
+    def test_create_event(self):
+        data = {'title':'formation dev', 'description':'description de l\'événement', 'type':['etude','informatique'], 'begin_date':datetime.now(), 'end_date':datetime.now(), 'address':'numéro de rue ville code postal', 'price':10, 'capacity':100}
+        
+        form = EventCreationForm(data=data)
+
+        self.assertTrue(form.is_valid(), msg='Testing if the correctly inputted event is created')
+        form.save()
 
 """
 DEV PROGRAMS
