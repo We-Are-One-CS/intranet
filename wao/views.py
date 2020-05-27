@@ -295,8 +295,8 @@ class YearbookView(generic.ListView):
         if request.path == "/yearbook/last_name":
             profiles = User.objects.all().order_by("last_name")
 
-        elif request.path == "/yearbook/created_at":
-            profiles = User.objects.all().order_by("created_at")
+        elif request.path == "/yearbook/date_joined":
+            profiles = User.objects.all().order_by("date_joined")
 
         elif request.path == "/yearbook/membership_type":
             profiles = User.objects.all().order_by("membership_type")
