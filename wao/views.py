@@ -291,14 +291,14 @@ class YearbookView(generic.ListView):
         """"
         Temporary solution while we do not construct the queryset method
         """
-        print(request.path)
-        if request.path == "/yearbook/last_name":
+
+        if "last_name" in request.path:
             profiles = User.objects.all().order_by("last_name")
 
-        elif request.path == "/yearbook/date_joined":
+        elif "date_joined" in request.path:
             profiles = User.objects.all().order_by("date_joined")
 
-        elif request.path == "/yearbook/membership_type":
+        elif "membership_type" in request.path:
             profiles = User.objects.all().order_by("membership_type")
 
         else:
@@ -315,7 +315,19 @@ class YearbookView(generic.ListView):
             Q(first_name__icontains=query) | Q(last_name__icontains=query)
         )
 
-        return render(request, 'wao/yearbook.html', {'profiles': searched_profiles})
+        if "last_name" in request.path:
+            profiles = searched_profiles.order_by("last_name")
+
+        elif "date_joined" in request.path:
+            profiles = searched_profiles.order_by("date_joined")
+
+        elif "membership_type" in request.path:
+            profiles = searched_profiles.order_by("membership_type")
+
+        else:
+            profiles = searched_profiles
+
+        return render(request, 'wao/yearbook.html', {'profiles': profiles})
 
 
 class ProgramsView(generic.ListView):
