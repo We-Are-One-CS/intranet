@@ -291,7 +291,19 @@ class YearbookView(generic.ListView):
         """"
         Temporary solution while we do not construct the queryset method
         """
-        profiles = User.objects.all()
+        print(request.path)
+        if request.path == "/yearbook/last_name":
+            profiles = User.objects.all().order_by("last_name")
+
+        elif request.path == "/yearbook/created_at":
+            profiles = User.objects.all().order_by("created_at")
+
+        elif request.path == "/yearbook/membership_type":
+            profiles = User.objects.all().order_by("membership_type")
+
+        else:
+            profiles = User.objects.all()
+        
         return render(request, 'wao/yearbook.html', {'profiles': profiles})
 
     def search_user(request):
