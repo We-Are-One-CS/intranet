@@ -34,13 +34,6 @@ urlpatterns = [
          name='programs/subscribe_programs'),
 
     path('yearbook/', views.YearbookView.yearbook, name='yearbook'),
-    path('yearbook/last_name/', views.YearbookView.yearbook, name='yearbook/last_name'),
-    path('yearbook/date_joined/', views.YearbookView.yearbook, name='yearbook/date_joined'),
-    path('yearbook/membership_type/', views.YearbookView.yearbook, name='yearbook/membership_type'),
-
-    path('yearbook/last_name/search_user/', views.YearbookView.search_user, name='yearbook/last_name/search_user'),
-    path('yearbook/date_joined/search_user/', views.YearbookView.search_user, name='yearbook/date_joined/search_user'),
-    path('yearbook/membership_type/search_user/', views.YearbookView.search_user, name='yearbook/membership_type/search_user'),
     path('yearbook/search_user/', views.YearbookView.search_user, name='yearbook/search_user'),
 
     path('moderate_user/', views.ModerationView.moderate_user, name='moderate_user'),
