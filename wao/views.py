@@ -163,7 +163,7 @@ class AllEventsView(generic.ListView):
         """"
         Temporary solution while we do not construct the queryset method
         """
-        events = Event.objects.all()
+        events = Event.objects.filter(begin_date__gt=datetime.date.today()).order_by("begin_date")
         return render(request, 'wao/all_events.html', {'events': events})
 
 
