@@ -28,7 +28,7 @@ class IndexView(generic.ListView):
         """
 
         # The next 5 events from today on
-        events = Event.objects.filter(begin_date__gt=datetime.date.today()).order_by("begin_date")[:5]
+        events = Event.objects.filter(begin_date__gt=datetime.date.today(), validated=True).order_by("begin_date")[:5]
 
         return render(request, 'wao/index.html', context={'events': events})
 
