@@ -4,168 +4,73 @@
 {% block title %}Page d'utilisateur{% endblock title %}
 
 {% block mystylesheet %}
-    <link rel="stylesheet" type="text/css" href="{% static 'wao/css/user.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'wao/css/user.css' %}">
 {% endblock mystylesheet %}
 
 
 {% block content %}
-    <div class="yellow-header">
-        <p class="text-center text-white header-text">Votre espace perso</p>
-        <div class="separated-div-wrapper">
-            <div class="separators header"></div>
-            <div class="separators header center-white"></div>
-            <div class="separators header"></div>
-        </div>
-    </div>
-    <br>
-
-    <div class="rela-block container">
-        <div class="rela-block profile-card">
-            {% if user.photo == "" and user.gender == "F" %}
-                <div class="profile-pic" id="profile_pic"
-                     style="background-image: url('../../static/wao/profile_pictures/default_women.jpg')"></div>
-            {% elif user.photo == "" %}
-                <div class="profile-pic" id="profile_pic"
-                     style="background-image: url('../../static/wao/profile_pictures/default_men.jpg')"></div>
-            {% else %}
-                <div class="profile-pic" id="profile_pic" style="background-image: url('../{{ user.photo }}')"></div>
-            {% endif %}
-
-            <div class="rela-block profile-name-container">
-                <div class="rela-block user-name" id="user_name">{{ user.first_name }} {{ user.last_name }}</div>
-                <div class="rela-block user-desc" id="user_description"><i class="fas fa-inbox"></i> {{ user.email }}
-                </div>
-                <div class="row">
-                    <div class="col-md-4 rela-block user-job" id="user_job"><i class="fas fa-briefcase"></i>
-                        {{ user.job_title }}</div>
-                    <div class="col-md-4 rela-block user-job" id="user_job"><i class="fas fa-map-pin"></i>
-                        {{ user.city }}</div>
-                    <div class="col-md-4 rela-block user-job" id="user_job"><i class="fas fa-network-wired"></i>
-                        {{ user.category }}</div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-md-4"></div>
-                    <div class="col-md-2">
-                        {% if user.twitter_link == None %}
-                            <a href="https://twitter.com"><i class="fab fa-twitter twitter_icon"></i></a>
-                        {% else %}
-                            <a href='{{ user.twitter_link }}'><i class="fab fa-twitter twitter_icon"></i></a>
-                        {% endif %}
-                    </div>
-                    <div class="col-md-2">
-                        {% if user.linkedin_link == None %}
-                            <a href="https://linkedin.com" target="__blank"><i
-                                    class="fab fa-linkedin-in  linkedin_icon"></i></a>
-                        {% else %}
-                            <a href='{{ user.linkedin_link }}' target="__blank"><i
-                                    class="fab fa-linkedin-in  linkedin_icon"></i></a>
-                        {% endif %}
-                    </div>
-                    <div class="col-md-4"></div>
-
-
-                </div>
-
-            </div>
-            <div class="rela-block profile-card-stats">
-                <div class="floated profile-stat works" id="num_works">112<br></div>
-                <div class="floated profile-stat following" id="num_following">{{ user.last_login }}<br></div>
-                <div class="floated profile-stat followers" id="num_followers">28<br></div>
-            </div>
-        </div>
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!-- <div class="container text-center py-4">
-    <a href="{% url 'register' %}">
-        <button type="button" class="mx-4 button">Modifier ton profil</button>
-    </a>
-</div>
-
-<div class="white-header">
-    <p class="text-center header-text">Vos événements à venir</p>
+<div class="yellow-header">
+    <p class="text-center text-white header-text">Votre espace perso</p>
     <div class="separated-div-wrapper">
         <div class="separators header"></div>
-        <div class="separators header center-yellow"></div>
+        <div class="separators header center-white"></div>
         <div class="separators header"></div>
     </div>
 </div>
+<br>
+
+<div class="rela-block container">
+    <div class="rela-block profile-card">
+        {% if user.photo == "" %}
+        <div class="profile-pic" id="profile_pic"
+            style="background-image: url('../../static/wao/profile_pictures/neutral-profile-picture.png')"></div>
+        {% else %}
+        <div class="profile-pic" id="profile_pic" style="background-image: url('../../{{ user.photo }}')"></div>
+        {% endif %}
+
+        <div class="rela-block profile-name-container">
+            <div class="rela-block user-name" id="user_name">{{ user.first_name }} {{ user.last_name }}</div>
+            <div class="rela-block user-desc" id="user_description"><i class="fas fa-inbox"></i> {{ user.email }}
+            </div>
+            <div class="row">
+                <div class="col-md-4 rela-block user-job" id="user_job"><i class="fas fa-briefcase"></i>
+                    {{ user.job_title }}</div>
+                <div class="col-md-4 rela-block user-job" id="user_job"><i class="fas fa-map-pin"></i>
+                    {{ user.city }}</div>
+                <div class="col-md-4 rela-block user-job" id="user_job"><i class="fas fa-network-wired"></i>
+                    {{ user.category }}</div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-2">
+                    {% if user.twitter_link == None %}
+                    <a href="https://twitter.com"><i class="fab fa-twitter twitter_icon"></i></a>
+                    {% else %}
+                    <a href='{{ user.twitter_link }}'><i class="fab fa-twitter twitter_icon"></i></a>
+                    {% endif %}
+                </div>
+                <div class="col-md-2">
+                    {% if user.linkedin_link == None %}
+                    <a href="https://linkedin.com" target="__blank"><i
+                            class="fab fa-linkedin-in  linkedin_icon"></i></a>
+                    {% else %}
+                    <a href='{{ user.linkedin_link }}' target="__blank"><i
+                            class="fab fa-linkedin-in  linkedin_icon"></i></a>
+                    {% endif %}
+                </div>
+                <div class="col-md-4"></div>
 
 
-<div class="container text-center py-4">
-    <a href="{% url 'register' %}">
-        <button type="button" class="mx-4 button">Voir mes inscriptions</button>
-    </a>
-    <a href="{% url 'events/create_event' %}">
-        <button type="button" class="mx-4 button">Créer un événement</button>
-    </a>
-</div>
+            </div>
 
-
-
-<div class="white-header">
-    <p class="text-center header-text">Vos programmes de développement personnel</p>
-    <div class="separated-div-wrapper">
-        <div class="separators header"></div>
-        <div class="separators header center-yellow"></div>
-        <div class="separators header"></div>
+        </div>
+        <div class="rela-block profile-card-stats">
+            <div class="floated profile-stat works" id="num_works">112<br></div>
+            <div class="floated profile-stat following" id="num_following">{{ user.last_login }}<br></div>
+            <div class="floated profile-stat followers" id="num_followers">28<br></div>
+        </div>
     </div>
 </div>
-
-<div class="container text-center py-4">
-    <a href="{% url 'register' %}">
-        <button type="button" class="mx-4 button">Voir mes programmes perso</button>
-    </a>
-    <a href="{% url 'events/create_event' %}">
-        <button type="button" class="mx-4 btn button">Proposer un programme</button>
-    </a>
-</div> -->
 
 {% endblock content %}
-
-</body>
-
-</html>
