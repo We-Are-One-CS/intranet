@@ -25,7 +25,9 @@
         <div class="profile-pic" id="profile_pic"
             style="background-image: url('../../static/wao/profile_pictures/neutral-profile-picture.png')"></div>
         {% else %}
-        <div class="profile-pic" id="profile_pic" style="background-image: url('../../{{ user.photo }}')"></div>
+        {% with photo=user.photo.url|cut:"wao/static/wao/" %}
+        <div class="profile-pic" id="profile_pic" style="background-image: url('../../static/wao/{{ photo }}')"></div>
+        {% endwith %}
         {% endif %}
 
         <div class="rela-block profile-name-container">

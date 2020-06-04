@@ -51,7 +51,9 @@
                 {% if profile.photo == "" %}
                 <img class="dress-card-img-top" src="../../static/wao/profile_pictures/neutral-profile-picture.png" />
                 {% else %}
-                <img class="dress-card-img-top" src="../{{ profile.photo }}" />
+                {% with photo=profile.photo.url|cut:"wao/static/wao/" %}
+                <img class="dress-card-img-top" src="../../static/wao/{{ photo }}" />
+                {% endwith %}
                 {% endif %}
             </div>
             <div class="dress-card-body">

@@ -10,7 +10,7 @@ from .category import Category
 
 
 def upload_to_name(instance, filename):
-    return 'static/wao/profile_pictures/' + filename  # A CHANGER EN 'static/wao/profile_pictures/' EN PROD !!!
+    return 'wao/static/wao/profile_pictures/' + filename  # A CHANGER EN 'static/wao/profile_pictures/' EN PROD !!!
 
 
 class User(AbstractBaseUser):
