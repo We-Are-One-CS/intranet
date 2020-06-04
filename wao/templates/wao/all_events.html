@@ -25,6 +25,7 @@
         <button class="search-button-event" type="submit">Chercher</button>
     </form>
     {% for event in events %}
+    {% if event.validated %}
     <div class="blog-card">
         <div class="meta">
             {% if event.photo == "" %}
@@ -46,6 +47,7 @@
             </p>
         </div>
     </div>
+    {% endif %}
     {% endfor %}
 </div>
 
