@@ -260,7 +260,7 @@ class SubscribeEventsView(generic.ListView):
         font_style = xlwt.XFStyle()
         font_style.font.bold = True
 
-        columns = ['Prénom', 'Nom', 'Email', 'Téléphone', ]
+        columns = ['Prénom', 'Nom', 'Email']
 
         for col_num in range(len(columns)):
             ws.write(row_num, col_num, columns[col_num], font_style)
@@ -269,7 +269,7 @@ class SubscribeEventsView(generic.ListView):
         font_style = xlwt.XFStyle()
 
         event = Event.objects.get(id=event_id)
-        rows = event.participants.all().values_list('first_name', 'last_name', 'email', 'telephone')
+        rows = event.participants.all().values_list('first_name', 'last_name', 'email')
         
         for row in rows:
             row_num += 1
