@@ -46,11 +46,14 @@
     </div>
 
 </header>
+
+
 <div class="container text-black text-center my-auto">
     <h1 class="upcoming-events">Événements à venir</h1>
     <hr class="light my-4" />
 </div>
 
+{% if user.is_authenticated %}
 <div class="py-2 text-center">
     {% for event in events %}
     <div class="blog-card">
@@ -77,6 +80,7 @@
     {% endfor %}
 </div>
 <br><br>
+{% endif %}
 {% endblock content %}
 
 {% block myjssheet %}
