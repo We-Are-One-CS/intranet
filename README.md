@@ -21,6 +21,13 @@ Clone  the project on your machine and change the directory :
 $ git clone git@github.com:We-Are-One-CS/intranet.git
 $ cd intranet/
 ```
+[Create](https://www.guru99.com/postgresql-create-database.html) the database:
+- Open the SQL Shell (psql)
+- Press enter five times to connect to the DB
+
+```bash
+$ CREATE DATABASE weareone;
+```
 
 Migrate the database: 
 
@@ -59,12 +66,13 @@ Quit the server with CTRL-BREAK
 4. Users directory: This function is mainly to being able to see the users database. Each user (that has the right to see) will be able to see the contact of others users.
 
 ## To go further
-
-
+To go further into the project, consult the [project documentation](https://we-are-one-cs.github.io/docs/) (in French).
 
 ## Authors
-- Leïla Bekaddour
-- Matheus Elyasha LOPES
-- Vítor ALBUQUERQUE MARANHÃO RIBEIRO
 - Ali Raïki
+- Leïla Bekaddour
+- Matheus Elyasha
+- Nouha Manai
+- Timothé Montel
+- Vítor Albuquerque
 - Yvan Lanore
